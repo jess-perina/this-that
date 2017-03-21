@@ -15,7 +15,7 @@ const selfOnly = action => (req, res, next) => {
 }
 
 const mustBeAdmin = (req, res, next) => {
-  if ((!req.user) || (!req.user.isAdmin)){
+  if ((!req.user) || (!req.user.isAdmin)) {
     res.status(403).send('Unauthorized User')
   }
   next()

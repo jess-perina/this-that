@@ -19,12 +19,12 @@ const OAuth = db.define('oauths', {
   tokenSecret: Sequelize.STRING,
 
   // The whole profile as JSON
-  profileJson: Sequelize.JSON,
+  profileJson: Sequelize.JSON
 }, {
   // Further reading on indexes:
   // 1. Sequelize and indexes: http://docs.sequelizejs.com/en/2.0/docs/models-definition/#indexes
   // 2. Postgres documentation: https://www.postgresql.org/docs/9.1/static/indexes.html
-	indexes: [{fields: ['uid'], unique: true}],
+  indexes: [{fields: ['uid'], unique: true}]
 })
 
 // OAuth.V2 is a default argument for the OAuth.setupStrategy method - it's our callback function that will execute when the user has successfully logged in
@@ -32,7 +32,7 @@ OAuth.V2 = (accessToken, refreshToken, profile, done) =>
   OAuth.findOrCreate({
     where: {
       provider: profile.provider,
-      uid: profile.id,
+      uid: profile.id
     }
   })
   .spread(oauth => {
@@ -50,12 +50,12 @@ OAuth.V2 = (accessToken, refreshToken, profile, done) =>
     return db.Promise.props({
       oauth,
       user: oauth.getUser(),
-      _saveProfile: oauth.save(),
+      _saveProfile: oauth.save()
     })
   })
   .then(({ oauth, user }) => user ||
     User.create({
-      name: profile.displayName,
+      name: profile.displayName
     })
     .then(user => db.Promise.props({
       user,
@@ -72,7 +72,7 @@ OAuth.setupStrategy =
   provider,
   strategy,
   config,
-  oauth=OAuth.V2,
+  oauth = OAuth.V2,
   passport
 }) => {
   const undefinedKeys = Object.keys(config)

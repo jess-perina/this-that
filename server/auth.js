@@ -54,11 +54,10 @@ passport.use('local-login', new LocalStrategy(
   }
 ))
 
-
 passport.use('local-signup', new LocalStrategy(
   (info, password, done) => {
-    let [name, email] = info.split('__');
-    debug('will check uniqueness of (email: "%s")', email);
+    let [name, email] = info.split('__')
+    debug('will check uniqueness of (email: "%s")', email)
     User.findOrCreate({where: {email}, defaults: {name, password}})
       .spread((user, created) => {
         if (!created) {
@@ -77,7 +76,7 @@ auth.get('/whoami', (req, res) => res.send(req.user))
 // POST requests for local login:
 auth.post('/login/local', passport.authenticate('local-login', {successRedirect: '/'}))
 
-//POST requests for local signUp:
+// POST requests for local signUp:
 auth.post('/signup/local', passport.authenticate('local-signup', {successRedirect: '/'}))
 
 // Google authentication and login
@@ -94,14 +93,12 @@ auth.post('/signup/local', passport.authenticate('local-signup', {successRedirec
 // )
 // auth.get('/signup/:strategy', (req, res, next) =>
 
-
 auth.get('/signup/:strategy', (req, res, next) =>
   passport.authenticate(req.params.strategy, {
     scope: 'email',
-    successRedirect: '/',
+    successRedirect: '/'
     // Specify other config here, such as "scope"
   })(req, res, next))
-
 
 auth.post('/logout', (req, res, next) => {
   req.logout()

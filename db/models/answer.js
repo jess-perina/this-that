@@ -1,5 +1,4 @@
 
-
 const Sequelize = require('sequelize')
 const db = require('APP/db')
 const Question = db.model('question')
@@ -17,7 +16,7 @@ const Answer = db.define('answer', {
   }
 }, {
   classMethods: {
-    getNextQuestionsToUser: function(userId, offset = 0){  //Offset should be the current length of the array
+    getNextQuestionsToUser: function (userId, offset = 0) {  // Offset should be the current length of the array
       return this.findAll({
         where: {
           respondent_id: userId,
@@ -29,19 +28,19 @@ const Answer = db.define('answer', {
         include: [
           { model: Question, expires: {$gte: new Date()}}
         ]})
-        .then(answers => answers.map(answer => answer.question) );
-      },
-      getNewestQuestionsAskedMe: function(userId, newestAnswerId){
-        return this.findAll({
-          where: {
-            respondent_id: userId,
-            vote: null,
-            id: {$gt: newestAnswerId}
-          },
-          include: [Question]
-        });
-      }
+        .then(answers => answers.map(answer => answer.question))
+    },
+    getNewestQuestionsAskedMe: function (userId, newestAnswerId) {
+      return this.findAll({
+        where: {
+          respondent_id: userId,
+          vote: null,
+          id: {$gt: newestAnswerId}
+        },
+        include: [Question]
+      })
     }
-  })
+  }
+})
 
-  module.exports = Answer
+module.exports = Answer

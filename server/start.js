@@ -35,7 +35,7 @@ module.exports = app
   // Cookie-session docs: https://www.npmjs.com/package/cookie-session
   .use(require('cookie-session')({
     name: 'session',
-    keys: [process.env.SESSION_SECRET || 'an insecure secret key'],
+    keys: [process.env.SESSION_SECRET || 'an insecure secret key']
   }))
 
   // Body parsing middleware

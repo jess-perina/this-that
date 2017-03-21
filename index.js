@@ -32,8 +32,8 @@ if (!reasonableName.test(pkg.name)) {
 //
 // and add it to the environment.
 // Note that this needs to be in your home directory, not the project's root directory
-const env = Object.create(process.env)
-  , secretsFile = resolve(env.HOME, `.${pkg.name}.env`)
+const env = Object.create(process.env),
+  secretsFile = resolve(env.HOME, `.${pkg.name}.env`)
 try {
   Object.assign(env, require(secretsFile))
 } catch (error) {
@@ -44,17 +44,17 @@ try {
 const PORT = process.env.PORT || 1337
 
 module.exports = {
-  get name() { return pkg.name },
-  get isTesting() { return !!global.it },
-  get isProduction() {
+  get name () { return pkg.name },
+  get isTesting () { return !!global.it },
+  get isProduction () {
     return process.env.NODE_ENV === 'production'
   },
-  get baseUrl() {
+  get baseUrl () {
     return env.BASE_URL || `http://localhost:${PORT}`
   },
-  get port() {
+  get port () {
     return env.PORT || 1337
   },
   package: pkg,
-  env,
+  env
 }
