@@ -15,10 +15,14 @@ OAuth.belongsTo(User)
 User.hasOne(OAuth)
 
 Answer.belongsTo(User, {as: 'respondent'}) // Answer has method getUser, Answer has foreign key for User 'respondent_id'
+<<<<<<< HEAD
 Answer.belongsTo(Question)
 // .getQuestion()
 Question.hasMany(Answer) // Question has methods getAnswer, getAnswers, setAnswer, addAnswer, Answer has foreign key for Question
 // question.getQuesiont
+=======
+Question.hasMany(Answer) // Question has methods getAnswer, getAnswers, setAnswer, addAnswer, Answer has foreign key for Question
+>>>>>>> 378700bed34f0a16bdd4ee469fc229a276deffdf
 Question.belongsTo(User, {as: 'owner'}) // Question has method getUser, Question has foreign key for User 'owner_id'
 
 module.exports = {User, Question, Answer}
