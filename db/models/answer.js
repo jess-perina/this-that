@@ -1,7 +1,8 @@
 
 
-const Sequelize = require('sequelize')
-const db = require('APP/db')
+const Sequelize = require('sequelize');
+const db = require('APP/db');
+const Question = db.model('question');
 
 const Answer = db.define('answer', {
   vote: {
@@ -23,7 +24,7 @@ const Answer = db.define('answer', {
           respondent_id: userId
         },
         order: 'id DESC',
-        offset: offset, 
+        offset: offset,
         limit: 10,
         include: [Question]});
     },
@@ -31,13 +32,13 @@ const Answer = db.define('answer', {
       return this.findAll({
         where: {
           respondent_id: userId,
-          id: {$gt: userId}
+          id: {$gt: newestAnswerId}
         },
         include: [Question]
 
       });
     }
   }
-})
+});
 
-module.exports = Answer
+module.exports = Answer;
