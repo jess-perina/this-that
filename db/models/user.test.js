@@ -5,7 +5,6 @@ const User = require('./user')
 const {expect} = require('chai')
 
 describe('User', () => {
-
   before('Await database sync', () => db.didSync)
   afterEach('Clear the tables', () => db.truncate({ cascade: true }))
 

@@ -12,7 +12,7 @@ const User = db.define('users', {
     validate: {
       isNumeric: true,
       notEmpty: true
-    },
+    }
     // email: {
     // type: Sequelize.STRING,
     // validate: {
@@ -23,16 +23,16 @@ const User = db.define('users', {
 
   // We support oauth, so users may or may not have passwords.
   password_digest: Sequelize.STRING, // This column stores the hashed password in the DB, via the beforeCreate/beforeUpdate hooks
-	password: Sequelize.VIRTUAL // Note that this is a virtual, and not actually stored in DB
+  password: Sequelize.VIRTUAL // Note that this is a virtual, and not actually stored in DB
 }, {
-	indexes: [{fields: ['phoneNumber'], unique: true}],
+  indexes: [{fields: ['phoneNumber'], unique: true}],
   hooks: {
     beforeCreate: setEmailAndPassword,
-    beforeUpdate: setEmailAndPassword,
+    beforeUpdate: setEmailAndPassword
   },
   instanceMethods: {
     // This method is a Promisified bcrypt.compare
-    authenticate(plaintext) {
+    authenticate (plaintext) {
       return new Promise((resolve, reject) =>
         bcrypt.compare(plaintext, this.password_digest,
           (err, result) =>
@@ -41,7 +41,7 @@ const User = db.define('users', {
     }
   }
 })
-function setEmailAndPassword(user) {
+function setEmailAndPassword (user) {
 //  user.phoneNumber = user.phoneNumber && user.phoneNumber.toLowerCase()
   if (!user.password) return Promise.resolve(user)
 
@@ -49,7 +49,7 @@ function setEmailAndPassword(user) {
 	  bcrypt.hash(user.get('password'), 10, (err, hash) => {
 		  if (err) reject(err)
 		  user.set('password_digest', hash)
-      resolve(user)
+    resolve(user)
 	  })
   )
 }

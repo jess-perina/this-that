@@ -29,11 +29,11 @@ Then run me again.
   ~ xoxo, bones
 ********************************************************************`
 
-function makeAppSymlink() {
+function makeAppSymlink () {
   console.log(`Linking '${appLink}' to '..'`)
   try {
     // fs.unlinkSync docs: https://nodejs.org/api/fs.html#fs_fs_unlinksync_path
-    try { fs.unlinkSync(appLink) } catch(swallowed) { }
+    try { fs.unlinkSync(appLink) } catch (swallowed) { }
     // fs.symlinkSync docs: https://nodejs.org/api/fs.html#fs_fs_symlinksync_target_path_type
     const linkType = process.platform === 'win32' ? 'junction' : 'dir'
     fs.symlinkSync('..', appLink, linkType)
@@ -45,7 +45,7 @@ function makeAppSymlink() {
   console.log(`Ok, created ${appLink}`)
 }
 
-function ensureAppSymlink() {
+function ensureAppSymlink () {
   try {
     // readlinkSync docs: https://nodejs.org/api/fs.html#fs_fs_readlinksync_path_options
     const currently = fs.readlinkSync(appLink)

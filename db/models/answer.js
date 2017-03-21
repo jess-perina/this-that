@@ -1,19 +1,18 @@
 
-
 const Sequelize = require('sequelize')
 const db = require('APP/db')
 
 const Answer = db.define('answer', {
   vote: {
-      type: Sequelize.ENUM('left', 'right')
+    type: Sequelize.ENUM('left', 'right')
   },
   comment: {
-      type: Sequelize.TEXT
+    type: Sequelize.TEXT
   },
   videoComment: {
-      type: Sequelize.STRING,
-      allowNull: true,
-      validate: {isUrl: true}
+    type: Sequelize.STRING,
+    allowNull: true,
+    validate: {isUrl: true}
   }
 })
 
