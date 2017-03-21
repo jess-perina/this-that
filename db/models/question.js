@@ -29,7 +29,6 @@ const Question = db.define('question', {
   },
   leftVotes: {
     type: Sequelize.INTEGER,
-<<<<<<< HEAD
     defaultValue: 0,
     min: 0// set min to 0
   },
@@ -37,13 +36,6 @@ const Question = db.define('question', {
     type: Sequelize.INTEGER,
     defaultValue: 0,
     min: 0 // set min to 0
-=======
-    defaultValue: 0 // set min to 0
-  },
-  rightVotes: {
-    type: Sequelize.INTEGER,
-    defaultValue: 0 // set min to 0
->>>>>>> 378700bed34f0a16bdd4ee469fc229a276deffdf
   },
   public: {
     type: Sequelize.BOOLEAN,
