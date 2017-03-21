@@ -15,6 +15,8 @@ OAuth.belongsTo(User)
 User.hasOne(OAuth)
 
 Answer.belongsTo(User, {as: 'respondent'}) // Answer has method getUser, Answer has foreign key for User 'respondent_id'
+Answer.belongsTo(Question)
+// .getQuestion()
 Question.hasMany(Answer) // Question has methods getAnswer, getAnswers, setAnswer, addAnswer, Answer has foreign key for Question
 Question.belongsTo(User, {as: 'owner'}) // Question has method getUser, Question has foreign key for User 'owner_id'
 
