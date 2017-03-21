@@ -12,9 +12,6 @@ module.exports = require('express').Router()
     ]
   })
   .then((answers) => {
-    // let revisedComics = questions.map((comic) => {
-    //   return comic;
-    // });
     let questions = answers.map(answer => answer.question)
     res.json(questions)
   })
