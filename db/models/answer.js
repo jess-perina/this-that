@@ -24,9 +24,9 @@ const Answer = db.define('answer', {
         },
         order: 'id DESC',
         offset: offset, 
-        limit: 10},
-        include: [Question]);
-    }
+        limit: 10,
+        include: [Question]});
+    },
     getNewestQuestionsAskedMe: function(userId, newestAnswerId){
       return this.findAll({
         where: {
