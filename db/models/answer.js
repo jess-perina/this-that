@@ -15,6 +15,29 @@ const Answer = db.define('answer', {
       allowNull: true,
       validate: {isUrl: true}
   }
+}, {
+  classMethods:{
+    getTenOlderQuestionsAskedMe: function(userId, offset){  //Offset should be the current length of the array
+      return this.findAll({
+        where: {
+          respondent_id: userId
+        },
+        order: 'id DESC',
+        offset: offset, 
+        limit: 10},
+        include: [Question]);
+    }
+    getNewestQuestionsAskedMe: function(userId, newestAnswerId){
+      return this.findAll({
+        where: {
+          respondent_id: userId,
+          id: {$gt: userId}
+        },
+        include: [Question]
+
+      });
+    }
+  }
 })
 
 module.exports = Answer
