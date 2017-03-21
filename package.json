@@ -4,6 +4,7 @@
   "private": true,
   "main": "index.js",
   "scripts": {
+    "server": "node server/start.js",
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "lint": "standard --verbose | snazzy",
     "lintdiff": "git diff --name-only --cached --relative | grep '\\.js$' | xargs standard | snazzy",
@@ -28,10 +29,16 @@
   "dependencies": {
     "apisauce": "^0.10.0",
     "bcryptjs": "^2.4.3",
+    "body-parser": "^1.17.1",
+    "cookie-session": "^2.0.0-beta.1",
+    "express": "^4.15.2",
     "format-json": "^1.0.3",
     "lodash": "^4.17.2",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
     "pg": "^6.1.5",
     "pg-hstore": "^2.3.2",
+    "pretty-error": "^2.0.3",
     "querystringify": "0.0.4",
     "ramda": "^0.23.0",
     "react": "~15.4.1",
@@ -49,7 +56,8 @@
     "redux-saga": "^0.14.3",
     "reduxsauce": "0.4.1",
     "seamless-immutable": "^7.0.1",
-    "sequelize": "^3.30.2"
+    "sequelize": "^3.30.2",
+    "volleyball": "^1.4.1"
   },
   "devDependencies": {
     "ava": "^0.18.2",

@@ -29,11 +29,13 @@ const Question = db.define('question', {
     },
     leftVotes: {
       type: Sequelize.INTEGER,
-      defaultValue: 0 //set min to 0
+      defaultValue: 0,
+      min: 0//set min to 0
     },
     rightVotes: {
       type: Sequelize.INTEGER,
-      defaultValue: 0 //set min to 0
+      defaultValue: 0,
+      min: 0 //set min to 0
     },
     public: {
       type: Sequelize.BOOLEAN,
