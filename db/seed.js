@@ -1,16 +1,16 @@
 const db = require('APP/db')
 
-const seedUsers = () => db.model('users').create(
+const seedUsers = () => db.model('user').create(
   {name: 'Jess', phoneNumber: '1234567890', password: '1234'})
-  .then(() => db.model('users').create(
+  .then(() => db.model('user').create(
   {name: 'Jacquin', phoneNumber: '1234567891', password: '1234'}))
-  .then(() => db.model('users').create(
+  .then(() => db.model('user').create(
   {name: 'Konst', phoneNumber: '1234567892', password: '1234'}))
-  .then(() => db.model('users').create(
+  .then(() => db.model('user').create(
   {name: 'Ian', phoneNumber: '1234567893', password: '1234'}))
-  .then(() => db.model('users').create(
+  .then(() => db.model('user').create(
   {name: 'Stranger', phoneNumber: '1234567894', password: '1234'}))
-  .then(() => db.model('users').findAll())
+  .then(() => db.model('user').findAll())
 
 const seedQuestions = () => db.model('question').bulkCreate([
   {title: 'Jess and Jacquin, what do you think?', leftText: 'Nikes', rightText: 'Reeboks', expires: '2017-04-07 11:00:00-04', public: false, owner_id: 4},

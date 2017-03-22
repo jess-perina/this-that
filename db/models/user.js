@@ -49,7 +49,7 @@ function setEmailAndPassword (user) {
     bcrypt.hash(user.get('password'), 10, (err, hash) => {
       if (err) reject(err)
       user.set('password_digest', hash)
-    resolve(user)
+      resolve(user)
     })
   )
 }
