@@ -6,7 +6,6 @@ const api = module.exports = require('express').Router() // eslint-disable-line 
 api
   .get('/heartbeat', (req, res) => res.send({ok: true}))
   .use('/auth', require('./auth'))
-  .use('/feed', require('./feed'))
   .use('/user', require('./user'))
   .use('/question', require('./question'))
 
