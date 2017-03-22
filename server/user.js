@@ -4,6 +4,19 @@ const Question = db.model('question')
 const Promise = require('bluebird')
 
 module.exports = require('express').Router()
+.get('/:userId/askedto', (req, res, next) => {
+  Answer.getAllQuestionsToUser(req.params.userId)
+  .then((answers) => {
+    let questions = answers.map(answer => answer.question)
+    res.json(questions)
+  })
+  .catch(next)
+})
+.get('/:userId/askedby', (req, res, next) => {
+  Question.getAllQuestionsByUser(req.params.userId)
+  .then((result) => res.json(result))
+  .catch(next)
+})
 .post('/:userId/newprivatequestion', (req, res, next) => {
   let {title, leftText, rightText, publicBool, respondents} = req.body
   Question.create({title, leftText, rightText, public: publicBool, owner_id: req.params.userId})
@@ -15,8 +28,6 @@ module.exports = require('express').Router()
   .then(() => res.send(200))
   .catch(err => console.log(err))
 })
-
-module.exports = require('express').Router()
 .post('/:userId/newpublicquestion', (req, res, next) => {
   let {title, leftText, rightText} = req.body
   Question.create({title, leftText, rightText, public: true, owner_id: req.params.userId})

@@ -24,6 +24,10 @@ const Question = db.define('question', {
     allowNull: true,
     validate: {isURL: true}
   },
+  open: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: true
+  },
   expires: {
     type: Sequelize.DATE
   },
@@ -41,7 +45,20 @@ const Question = db.define('question', {
     type: Sequelize.BOOLEAN,
     defaultValue: false
   }
-
+}, {
+  classMethods: {
+    getAllQuestionsByUser: function (userId) {
+      console.log('wait')
+      return this.findAll({
+        where: { owner_id: userId}
+      })
+    },
+    getAllCurrentQuestionsByUser: function (userId) {
+      return this.findAll({
+        where: { owner_id: userId, expires: {$gte: new Date()}, open: true}
+      })
+    }
+  }
 })
 
 module.exports = Question
