@@ -2,6 +2,7 @@ const db = require('APP/db')
 const Answer = db.model('answer')
 const Question = db.model('question')
 const Promise = require('bluebird')
+const Sequelize = require('sequelize')
 
 module.exports = require('express').Router()
 .get('/:userId/askedto', (req, res, next) => {
@@ -36,6 +37,9 @@ module.exports = require('express').Router()
       order: [[Sequelize.fn('RANDOM')]],
       limit: 1
     })
+  })
+  .then((arrOfSingleAnswer) => {
+    res.json(arrOfSingleAnswer[0]);
   })
   .catch(next)
 })
