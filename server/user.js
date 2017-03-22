@@ -27,7 +27,8 @@ module.exports = require('express').Router()
   let {title, leftText, rightText, publicBool, respondents} = req.body
   Question.create({title, leftText, rightText, public: publicBool, owner_id: req.params.userId})
   .then((question) => {
-    return Promise.map(JSON.parse(respondents), (respondent) => {
+    let participantsAndMe = JSON.parse(respondents).push(req.params.userId)
+    return Promise.map(participantsAndMe, (respondent) => {
       return Answer.create({respondent_id: respondent, question_id: question.id})
     })
   })
