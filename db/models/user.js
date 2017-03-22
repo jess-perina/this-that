@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs')
 const Sequelize = require('sequelize')
 const db = require('APP/db')
 
-const User = db.define('users', {
+const User = db.define('user', {
   name: Sequelize.STRING,
   phoneNumber: {
     type: Sequelize.STRING(10),
@@ -16,9 +16,9 @@ const User = db.define('users', {
     // email: {
     // type: Sequelize.STRING,
     // validate: {
-		// 	isEmail: true,
-		// 	notEmpty: true,
-		// }
+    //  isEmail: true,
+    //  notEmpty: true,
+    // }
   },
 
   // We support oauth, so users may or may not have passwords.
@@ -46,11 +46,11 @@ function setEmailAndPassword (user) {
   if (!user.password) return Promise.resolve(user)
 
   return new Promise((resolve, reject) =>
-	  bcrypt.hash(user.get('password'), 10, (err, hash) => {
-		  if (err) reject(err)
-		  user.set('password_digest', hash)
+    bcrypt.hash(user.get('password'), 10, (err, hash) => {
+      if (err) reject(err)
+      user.set('password_digest', hash)
     resolve(user)
-	  })
+    })
   )
 }
 

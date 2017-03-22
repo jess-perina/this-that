@@ -5,6 +5,7 @@ const db = require('APP/db')
 // const Answer = db.model('answer')
 // const Question = db.model('question')
 const User = db.model('user')
+
 module.exports = require('express').Router()
 
 // get all users
