@@ -23,6 +23,22 @@ module.exports = require('express').Router()
     res.json(myQuestions)
   })
 })
+.get('/:userId/random', (req, res, next) => {
+  Answer.findAll({where: { respondent_id: req.params.userId} })
+  .then((arrOfUserAnswers) => {
+    const arrAnsweredQIds = arrOfUserAnswers.map((answer) => (answer.question_id))
+    return Question.findAll({
+      where: {
+        public: true,
+        open: true,
+        id: {$notIn: arrAnsweredQIds}
+      },
+      order: [[Sequelize.fn('RANDOM')]],
+      limit: 1
+    })
+  })
+  .catch(next)
+})
 .post('/:userId/newprivatequestion', (req, res, next) => {
   let {title, leftText, rightText, publicBool, respondents} = req.body
   Question.create({title, leftText, rightText, public: publicBool, owner_id: req.params.userId})
