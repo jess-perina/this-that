@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize')
 const db = require('APP/db')
+const Promise = require('bluebird')
 
 const Question = db.define('question', {
   title: {
@@ -46,9 +47,13 @@ const Question = db.define('question', {
     defaultValue: false
   }
 }, {
+  instanceMethods: {
+    getAnswersPerUser: function () {
+      return Promise.map(this.getAnswers(), (answer) => Promise.all([answer, answer.getRespondent()]))
+    }
+  },
   classMethods: {
     getAllQuestionsByUser: function (userId) {
-      console.log('wait')
       return this.findAll({
         where: { owner_id: userId}
       })

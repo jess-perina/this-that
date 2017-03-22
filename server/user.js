@@ -17,6 +17,12 @@ module.exports = require('express').Router()
   .then((result) => res.json(result))
   .catch(next)
 })
+.get('/:userId/askedtolimit', (req, res, next) => {
+  Answer.getNextQuestionsToUser(req.params.userId, 0)
+  .then((myQuestions) => {
+    res.json(myQuestions)
+  })
+})
 .post('/:userId/newprivatequestion', (req, res, next) => {
   let {title, leftText, rightText, publicBool, respondents} = req.body
   Question.create({title, leftText, rightText, public: publicBool, owner_id: req.params.userId})
