@@ -15,6 +15,15 @@ const Answer = db.define('answer', {
     validate: {isUrl: true}
   }
 }, {
+  hooks: {
+    // afterUpdate: function(instance, options){
+    //   if(instance.vote === 'left'){
+    //     Question.update({where: {
+    //       id: instance.question_id
+    //     } })
+    //   }
+    // }
+  },
   classMethods: {
     getAllQuestionsToUser: function (userId) {
       return this.findAll({
@@ -24,7 +33,7 @@ const Answer = db.define('answer', {
         ]
       })
     },
-    getNextQuestionsToUser: function (userId, offset = 0) {  // Offset should be the current length of the array
+    getNextQuestionsToUser: function (userId, offset) {  // Offset should be the current length of the array
       return this.findAll({
         where: {
           respondent_id: userId,
@@ -47,6 +56,13 @@ const Answer = db.define('answer', {
         },
         include: [Question]
       })
+    },
+    getASingleRandomQuestion: function () {
+      return this.findAll({
+        include: [Question],
+        where: {
+
+        }})
     }
   }
 })
