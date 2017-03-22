@@ -16,6 +16,14 @@ const Answer = db.define('answer', {
   }
 }, {
   classMethods: {
+    getAllQuestionsToUser: function (userId) {
+      return this.findAll({
+        where: {respondent_id: userId, vote: null},
+        include: [
+          { model: Question, expires: {$gte: new Date()}, open: true}
+        ]
+      })
+    },
     getNextQuestionsToUser: function (userId, offset = 0) {  // Offset should be the current length of the array
       return this.findAll({
         where: {

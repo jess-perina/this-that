@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize')
 const db = require('APP/db')
+const Promise = require('bluebird')
 
 const Question = db.define('question', {
   title: {
@@ -24,6 +25,10 @@ const Question = db.define('question', {
     allowNull: true,
     validate: {isURL: true}
   },
+  open: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: true
+  },
   expires: {
     type: Sequelize.DATE
   },
@@ -41,7 +46,24 @@ const Question = db.define('question', {
     type: Sequelize.BOOLEAN,
     defaultValue: false
   }
-
+}, {
+  instanceMethods: {
+    getAnswersPerUser: function () {
+      return Promise.map(this.getAnswers(), (answer) => Promise.all([answer, answer.getRespondent()]))
+    }
+  },
+  classMethods: {
+    getAllQuestionsByUser: function (userId) {
+      return this.findAll({
+        where: { owner_id: userId}
+      })
+    },
+    getAllCurrentQuestionsByUser: function (userId) {
+      return this.findAll({
+        where: { owner_id: userId, expires: {$gte: new Date()}, open: true}
+      })
+    }
+  }
 })
 
 module.exports = Question
