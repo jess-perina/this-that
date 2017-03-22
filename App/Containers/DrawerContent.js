@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { ScrollView, Image, BackAndroid } from 'react-native'
+import { ScrollView, Image, Text, BackAndroid } from 'react-native'
 import styles from './Styles/DrawerContentStyles'
 import { Images } from '../Themes'
+import { Actions } from 'react-native-router-flux'
 
 class DrawerContent extends Component {
 
@@ -23,6 +24,8 @@ class DrawerContent extends Component {
     return (
       <ScrollView style={styles.container}>
         <Image source={Images.logo} style={styles.logo} />
+        <Text onPress={Actions.listviewExample} style={styles.text} >Go to ListviewExample!</Text>
+        <Text onPress={Actions.Question} style={styles.text} >Go to Question Example!</Text>
       </ScrollView>
     )
   }
