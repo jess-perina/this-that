@@ -4,14 +4,13 @@ import { connect } from 'react-redux'
 import RoundedButton from '../Components/RoundedButton'
 import Icons from '../Themes/Images'
 
-// Add Actions - replace 'Your' with whatever your reducer is called :)
-// import YourActions from '../Redux/YourRedux'
-import QuestionActions from '../Redux/QuestionRedux'
+// import QuestionFormActions from '../Redux/QuestionFormRedux'
+import QuestionFormActions from '../Redux/QuestionFormRedux'
 
 // Styles
-import styles from '../Components/Styles/CreateQuestionStyle'
+import styles from './Styles/QuestionFormStyle'
 
-class Question extends React.Component {
+class QuestionForm extends React.Component {
 
   // constructor (props) {
   //   super(props)
@@ -31,7 +30,7 @@ class Question extends React.Component {
         />
         <View style={styles.optionsContainer} >
           <View style={styles.options} >
-            <TextInput 
+            <TextInput
               style={{height: 40, color: 'white', textAlign: 'center'}}
               placeholder='This'
               placeholderTextColor='white'
@@ -39,10 +38,10 @@ class Question extends React.Component {
               value={this.props.left}
             />
           </View>
-          <View style={{borderLeftWidth: 1, borderLeftColor: 'gray'}}/>
-          <View style={styles.options} > 
-            <TextInput 
-              style={{height: 40, textAlign: 'center'}}
+          <View style={{borderLeftWidth: 1, borderLeftColor: 'gray'}} />
+          <View style={styles.options} >
+            <TextInput
+              style={{height: 40, color: 'white', textAlign: 'center'}}
               placeholder='That'
               placeholderTextColor='white'
               onChangeText={(text) => this.props.questionUpdate('right', text)}
@@ -54,7 +53,7 @@ class Question extends React.Component {
           <RoundedButton text='Choose Friends' />
           <Image source={Icons.usageExamples} />
         </View>
-        <RoundedButton 
+        <RoundedButton
           text='Submit'
         />
       </View>
@@ -72,8 +71,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    questionUpdate: (field, text) => dispatch(QuestionActions.questionUpdate(field, text))
+    questionUpdate: (field, text) => dispatch(QuestionFormActions.questionUpdate(field, text))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Question)
+export default connect(mapStateToProps, mapDispatchToProps)(QuestionForm)

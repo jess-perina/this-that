@@ -7,7 +7,7 @@ export default () => {
   const rootReducer = combineReducers({
     github: require('./GithubRedux').reducer,
     login: require('./LoginRedux').reducer,
-    question: require('./QuestionRedux').reducer,
+    question: require('./QuestionFormRedux').reducer,
     search: require('./SearchRedux').reducer
   })
 

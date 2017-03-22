@@ -11,7 +11,7 @@
 *************************************************************/
 
 import { call, put } from 'redux-saga/effects'
-import QuestionActions from '../Redux/QuestionRedux'
+import QuestionFormActions from '../Redux/QuestionRedux'
 
 export function * getQuestion (api, action) {
   const { data } = action
@@ -22,8 +22,8 @@ export function * getQuestion (api, action) {
   if (response.ok) {
     // You might need to change the response here - do this with a 'transform',
     // located in ../Transforms/. Otherwise, just pass the data back from the api.
-    yield put(QuestionActions.questionSuccess(response.data))
+    yield put(QuestionFormActions.questionSuccess(response.data))
   } else {
-    yield put(QuestionActions.questionFailure())
+    yield put(QuestionFormActions.questionFailure())
   }
 }

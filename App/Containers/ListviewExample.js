@@ -1,9 +1,9 @@
 import React from 'react'
-import { View, Text, ListView } from 'react-native'
+import { View, ListView } from 'react-native'
 import { connect } from 'react-redux'
 
 // Components in list
-import Question from '../Components/Question'
+import QuestionForm from './QuestionForm'
 
 // For empty lists
 import AlertMessage from '../Components/AlertMessage'
@@ -58,7 +58,7 @@ class ListviewExample extends React.Component {
   renderRow (rowData) {
     return (
       <View style={styles.row}>
-        <Question
+        <QuestionForm
           text={rowData.text}
           left={rowData.left}
           right={rowData.right}

@@ -35,7 +35,8 @@ export default StyleSheet.create({
     borderWidth: 1, 
     borderRadius: 5,
     textAlign: 'center',
-    margin: 10
+    margin: 10,
+    color: 'white'
   },
   optionsContainer: {
     height: 300,

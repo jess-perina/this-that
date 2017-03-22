@@ -9,7 +9,7 @@ import { StartupTypes } from '../Redux/StartupRedux'
 import { GithubTypes } from '../Redux/GithubRedux'
 import { LoginTypes } from '../Redux/LoginRedux'
 import { OpenScreenTypes } from '../Redux/OpenScreenRedux'
-import { QuestionTypes } from '../Redux/QuestionRedux'
+import { QuestionFormTypes } from '../Redux/QuestionFormRedux'
 
 /* ------------- Sagas ------------- */
 

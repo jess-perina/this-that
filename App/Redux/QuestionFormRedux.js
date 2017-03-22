@@ -9,7 +9,7 @@ const { Types, Creators } = createActions({
   questionFailure: null
 })
 
-export const QuestionTypes = Types
+export const QuestionFormTypes = Types
 export default Creators
 
 /* ------------- Initial State ------------- */
