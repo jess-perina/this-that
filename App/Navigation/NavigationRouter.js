@@ -8,7 +8,6 @@ import LoginScreen from '../Containers/LoginScreen'
 import ListviewExample from '../Containers/ListviewExample'
 import QuestionForm from '../Containers/QuestionForm'
 
-
 /* **************************
 * Documentation: https://github.com/aksonov/react-native-router-flux
 ***************************/

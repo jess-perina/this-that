@@ -1,7 +1,7 @@
 const db = require('APP/db')
 const Answer = db.model('answer')
 const Question = db.model('question')
-const Promise = require('bluebird');
+const Promise = require('bluebird')
 const Sequelize = require('sequelize')
 
 module.exports = require('express').Router()
@@ -39,7 +39,7 @@ module.exports = require('express').Router()
     })
   })
   .then((arrOfSingleAnswer) => {
-    res.json(arrOfSingleAnswer[0]);
+    res.json(arrOfSingleAnswer[0])
   })
   .catch(next)
 })
