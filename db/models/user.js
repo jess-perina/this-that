@@ -30,12 +30,12 @@ const User = db.define('user', {
     beforeCreate: setEmailAndPassword,
     beforeUpdate: setEmailAndPassword
   },
-  classMethods:{
-    verifyFriendsAreMembers: function(arrOfPhoneNumbers){
+  classMethods: {
+    verifyFriendsAreMembers: function (arrOfPhoneNumbers) {
       return this.findAll({
         where: {
           phoneNumber: {$in: arrOfPhoneNumbers}
-        }});
+        }})
     }
   },
   instanceMethods: {

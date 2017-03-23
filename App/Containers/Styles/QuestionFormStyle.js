@@ -30,9 +30,9 @@ export default StyleSheet.create({
     marginTop: Metrics.baseMargin
   },
   question: {
-    height: 40, 
-    borderColor: 'gray', 
-    borderWidth: 1, 
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
     borderRadius: 5,
     textAlign: 'center',
     margin: 10,
@@ -51,7 +51,7 @@ export default StyleSheet.create({
   },
   options: {
     width: 175,
-    height: 40, 
+    height: 40,
     borderBottomColor: 'white',
     borderBottomWidth: 1
   },
