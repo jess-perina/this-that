@@ -1,7 +1,7 @@
 
 const Sequelize = require('sequelize')
 const db = require('APP/db')
-const Question = db.model('question')
+const Question = require('./question')
 const Answer = db.define('answer', {
   vote: {
     type: Sequelize.ENUM('left', 'right')

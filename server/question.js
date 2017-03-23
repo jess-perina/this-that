@@ -10,4 +10,10 @@ module.exports = require('express').Router()
   .then(([question, answers]) => res.send({question, answersPerUser: answers}))
   .catch(err => console.log(err))
 })
-
+.post('/:questionId', (req, res, next) => {
+  // expecting json of the form {vote: , comment:  ,respondentId: } as req.body
+  Question.findOne({where: {id: req.params.questionId}})
+  .then(question => question.submitAnswer(req.body))
+  .then(() => res.sendStatus(200))
+  .catch(err => { console.log(err); res.sendStatus(500) })
+})
