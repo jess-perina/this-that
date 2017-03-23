@@ -30,6 +30,14 @@ const User = db.define('user', {
     beforeCreate: setEmailAndPassword,
     beforeUpdate: setEmailAndPassword
   },
+  classMethods:{
+    verifyFriendsAreMembers: function(arrOfPhoneNumbers){
+      return this.findAll({
+        where: {
+          phoneNumber: {$in: arrOfPhoneNumbers}
+        }});
+    }
+  },
   instanceMethods: {
     // This method is a Promisified bcrypt.compare
     authenticate (plaintext) {
