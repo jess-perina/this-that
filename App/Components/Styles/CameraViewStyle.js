@@ -14,10 +14,26 @@ export default StyleSheet.create({
   },
   capture: {
     flex: 0,
-    backgroundColor: '#fff',
     borderRadius: 5,
-    color: '#000',
     padding: 10,
     margin: 40
+  },
+  buttonBar: {
+    flexDirection: 'row',
+    position: 'absolute',
+    bottom: 25,
+    right: 0,
+    left: 0,
+    justifyContent: 'center'
+  },
+  button: {
+    padding: 10,
+    color: '#FFFFFF',
+    borderWidth: 1,
+    borderColor: '#FFFFFF',
+    margin: 5
+  },
+  buttonText: {
+    color: '#FFFFFF'
   }
 })
