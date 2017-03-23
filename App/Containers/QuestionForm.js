@@ -130,7 +130,7 @@ class QuestionForm extends React.Component {
         <View style={Styles.buttonContainer}>
           <RoundedButton text='Choose Friends' />
           <TouchableHighlight onPress={Actions.cameraView}>
-            <Image source={Icons.usageExamples} />
+            <Image source={Icons.camera} />
           </TouchableHighlight>
         </View>
         <RoundedButton
