@@ -43,8 +43,11 @@ const User = db.define('user', {
     authenticate (plaintext) {
       return new Promise((resolve, reject) =>
         bcrypt.compare(plaintext, this.password_digest,
-          (err, result) =>
-            err ? reject(err) : resolve(result))
+          (err, result) => {
+            console.log(result)
+            err ? reject(err) : resolve(result)
+          })
+
         )
     }
   }
