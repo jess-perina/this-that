@@ -1,18 +1,19 @@
 const db = require('APP/db')
 const Answer = db.model('answer')
 const Question = db.model('question')
+const User = db.model('user' )
 const Promise = require('bluebird')
 const Sequelize = require('sequelize')
 
 module.exports = require('express').Router()
 //Gets all of a user's friends
-.get('/:userId/friends', (req, res, next) => {
-  Friends.findAll({where: {user_id: req.params.userId}, include: [User]})
-  .then((arrOfFriendships) => {
-    //map to userObjects and send off
-  })
-  .catch(next);
-})
+// .get('/:userId/friends', (req, res, next) => {
+//   Friends.findAll({where: {user_id: req.params.userId}, include: [User]})
+//   .then((arrOfFriendships) => {
+//     //map to userObjects and send off
+//   })
+//   .catch(next);
+// })
 .get('/:userId/askedto', (req, res, next) => {
   Answer.getAllQuestionsToUser(req.params.userId)
   .then((answers) => {
@@ -69,10 +70,11 @@ module.exports = require('express').Router()
   .then(() => res.send(200))
   .catch(err => console.log(err))
 })
-.post('/:userId/addFriend', (req,res,next)=> {
-  User.findOne({where: {id: req.params.userId}})
-  .then((userInstance) => {
-    return Promise.all([userInstance.addFriend(req.body), req.body.addFriend(userInstance)]);
+.put('/:userId/addFriend', (req,res,next)=> {
+  console.log(req.body)
+  Promise.all([User.findOne({where: {id: req.params.userId}}), User.findOne({where: {id: req.body.friendId}})])
+  .then((arrOfUsers) => {
+    return Promise.all([arrOfUsers[0].addFriend(arrOfUsers[1]), arrOfUsers[1].addFriend(arrOfUsers[0])]);
   })
   .then((arrOfPromise) => {
     console.log(arrOfPromise[0])
