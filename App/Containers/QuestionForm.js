@@ -1,9 +1,10 @@
 import React, { PropTypes } from 'react'
-import { View, Text, TextInput, Image, Keyboard, LayoutAnimation } from 'react-native'
+import { View, Text, TextInput, Image, Keyboard, LayoutAnimation, TouchableHighlight } from 'react-native'
 import { connect } from 'react-redux'
 import Icons from '../Themes/Images'
 import {Images, Metrics} from '../Themes'
 import RoundedButton from '../Components/RoundedButton'
+import { Actions } from 'react-native-router-flux'
 // Styles
 import Styles from './Styles/QuestionFormStyle'
 // import Actions
@@ -128,7 +129,9 @@ class QuestionForm extends React.Component {
         </View>
         <View style={Styles.buttonContainer}>
           <RoundedButton text='Choose Friends' />
-          <Image source={Icons.usageExamples} />
+          <TouchableHighlight onPress={Actions.cameraView}>
+            <Image source={Icons.usageExamples} />
+          </TouchableHighlight>
         </View>
         <RoundedButton
           text='Submit'
