@@ -38,6 +38,9 @@ module.exports = require('express').Router()
       limit: 1
     })
   })
+  .then((arrOfSingleAnswer) => {
+    res.json(arrOfSingleAnswer[0]);
+  })
   .catch(next)
 })
 .post('/:userId/newprivatequestion', (req, res, next) => {
