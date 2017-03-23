@@ -5,6 +5,14 @@ const Promise = require('bluebird')
 const Sequelize = require('sequelize')
 
 module.exports = require('express').Router()
+//Gets all of a user's friends
+.get('/:userId/friends', (req, res, next) => {
+  Friends.findAll({where: {user_id: req.params.userId}, include: [User]})
+  .then((arrOfFriendships) => {
+    //map to userObjects and send off
+  })
+  .catch(next);
+})
 .get('/:userId/askedto', (req, res, next) => {
   Answer.getAllQuestionsToUser(req.params.userId)
   .then((answers) => {
@@ -60,4 +68,16 @@ module.exports = require('express').Router()
   Question.create({title, leftText, rightText, public: true, owner_id: req.params.userId})
   .then(() => res.send(200))
   .catch(err => console.log(err))
+})
+.post('/:userId/addFriend', (req,res,next)=> {
+  User.findOne({where: {id: req.params.userId}})
+  .then((userInstance) => {
+    return Promise.all([userInstance.addFriend(req.body), req.body.addFriend(userInstance)]);
+  })
+  .then((arrOfPromise) => {
+    console.log(arrOfPromise[0])
+    console.log(arrOfPromise[1])
+    res.send(200)
+  })
+  .catch(next)
 })
