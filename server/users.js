@@ -9,19 +9,18 @@ const User = db.model('user')
 module.exports = require('express').Router()
 
 // get all users or , if a number query is passed in, get those specific users
-//FOR QUERIES: Get array of numbers from contact and pass it into query as such: '['+array+']'
-//ANYTHING ELSE WILL FAIL...EPICALLY!!!
+// FOR QUERIES: Get array of numbers from contact and pass it into query as such: '['+array+']'
+// ANYTHING ELSE WILL FAIL...EPICALLY!!!
 .get('/', (req, res, next) => {
   if (req.query.numbers) {
-    let numbers = req.query.numbers.slice(1,-1).split(',')
+    let numbers = req.query.numbers.slice(1, -1).split(',')
     User.verifyFriendsAreMembers(numbers)
     .then((arrOfUsers) => res.json(arrOfUsers))
     .catch(next)
-  }
-  else {
+  } else {
     User.findAll({})
     .then(users => res.json(users))
-    .catch(next);
+    .catch(next)
   }
 })
 // get single user by id
