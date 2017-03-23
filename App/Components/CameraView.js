@@ -2,27 +2,51 @@ import React from 'react'
 import {
   Dimensions,
   Text,
+  Image,
   TouchableHighlight,
   View
 } from 'react-native'
+import Icons from '../Themes/Images'
 import Camera from 'react-native-camera'
-import styles from './Styles/CameraViewStyle'
+import Styles from './Styles/CameraViewStyle'
 
 export default class CameraView extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      cameraType: Camera.constants.Type.back
+    }
+  }
 
   render () {
+    console.log(this.state)
     return (
-      <View style={styles.container}>
+      <View style={Styles.container}>
         <Camera
-          ref={(cam) => {
-            this.camera = cam
-          }}
-          style={styles.preview}
+          ref={(cam) => { this.camera = cam }}
+          type={this.state.cameraType}
+          style={Styles.preview}
           aspect={Camera.constants.Aspect.fill}>
-          <Text style={styles.capture} onPress={this.takePicture.bind(this)}>[CAPTURE]</Text>
+          <View style={Styles.buttonBar}>
+            <TouchableHighlight onPress={this.takePicture.bind(this)}>
+              <Image source={Icons.camera} />
+            </TouchableHighlight>
+            <TouchableHighlight style={Styles.button} onPress={this.switchCamera.bind(this)}>
+              <Text style={Styles.buttonText}>Flip</Text>
+            </TouchableHighlight>
+
+          </View>
+          <View style={Styles.capture} />
         </Camera>
       </View>
     )
+  }
+
+  switchCamera () {
+    console.log(this.state)
+    let state = this.state
+    state.cameraType = state.cameraType === Camera.constants.Type.back ? Camera.constants.Type.front : Camera.constants.Type.back
+    this.setState(state)
   }
 
   takePicture () {
