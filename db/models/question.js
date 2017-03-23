@@ -51,7 +51,11 @@ const Question = db.define('question', {
     getAnswersPerUser: function () {
       return Promise.map(this.getAnswers(), (answer) => Promise.all([answer, answer.getRespondent()]))
     },
-    voteUpdate: function (vote) {
+    getAnswerOfUser: function (userId) {
+      return Answer.findOne({where: {question_id: this.id, respondent_id: userId }})
+    },
+    votesQuestionUpdate: function (vote) {
+      console.log('da vote', vote)
       return this.increment((vote === 'left') ? 'leftVotes' : 'rightVotes', { by: 1 })
     },
     pendingRespondentsIds: function () {
@@ -62,14 +66,18 @@ const Question = db.define('question', {
             return (
               answer.getRespondent()
               .then(respondent => respondent.id)
-              .then(id => acc.push(id))
+              .then(id => {
+                acc.push(id)
+                return acc
+              })
             )
+          } else {
+            return acc
           }
         },
-        []
-      )
+        [])
     },
-    anweredRespondentsIds: function () {
+    answeredRespondentsIds: function () {
       return Promise.reduce(
         this.getAnswers(),
         (acc, answer) => {
@@ -77,7 +85,10 @@ const Question = db.define('question', {
             return (
               answer.getRespondent()
               .then(respondent => respondent.id)
-              .then(id => acc.push(id))
+              .then(id => {
+                acc.push(id)
+                return acc
+              })
             )
           }
         },
@@ -85,29 +96,32 @@ const Question = db.define('question', {
       )
     },
     // will split in two soon
-    submitAnswer: function (voteComposite, respondentId) {
-      let voteInstance = Object.assign(voteComposite, { respondent_id: respondentId, question_id: this.id})
+    submitAnswer: function (voteRespondent) {
+      let {vote, comment, respondentId} = voteRespondent
+    //  let voteInstance = Object.assign(voteComposite, { respondent_id: respondentId, question_id: this.id})
       if ((this.active()) && (this.public)) {
-        this.anweredRespondentsIds()
-          .then(ids => {
-            if (!ids.includes(respondentId)) {
-              Answer.create(voteInstance)
-                .then((answer) => {
-                  this.voteUpdate(voteInstance.vote)
-                  return answer
-                })
-            }
-          })
-          .catch(err => console.log(err))
-      }
-      if (this.active() && (!this.public)) {
-        this.pendingRespondentsIds()
-          .then(ids => {
-            if (!ids.includes(respondentId)) {
-              this.voteUpdate(voteInstance.vote)
-            }
-          })
-          .catch(err => console.log(err))
+        return this.answeredRespondentsIds()
+        .then(ids => {
+          if (!ids.includes(+respondentId)) {
+            Answer.create({vote, comment, respondent_id: respondentId, question_id: this.id})
+            .then(() => this.votesQuestionUpdate(vote))
+          } else {
+            throw Error('attempt for uninvited entry')
+          }
+        })
+      } else if (this.active() && (!this.public)) {
+        return this.pendingRespondentsIds()
+        .then(ids => {
+          if (ids.includes(+respondentId)) {
+            this.getAnswerOfUser(respondentId)
+            .then(answer => answer.update({comment, vote}))
+            .then(() => this.votesQuestionUpdate(vote))
+          } else {
+            throw Error('attempt for uninvited entry')
+          }
+        })
+      } else {
+        throw Error('Submitting to an inactive question')
       }
     },
     active: function () {

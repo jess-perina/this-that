@@ -9,10 +9,9 @@ module.exports = require('express').Router()
   .catch(err => console.log(err))
 })
 .post('/:questionId', (req, res, next) => {
-  // expecting json of the form {voteComposite: {vote: , comment: }, respondentId: userId}
-  //
-  let voteComposite = req.body.voteComposite
-  let respondentId = req.body.respondentId
-  Question.findOne({where: {question_id: req.params.questionId}})
-  .then(question => question.submitAnswer(voteComposite, respondentId))
+  // expecting json of the form {vote: , comment:  ,respondentId: } as req.body
+  Question.findOne({where: {id: req.params.questionId}})
+  .then(question => question.submitAnswer(req.body))
+  .then(() => res.sendStatus(200))
+  .catch(err => { console.log(err); res.sendStatus(500) })
 })
