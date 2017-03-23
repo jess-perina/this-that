@@ -44,7 +44,7 @@ const create = (baseURL = 'https://socketsynth.ngrok.io/') => {
   const getRoot = () => api.get('')
   const getRate = () => api.get('rate_limit')
   const getUser = (username) => api.get('search/users', {q: username})
-  const postQuestion = (question, left, right, userId) => api.post(`api/user/${2}/newpublicquestion`, {title: question, leftText: left, rightText: right})
+  const postQuestion = (questionText, leftText, rightText, userId) => api.post(`api/user/${2}/newpublicquestion`, {title: questionText, leftText: leftText, rightText: rightText})
   // will also need respondents and proper userId
 
   // ------
