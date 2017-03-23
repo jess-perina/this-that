@@ -5,5 +5,9 @@ export default {
   },
   logo: {
     alignSelf: 'center'
+  },
+  text: {
+    color: 'white',
+    fontSize: 24
   }
 }
