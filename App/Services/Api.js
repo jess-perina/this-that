@@ -2,7 +2,7 @@
 import apisauce from 'apisauce'
 
 // our "constructor"
-const create = (baseURL = 'https://api.github.com/') => {
+const create = (baseURL = 'https://socketsynth.ngrok.io/') => {
   // ------
   // STEP 1
   // ------
@@ -44,6 +44,8 @@ const create = (baseURL = 'https://api.github.com/') => {
   const getRoot = () => api.get('')
   const getRate = () => api.get('rate_limit')
   const getUser = (username) => api.get('search/users', {q: username})
+  const postQuestion = (question, left, right, userId) => api.post(`api/user/${2}/newpublicquestion`, {title: question, leftText: left, rightText: right})
+  // will also need respondents and proper userId
 
   // ------
   // STEP 3
@@ -61,7 +63,8 @@ const create = (baseURL = 'https://api.github.com/') => {
     // a list of the API functions from step 2
     getRoot,
     getRate,
-    getUser
+    getUser,
+    postQuestion
   }
 }
 

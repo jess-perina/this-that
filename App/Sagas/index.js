@@ -17,7 +17,7 @@ import { startup } from './StartupSagas'
 import { login } from './LoginSagas'
 import { getUserAvatar } from './GithubSagas'
 import { openScreen } from './OpenScreenSagas'
-// import { getQuestion } from './QuestionSagas'
+import { postQuestion } from './QuestionFormSagas'
 
 /* ------------- API ------------- */
 
@@ -35,7 +35,7 @@ export default function * root () {
     takeLatest(OpenScreenTypes.OPEN_SCREEN, openScreen),
 
     // some sagas receive extra parameters in addition to an action
-    takeLatest(GithubTypes.USER_REQUEST, getUserAvatar, api)
-    // takeLatest(QuestionTypes.ACTION, PARAMS, PARAMS)
+    takeLatest(GithubTypes.USER_REQUEST, getUserAvatar, api),
+    takeLatest(QuestionFormTypes.QUESTION_SUBMIT, postQuestion, api)
   ]
 }

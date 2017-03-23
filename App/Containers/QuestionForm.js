@@ -12,10 +12,18 @@ import styles from './Styles/QuestionFormStyle'
 
 class QuestionForm extends React.Component {
 
-  // constructor (props) {
-  //   super(props)
-  //   this.state = {}
-  // }
+  constructor (props) {
+    super(props)
+    this.state = {}
+    this.isAttempting = false
+  }
+
+  handlePressLogin = () => {
+    const { question, left, right } = this.props
+    this.isAttempting = true
+    // attempt a login - a saga is listening to pick it up from here.
+    this.props.attemptSubmit(question, left, right)
+  }
 
   render () {
     return (
@@ -55,6 +63,7 @@ class QuestionForm extends React.Component {
         </View>
         <RoundedButton
           text='Submit'
+          onPress={this.handlePressLogin}
         />
       </View>
     )
@@ -71,7 +80,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    questionUpdate: (field, text) => dispatch(QuestionFormActions.questionUpdate(field, text))
+    questionUpdate: (field, text) => dispatch(QuestionFormActions.questionUpdate(field, text)),
+
+    attemptSubmit: (question, left, right) => dispatch(QuestionFormActions.questionSubmit(question, left, right))
   }
 }
 
