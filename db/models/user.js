@@ -16,9 +16,9 @@ const User = db.define('user', {
     // email: {
     // type: Sequelize.STRING,
     // validate: {
-		// 	isEmail: true,
-		// 	notEmpty: true,
-		// }
+    //  isEmail: true,
+    //  notEmpty: true,
+    // }
   },
 
   // We support oauth, so users may or may not have passwords.
@@ -29,6 +29,14 @@ const User = db.define('user', {
   hooks: {
     beforeCreate: setEmailAndPassword,
     beforeUpdate: setEmailAndPassword
+  },
+  classMethods: {
+    verifyFriendsAreMembers: function (arrOfPhoneNumbers) {
+      return this.findAll({
+        where: {
+          phoneNumber: {$in: arrOfPhoneNumbers}
+        }})
+    }
   },
   instanceMethods: {
     // This method is a Promisified bcrypt.compare
@@ -46,11 +54,11 @@ function setEmailAndPassword (user) {
   if (!user.password) return Promise.resolve(user)
 
   return new Promise((resolve, reject) =>
-	  bcrypt.hash(user.get('password'), 10, (err, hash) => {
-		  if (err) reject(err)
-		  user.set('password_digest', hash)
-    resolve(user)
-	  })
+    bcrypt.hash(user.get('password'), 10, (err, hash) => {
+      if (err) reject(err)
+      user.set('password_digest', hash)
+      resolve(user)
+    })
   )
 }
 

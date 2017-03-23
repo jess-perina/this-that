@@ -9,6 +9,7 @@ import { StartupTypes } from '../Redux/StartupRedux'
 import { GithubTypes } from '../Redux/GithubRedux'
 import { LoginTypes } from '../Redux/LoginRedux'
 import { OpenScreenTypes } from '../Redux/OpenScreenRedux'
+import { QuestionFormTypes } from '../Redux/QuestionFormRedux'
 
 /* ------------- Sagas ------------- */
 
@@ -16,6 +17,7 @@ import { startup } from './StartupSagas'
 import { login } from './LoginSagas'
 import { getUserAvatar } from './GithubSagas'
 import { openScreen } from './OpenScreenSagas'
+import { postQuestion } from './QuestionFormSagas'
 
 /* ------------- API ------------- */
 
@@ -33,6 +35,7 @@ export default function * root () {
     takeLatest(OpenScreenTypes.OPEN_SCREEN, openScreen),
 
     // some sagas receive extra parameters in addition to an action
-    takeLatest(GithubTypes.USER_REQUEST, getUserAvatar, api)
+    takeLatest(GithubTypes.USER_REQUEST, getUserAvatar, api),
+    takeLatest(QuestionFormTypes.QUESTION_SUBMIT, postQuestion, api)
   ]
 }

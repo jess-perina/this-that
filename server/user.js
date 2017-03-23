@@ -2,6 +2,7 @@ const db = require('APP/db')
 const Answer = db.model('answer')
 const Question = db.model('question')
 const Promise = require('bluebird')
+const Sequelize = require('sequelize')
 
 module.exports = require('express').Router()
 .get('/:userId/askedto', (req, res, next) => {
@@ -22,6 +23,25 @@ module.exports = require('express').Router()
   .then((myQuestions) => {
     res.json(myQuestions)
   })
+})
+.get('/:userId/random', (req, res, next) => {
+  Answer.findAll({where: { respondent_id: req.params.userId} })
+  .then((arrOfUserAnswers) => {
+    const arrAnsweredQIds = arrOfUserAnswers.map((answer) => (answer.question_id))
+    return Question.findAll({
+      where: {
+        public: true,
+        open: true,
+        id: {$notIn: arrAnsweredQIds}
+      },
+      order: [[Sequelize.fn('RANDOM')]],
+      limit: 1
+    })
+  })
+  .then((arrOfSingleAnswer) => {
+    res.json(arrOfSingleAnswer[0])
+  })
+  .catch(next)
 })
 .post('/:userId/newprivatequestion', (req, res, next) => {
   let {title, leftText, rightText, publicBool, respondents} = req.body

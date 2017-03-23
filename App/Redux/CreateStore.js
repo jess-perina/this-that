@@ -18,6 +18,14 @@ export default (rootReducer, rootSaga) => {
   const sagaMiddleware = createSagaMiddleware({ sagaMonitor })
   middleware.push(sagaMiddleware)
 
+  /* ------------- logger Middleware ------------- */
+
+  const logger = store => next => action => {
+    console.log(action)
+    next(action)
+  }
+
+  middleware.push(logger)
   /* ------------- Assemble Middleware ------------- */
 
   enhancers.push(applyMiddleware(...middleware))
