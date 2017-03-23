@@ -7,6 +7,7 @@ import NavigationDrawer from './NavigationDrawer'
 import LoginScreen from '../Containers/LoginScreen'
 import ListviewExample from '../Containers/ListviewExample'
 import QuestionForm from '../Containers/QuestionForm'
+import CameraView from '../Components/CameraView'
 
 
 /* **************************
@@ -22,6 +23,7 @@ class NavigationRouter extends Component {
             <Scene key='questionForm' component={QuestionForm} title='QuestionForm' />
             <Scene initial key='loginScreen' component={LoginScreen} title='LoginScreen' />
             <Scene key='listviewExample' component={ListviewExample} title='ListviewExample' />
+            <Scene key='cameraView' component={CameraView} title='CameraView' />
           </Scene>
         </Scene>
       </Router>
