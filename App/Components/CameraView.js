@@ -19,7 +19,6 @@ export default class CameraView extends React.Component {
   }
 
   render () {
-    console.log(this.state)
     return (
       <View style={Styles.container}>
         <Camera
@@ -31,8 +30,8 @@ export default class CameraView extends React.Component {
             <TouchableHighlight onPress={this.takePicture.bind(this)}>
               <Image source={Icons.camera} />
             </TouchableHighlight>
-            <TouchableHighlight style={Styles.button} onPress={this.switchCamera.bind(this)}>
-              <Text style={Styles.buttonText}>Flip</Text>
+            <TouchableHighlight onPress={this.switchCamera.bind(this)}>
+              <Text style={Styles.button}>Flip</Text>
             </TouchableHighlight>
 
           </View>
@@ -43,7 +42,6 @@ export default class CameraView extends React.Component {
   }
 
   switchCamera () {
-    console.log(this.state)
     let state = this.state
     state.cameraType = state.cameraType === Camera.constants.Type.back ? Camera.constants.Type.front : Camera.constants.Type.back
     this.setState(state)
