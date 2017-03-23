@@ -9,7 +9,6 @@ import Styles from './Styles/QuestionFormStyle'
 // import Actions
 import QuestionFormActions from '../Redux/QuestionFormRedux'
 
-
 class QuestionForm extends React.Component {
 
   static propTypes = {
@@ -71,13 +70,13 @@ class QuestionForm extends React.Component {
     this.isAttempting = true
     // attempt a submit - a saga is listening to pick it up from here.
     this.props.attemptSubmit(questionText, leftText, rightText)
+    this.setState({questionText: '', leftText: '', rightText: '', leftImage: '', rightImage: '', respondents: [], isPublic: false})
   }
 
   handleTypingChange = (field, text) => {
     console.log(field, text)
     this.setState({ [field]: text })
   }
-  // onChangeText={(text) => this.props.questionUpdate('right', text)}
 
   render () {
     const { questionText, leftText, rightText } = this.state
@@ -118,9 +117,12 @@ class QuestionForm extends React.Component {
               ref='rightText'
               style={{height: 40, color: 'white', textAlign: 'center'}}
               value={rightText}
+              editable={editable}
+              keyboardType='default'
+              returnKeyType='go'
+              onChangeText={(text) => this.handleTypingChange('rightText', text)}
               placeholder='That'
               placeholderTextColor='white'
-              onChangeText={(text) => this.handleTypingChange('rightText', text)}
             />
           </View>
         </View>
