@@ -1,4 +1,3 @@
-
 const Sequelize = require('sequelize')
 const db = require('APP/db')
 const Question = require('./question')
@@ -42,7 +41,7 @@ const Answer = db.define('answer', {
         offset: offset,
         limit: 10,
         include: [
-          { model: db.model('question'),where: {expires: {$gte: new Date()}}}
+          { model: db.model('question'), where: {expires: {$gte: new Date()}}}
         ]})
         .then(answers => answers.map(answer => answer.question))
     },
