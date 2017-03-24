@@ -1,69 +1,141 @@
-import React from 'react'
-import { View, Text, TextInput, Image } from 'react-native'
+import React, { PropTypes } from 'react'
+import { View, Text, TextInput, Image, Keyboard, LayoutAnimation, TouchableHighlight } from 'react-native'
 import { connect } from 'react-redux'
-import RoundedButton from '../Components/RoundedButton'
 import Icons from '../Themes/Images'
-
-// import QuestionFormActions from '../Redux/QuestionFormRedux'
-import QuestionFormActions from '../Redux/QuestionFormRedux'
-
+import {Images, Metrics} from '../Themes'
+import RoundedButton from '../Components/RoundedButton'
+import { Actions } from 'react-native-router-flux'
 // Styles
-import styles from './Styles/QuestionFormStyle'
+import Styles from './Styles/QuestionFormStyle'
+// import Actions
+import QuestionFormActions from '../Redux/QuestionFormRedux'
 
 class QuestionForm extends React.Component {
 
+  static propTypes = {
+    dispatch: PropTypes.func,
+    fetching: PropTypes.bool,
+    attemptLogin: PropTypes.func
+  }
+
+  isAttempting = false
+  keyboardDidShowListener = {}
+  keyboardDidHideListener = {}
+
   constructor (props) {
     super(props)
-    this.state = {}
+    this.state = {
+      questionText: '',
+      leftText: '',
+      rightText: '',
+      leftImage: '',
+      rightImage: '',
+      respondents: [],
+      isPublic: false,
+      visibleHeight: Metrics.screenHeight
+    }
     this.isAttempting = false
   }
 
-  handlePressLogin = () => {
-    const { question, left, right } = this.props
+  componentWillMount () {
+    // Using keyboardWillShow/Hide looks 1,000 times better, but doesn't work on Android
+    // TODO: Revisit this if Android begins to support - https://github.com/facebook/react-native/issues/3468
+    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this.keyboardDidShow)
+    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this.keyboardDidHide)
+  }
+
+  componentWillUnmount () {
+    this.keyboardDidShowListener.remove()
+    this.keyboardDidHideListener.remove()
+  }
+
+  keyboardDidShow = (e) => {
+    // Animation types easeInEaseOut/linear/spring
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
+    let newSize = Metrics.screenHeight - e.endCoordinates.height
+    this.setState({
+      visibleHeight: newSize
+    })
+  }
+
+  keyboardDidHide = (e) => {
+    // Animation types easeInEaseOut/linear/spring
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
+    this.setState({
+      visibleHeight: Metrics.screenHeight
+    })
+  }
+
+  handlePressSubmit = () => {
+    const { questionText, leftText, rightText } = this.state
     this.isAttempting = true
-    // attempt a login - a saga is listening to pick it up from here.
-    this.props.attemptSubmit(question, left, right)
+    // attempt a submit - a saga is listening to pick it up from here.
+    this.props.attemptSubmit(questionText, leftText, rightText)
+    this.setState({questionText: '', leftText: '', rightText: '', leftImage: '', rightImage: '', respondents: [], isPublic: false})
+  }
+
+  handleTypingChange = (field, text) => {
+    console.log(field, text)
+    this.setState({ [field]: text })
   }
 
   render () {
+    const { questionText, leftText, rightText } = this.state
+    const { fetching } = this.props
+    const editable = !fetching
+    // const textInputStyle = editable ? Styles.textInput : Styles.textInputReadonly
     return (
-      <View style={styles.container} >
-        <Text style={styles.boldLabel}>Get Some Feedback</Text>
+      <View style={[Styles.container, {height: this.state.visibleHeight}]} >
+        <Text style={Styles.boldLabel}>Get Some Feedback</Text>
         <TextInput
-          style={styles.question}
+          ref='questionText'
+          style={Styles.question}
+          value={questionText}
+          editable={editable}
+          keyboardType='default'
+          returnKeyType='next'
+          onChangeText={(text) => this.handleTypingChange('questionText', text)}
           placeholder='Question???'
           placeholderTextColor='white'
-          onChangeText={(text) => this.props.questionUpdate('question', text)}
-          value={this.props.question}
         />
-        <View style={styles.optionsContainer} >
-          <View style={styles.options} >
+        <View style={Styles.optionsContainer} >
+          <View style={Styles.options} >
             <TextInput
+              ref='leftText'
               style={{height: 40, color: 'white', textAlign: 'center'}}
+              value={leftText}
+              editable={editable}
+              keyboardType='default'
+              returnKeyType='next'
+              onChangeText={(text) => this.handleTypingChange('leftText', text)}
               placeholder='This'
               placeholderTextColor='white'
-              onChangeText={(text) => this.props.questionUpdate('left', text)}
-              value={this.props.left}
             />
           </View>
           <View style={{borderLeftWidth: 1, borderLeftColor: 'gray'}} />
-          <View style={styles.options} >
+          <View style={Styles.options} >
             <TextInput
+              ref='rightText'
               style={{height: 40, color: 'white', textAlign: 'center'}}
+              value={rightText}
+              editable={editable}
+              keyboardType='default'
+              returnKeyType='go'
+              onChangeText={(text) => this.handleTypingChange('rightText', text)}
               placeholder='That'
               placeholderTextColor='white'
-              onChangeText={(text) => this.props.questionUpdate('right', text)}
-              value={this.props.right}
             />
           </View>
         </View>
-        <View style={styles.buttonContainer}>
+        <View style={Styles.buttonContainer}>
           <RoundedButton text='Choose Friends' />
-          <Image source={Icons.usageExamples} />
+          <TouchableHighlight onPress={Actions.cameraView}>
+            <Image source={Icons.camera} />
+          </TouchableHighlight>
         </View>
         <RoundedButton
           text='Submit'
-          onPress={this.handlePressLogin}
+          onPress={this.handlePressSubmit}
         />
       </View>
     )
@@ -72,9 +144,9 @@ class QuestionForm extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    question: state.question.question,
-    left: state.question.left,
-    right: state.question.right
+    questionText: state.question.questionText,
+    leftText: state.question.leftText,
+    rightText: state.question.rightText
   }
 }
 
@@ -82,7 +154,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     questionUpdate: (field, text) => dispatch(QuestionFormActions.questionUpdate(field, text)),
 
-    attemptSubmit: (question, left, right) => dispatch(QuestionFormActions.questionSubmit(question, left, right))
+    attemptSubmit: (questionText, leftText, rightText) => dispatch(QuestionFormActions.questionSubmit(questionText, leftText, rightText))
   }
 }
 

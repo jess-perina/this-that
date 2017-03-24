@@ -14,10 +14,10 @@ import { call, put } from 'redux-saga/effects'
 import QuestionFormActions from '../Redux/QuestionFormRedux'
 
 export function * postQuestion (api, action) {
-  const { question, left, right } = action
+  const { questionText, leftText, rightText } = action
 
   // make the call to the api
-  const response = yield call(api.postQuestion, question, left, right)
+  const response = yield call(api.postQuestion, questionText, leftText, rightText)
 
   // success?
   if (response.ok) {
