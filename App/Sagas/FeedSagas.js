@@ -14,9 +14,9 @@ import { call, put } from 'redux-saga/effects'
 import FeedActions from '../Redux/FeedRedux'
 
 export function * getFeed (api, action) {
-  const { data } = action
+  const { userId } = action
   // make the call to the api
-  const response = yield call(api.grabFeed, data, userId)
+  const response = yield call(api.grabFeed, userId)
 
   // success?
   if (response.ok) {
