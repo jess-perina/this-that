@@ -68,9 +68,10 @@ class QuestionForm extends React.Component {
 
   handlePressSubmit = () => {
     const { questionText, leftText, rightText } = this.state
+    const { userId } = this.props
     this.isAttempting = true
     // attempt a submit - a saga is listening to pick it up from here.
-    this.props.attemptSubmit(questionText, leftText, rightText)
+    this.props.attemptSubmit(questionText, leftText, rightText, userId)
     this.setState({questionText: '', leftText: '', rightText: '', leftImage: '', rightImage: '', respondents: [], isPublic: false})
   }
 
@@ -80,6 +81,7 @@ class QuestionForm extends React.Component {
   }
 
   render () {
+    console.log('props---', this.props)
     const { questionText, leftText, rightText } = this.state
     const { fetching } = this.props
     const editable = !fetching
@@ -146,7 +148,7 @@ const mapStateToProps = (state) => {
   return {
     questionText: state.question.questionText,
     leftText: state.question.leftText,
-    rightText: state.question.rightText
+    rightText: state.question.rightText,
     userId: state.login.userId,
     username: state.login.username
   }
@@ -155,7 +157,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     questionUpdate: (field, text) => dispatch(QuestionFormActions.questionUpdate(field, text)),
-    attemptSubmit: (questionText, leftText, rightText) => dispatch(QuestionFormActions.questionSubmit(questionText, leftText, rightText, userId))
+    attemptSubmit: (questionText, leftText, rightText, userId) => dispatch(QuestionFormActions.questionSubmit(questionText, leftText, rightText, userId))
   }
 }
 
