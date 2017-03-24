@@ -21,6 +21,7 @@ export function * getMyQuestions (api, { userId }) {
   if (response.ok) {
     // You might need to change the response here - do this with a 'transform',
     // located in ../Transforms/. Otherwise, just pass the data back from the api.
+    console.log('myquestion response.ok')
     yield put(MyQuestionsActions.myQuestionsSuccess(response.data))
   } else {
     yield put(MyQuestionsActions.myQuestionsFailure())
