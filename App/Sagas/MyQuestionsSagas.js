@@ -15,7 +15,7 @@ import MyQuestionsActions from '../Redux/MyQuestionsRedux'
 
 export function * getMyQuestions (api, { userId }) {
   const response = yield call(api.getMyQuestions, userId)
-  console.log('response--------', response)
+  console.log(response)
 
   // success?
   if (response.ok) {
