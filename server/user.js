@@ -34,7 +34,7 @@ module.exports = require('express').Router()
 
 //Gets any new questions asked to user since last load based on the last loads most recently asked question
 .get('/:userId/askedtonew/:latestQuestionId', (req,res,next) => {
-  Answer.findOne({where: {respondent_id: req.params.userId}, question_id: latestQuestionId })
+  Answer.findOne({where: {respondent_id: req.params.userId}, question_id: req.params.latestQuestionId })
   .then((answerInstance) => {
     return Answer.getNewestQuestionsToUser(req.params.userId, answerInstance.id)
   })
