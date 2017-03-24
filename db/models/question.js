@@ -55,7 +55,6 @@ const Question = db.define('question', {
       return Answer.findOne({where: {question_id: this.id, respondent_id: userId }})
     },
     votesQuestionUpdate: function (vote) {
-      console.log('da vote', vote)
       return this.increment((vote === 'left') ? 'leftVotes' : 'rightVotes', { by: 1 })
     },
     pendingRespondentsIds: function () {
@@ -90,6 +89,8 @@ const Question = db.define('question', {
                 return acc
               })
             )
+          } else {
+            return acc
           }
         },
         []
@@ -125,7 +126,8 @@ const Question = db.define('question', {
       }
     },
     active: function () {
-      return ((this.expires > new Date()) && this.open)
+      // simplfying for now so that we don't mess with dates
+      return (/* (this.expires > new Date()) && */ this.open)
     }
   },
   classMethods: {
