@@ -13,10 +13,9 @@
 import { call, put } from 'redux-saga/effects'
 import MyQuestionsActions from '../Redux/MyQuestionsRedux'
 
-export function * getMyQuestions (api, action) {
-  const { data } = action
-  // make the call to the api
-  const response = yield call(api.getmyQuestions, data)
+export function * getMyQuestions (api, { userId }) {
+  const response = yield call(api.getMyQuestions, userId)
+  console.log('response--------', response)
 
   // success?
   if (response.ok) {
