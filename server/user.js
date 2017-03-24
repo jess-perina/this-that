@@ -1,10 +1,30 @@
 const db = require('APP/db')
 const Answer = db.model('answer')
 const Question = db.model('question')
+const User = db.model('user' )
 const Promise = require('bluebird')
 const Sequelize = require('sequelize')
+const Friendship = db.model('friendship')
 
 module.exports = require('express').Router()
+
+//Gets all of a user's friends RETURNS AN ARRAY OF FRIENDS
+.get('/:userId/friends', (req, res, next) => {
+  //Gets the user instance
+  User.findOne({where: {id: req.params.userId}})
+  .then((userInstance) => {
+    //Passes an array of the Users friends
+    return userInstance.getFriend()
+  })
+  .then((friends) => {
+    //Gets the friend objects from the query
+    friends = friends.map((friend) => friend.dataValues)
+    //sends an array of User Instances who are friends
+    res.json(friends)
+  })
+  .catch(next);
+})
+
 //Returns all questions to a user--ROUTE FOR ADMINS ONLY
 .get('/:userId/askedto', (req, res, next) => {
   Answer.getAllQuestionsToUser(req.params.userId)
@@ -50,6 +70,7 @@ module.exports = require('express').Router()
     return Question.findAll({
       where: {
         public: true,
+        //  expires: {$gte: new Date()},
         open: true,
         id: {$notIn: arrAnsweredQIds}
       },
@@ -69,9 +90,13 @@ module.exports = require('express').Router()
   Question.create({title, leftText, rightText, public: publicBool, owner_id: req.params.userId})
   .then((question) => {
     let participantsAndMe = JSON.parse(respondents).push(req.params.userId)
-    return Promise.map(participantsAndMe, (respondent) => {
-      return Answer.create({respondent_id: respondent, question_id: question.id})
-    })
+    if (participantsAndMe.length) {
+      return Promise.map(participantsAndMe, (respondent) => {
+        return Answer.create({respondent_id: respondent, question_id: question.id})
+      })
+    } else {
+      throw Error('Created an empty private Question: hope you are planning to fill it up')
+    }
   })
   .then(() => res.send(200))
   .catch(err => console.log(err))
@@ -79,8 +104,26 @@ module.exports = require('express').Router()
 
 
 .post('/:userId/newpublicquestion', (req, res, next) => {
+  // adding poller in pollees so that we can easily close a question
   let {title, leftText, rightText} = req.body
   Question.create({title, leftText, rightText, public: true, owner_id: req.params.userId})
+  .then(question => Answer.create({respondent_id: req.params.userId, question_id: question.id}))
   .then(() => res.send(200))
   .catch(err => console.log(err))
+})
+
+//The below requires a friend's (who is a member) id to work. To get the id, 
+//the GET /users/[phoneNumbers here] route should be used to grab a list of all possible friends and their ids
+.put('/:userId/addFriend', (req,res,next)=> {
+  //This finds returns an array of 2 User instances: currentUser and friendUser
+  Promise.all([User.findOne({where: {id: req.params.userId}}), User.findOne({where: {id: req.body.friendId}})])
+  .then((arrOfUsers) => {
+    //Makes both user instances friends with each other in the join table
+    return Promise.all([arrOfUsers[0].addFriend(arrOfUsers[1]), arrOfUsers[1].addFriend(arrOfUsers[0])]);
+  })
+  .then((arrOfPromise) => {
+    //sends status that friendship was accepted
+    res.status(200).send()
+  })
+  .catch(next)
 })

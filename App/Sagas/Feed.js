@@ -9,3 +9,11 @@ export function * getNewFeed(api, action){
 //If the person scrolls up--like in a fb feed--the feed is updated
 	
 }
+export function * getScrollFeed(api, action){
+
+}
+
+export function * watchFeedScroll(){
+
+}
+
