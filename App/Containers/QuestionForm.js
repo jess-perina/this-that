@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import Icons from '../Themes/Images'
 import {Images, Metrics} from '../Themes'
 import RoundedButton from '../Components/RoundedButton'
+import ExpirationDatePicker from '../Components/ExpirationDatePicker'
 import { Actions } from 'react-native-router-flux'
 // Styles
 import Styles from './Styles/QuestionFormStyle'
@@ -129,6 +130,7 @@ class QuestionForm extends React.Component {
             />
           </View>
         </View>
+        <ExpirationDatePicker />
         <View style={Styles.buttonContainer}>
           <RoundedButton text='Choose Friends' />
           <TouchableHighlight onPress={Actions.cameraView}>
