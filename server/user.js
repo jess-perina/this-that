@@ -1,10 +1,28 @@
 const db = require('APP/db')
 const Answer = db.model('answer')
 const Question = db.model('question')
+const User = db.model('user' )
 const Promise = require('bluebird')
 const Sequelize = require('sequelize')
+const Friendship = db.model('friendship')
 
 module.exports = require('express').Router()
+//Gets all of a user's friends RETURNS AN ARRAY OF FRIENDS
+.get('/:userId/friends', (req, res, next) => {
+  //Gets the user instance
+  User.findOne({where: {id: req.params.userId}})
+  .then((userInstance) => {
+    //Passes an array of the Users friends
+    return userInstance.getFriend()
+  })
+  .then((friends) => {
+    //Gets the friend objects from the query
+    friends = friends.map((friend) => friend.dataValues)
+    //sends an array of User Instances who are friends
+    res.json(friends)
+  })
+  .catch(next);
+})
 .get('/:userId/askedto', (req, res, next) => {
   Answer.getAllQuestionsToUser(req.params.userId)
   .then((answers) => {
@@ -60,4 +78,20 @@ module.exports = require('express').Router()
   Question.create({title, leftText, rightText, public: true, owner_id: req.params.userId})
   .then(() => res.send(200))
   .catch(err => console.log(err))
+})
+
+//The below requires a friend's (who is a member) id to work. To get the id, 
+//the GET /users/[phoneNumbers here] route should be used to grab a list of all possible friends and their ids
+.put('/:userId/addFriend', (req,res,next)=> {
+  //This finds returns an array of 2 User instances: currentUser and friendUser
+  Promise.all([User.findOne({where: {id: req.params.userId}}), User.findOne({where: {id: req.body.friendId}})])
+  .then((arrOfUsers) => {
+    //Makes both user instances friends with each other in the join table
+    return Promise.all([arrOfUsers[0].addFriend(arrOfUsers[1]), arrOfUsers[1].addFriend(arrOfUsers[0])]);
+  })
+  .then((arrOfPromise) => {
+    //sends status that friendship was accepted
+    res.status(200).send()
+  })
+  .catch(next)
 })
