@@ -47,7 +47,7 @@ const Answer = db.define('answer', {
         ]})
         .then(answers => answers.map(answer => answer.question))
     },
-    getNewestQuestionsAskedMe: function (userId, newestAnswerId) {
+    getNewestQuestionsToUser: function (userId, newestAnswerId) {
       return this.findAll({
         where: {
           respondent_id: userId,
@@ -56,7 +56,9 @@ const Answer = db.define('answer', {
         },
         include: [Question]
       })
-    },
+      .then(answers => answers.map(answer => answer.question))
+    }
+    ,
     getASingleRandomQuestion: function () {
       return this.findAll({
         include: [Question],
