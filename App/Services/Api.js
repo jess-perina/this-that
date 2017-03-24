@@ -54,6 +54,9 @@ const create = (baseURL = 'https://socketsynth.ngrok.io/') => {
     console.log(myQresponse)
     return myQresponse
   }
+  const grabFeed = function(userId){
+    return api.get(`api/user/${userId}/askedto`)
+  }
   // will also need respondents and proper userId
 
   // ------
