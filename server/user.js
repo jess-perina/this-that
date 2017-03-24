@@ -7,6 +7,7 @@ const Sequelize = require('sequelize')
 const Friendship = db.model('friendship')
 
 module.exports = require('express').Router()
+
 //Gets all of a user's friends RETURNS AN ARRAY OF FRIENDS
 .get('/:userId/friends', (req, res, next) => {
   //Gets the user instance
@@ -23,6 +24,8 @@ module.exports = require('express').Router()
   })
   .catch(next);
 })
+
+//Returns all questions to a user--ROUTE FOR ADMINS ONLY
 .get('/:userId/askedto', (req, res, next) => {
   Answer.getAllQuestionsToUser(req.params.userId)
   .then((answers) => {
@@ -31,17 +34,35 @@ module.exports = require('express').Router()
   })
   .catch(next)
 })
+
+
 .get('/:userId/askedby', (req, res, next) => {
   Question.getAllQuestionsByUser(req.params.userId)
   .then((result) => res.json(result))
   .catch(next)
 })
-.get('/:userId/askedtolimit', (req, res, next) => {
-  Answer.getNextQuestionsToUser(req.params.userId, 0)
+
+
+//Loads the next 20 questions to user
+.get('/:userId/askedtolimit/:offset', (req, res, next) => {
+  Answer.getNextQuestionsToUser(req.params.userId, req.params.offset)
   .then((myQuestions) => {
     res.json(myQuestions)
   })
+  .catch(next)
 })
+
+//Gets any new questions asked to user since last load based on the last loads most recently asked question
+.get('/:userId/askedtonew/:latestQuestionId', (req,res,next) => {
+  Answer.findOne({where: {respondent_id: req.params.userId}, question_id: req.params.latestQuestionId })
+  .then((answerInstance) => {
+    return Answer.getNewestQuestionsToUser(req.params.userId, answerInstance.id)
+  })
+  .then((arrOfNewestQuestionAnswers) => res.json(arrOfNewestQuestionAnswers))
+  .catch(next)
+})
+
+
 .get('/:userId/random', (req, res, next) => {
   Answer.findAll({where: { respondent_id: req.params.userId} })
   .then((arrOfUserAnswers) => {
@@ -62,6 +83,8 @@ module.exports = require('express').Router()
   })
   .catch(next)
 })
+
+
 .post('/:userId/newprivatequestion', (req, res, next) => {
   let {title, leftText, rightText, publicBool, respondents} = req.body
   Question.create({title, leftText, rightText, public: publicBool, owner_id: req.params.userId})
@@ -78,6 +101,8 @@ module.exports = require('express').Router()
   .then(() => res.send(200))
   .catch(err => console.log(err))
 })
+
+
 .post('/:userId/newpublicquestion', (req, res, next) => {
   // adding poller in pollees so that we can easily close a question
   let {title, leftText, rightText} = req.body
