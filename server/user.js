@@ -112,7 +112,7 @@ module.exports = require('express').Router()
   .catch(err => console.log(err))
 })
 
-//The below requires a friend's (who is a member) id to work. To get the id, 
+//The below requires a friend's (who is a member) id to work. To get the id,
 //the GET /users/[phoneNumbers here] route should be used to grab a list of all possible friends and their ids
 .put('/:userId/addFriend', (req,res,next)=> {
   //This finds returns an array of 2 User instances: currentUser and friendUser
