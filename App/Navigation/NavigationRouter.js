@@ -7,6 +7,7 @@ import NavigationDrawer from './NavigationDrawer'
 import LoginScreen from '../Containers/LoginScreen'
 import ListviewExample from '../Containers/ListviewExample'
 import QuestionForm from '../Containers/QuestionForm'
+import MyQuestions from '../Containers/MyQuestions'
 import CameraView from '../Components/CameraView'
 
 /* **************************
@@ -20,6 +21,7 @@ class NavigationRouter extends Component {
         <Scene key='drawer' component={NavigationDrawer} open={false}>
           <Scene key='drawerChildrenWrapper' navigationBarStyle={Styles.navBar} titleStyle={Styles.title} leftButtonIconStyle={Styles.leftButton} rightButtonTextStyle={Styles.rightButton}>
             <Scene key='questionForm' component={QuestionForm} title='QuestionForm' />
+            <Scene key='myQuestions' component={MyQuestions} title='My Question' />
             <Scene initial key='loginScreen' component={LoginScreen} title='LoginScreen' />
             <Scene key='listviewExample' component={ListviewExample} title='ListviewExample' />
             <Scene key='cameraView' component={CameraView} title='CameraView' />
