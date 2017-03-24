@@ -147,14 +147,15 @@ const mapStateToProps = (state) => {
     questionText: state.question.questionText,
     leftText: state.question.leftText,
     rightText: state.question.rightText
+    userId: state.login.userId,
+    username: state.login.username
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     questionUpdate: (field, text) => dispatch(QuestionFormActions.questionUpdate(field, text)),
-
-    attemptSubmit: (questionText, leftText, rightText) => dispatch(QuestionFormActions.questionSubmit(questionText, leftText, rightText))
+    attemptSubmit: (questionText, leftText, rightText) => dispatch(QuestionFormActions.questionSubmit(questionText, leftText, rightText, userId))
   }
 }
 
