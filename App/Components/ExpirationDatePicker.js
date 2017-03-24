@@ -5,42 +5,39 @@ import styles from './Styles/ExpirationDatePickerStyle'
 export default class ExpirationDatePicker extends React.Component {
   constructor (props) {
     super(props)
-    this.state = {date: '2016-05-15'}
+    this.state = {}
+    this.handleDateChange = this.handleDateChange.bind(this)
+  }
+
+  handleDateChange (date, time) {
+    time = time.toTimeString('en-US', { timeZone: 'UTC', timeZoneName: 'short' })
+    this.props.onConfirm(date, time)
   }
 
   render () {
+    console.log('props---', this.props)
     return (
       <DatePicker
         style={{width: 200}}
-        date={this.state.date}
-        mode='date'
+        date={this.props.date}
+        time={this.props.time}
+        mode='datetime'
         placeholder='select date'
-        format='YYYY-MM-DD'
-        minDate='2016-05-01'
+        format='MM-DD-YYYY'
+        minDate={this.props.date}
         maxDate='2016-06-01'
         confirmBtnText='Confirm'
         cancelBtnText='Cancel'
-        customStyles={{
-          dateIcon: {
-            position: 'absolute',
-            left: 0,
-            top: 4,
-            marginLeft: 0
-          },
-          dateInput: {
-            marginLeft: 36
-          }
-          // ... You can check the source to find the other keys.
-        }}
-        onDateChange={(date) => { this.setState({date: date}) }}
+        customStyles={[styles.dateInput, styles.dateIcon]}
+        onDateChange={this.handleDateChange}
       />
     )
   }
 }
 
 // // Prop type warnings
-// ExperationDatePicker.propTypes = {
-//   someProperty: React.PropTypes.object,
+// ExpirationDatePicker.propTypes = {
+//   customStyles: React.PropTypes.array,
 //   someSetting: React.PropTypes.bool.isRequired
 // }
 //

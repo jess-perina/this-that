@@ -12,5 +12,15 @@ export default StyleSheet.create({
   },
   datePicker: {
     width: 200
+  },
+  dateIcon: {
+    position: 'absolute',
+    left: 0,
+    top: 4,
+    marginLeft: 0
+  },
+  dateInput: {
+    marginLeft: 36
   }
+  // ... You can check the source to find the other keys.
 })
