@@ -19,10 +19,10 @@ class QuestionForm extends React.Component {
   }
 
   handlePressLogin = () => {
-    const { question, left, right } = this.props
+    const { question, left, right, userId } = this.props
     this.isAttempting = true
     // attempt a login - a saga is listening to pick it up from here.
-    this.props.attemptSubmit(question, left, right)
+    this.props.attemptSubmit(question, left, right, userId)
   }
 
   render () {
@@ -74,7 +74,9 @@ const mapStateToProps = (state) => {
   return {
     question: state.question.question,
     left: state.question.left,
-    right: state.question.right
+    right: state.question.right,
+    userId: state.login.userId,
+    username: state.login.username
   }
 }
 
@@ -82,7 +84,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     questionUpdate: (field, text) => dispatch(QuestionFormActions.questionUpdate(field, text)),
 
-    attemptSubmit: (question, left, right) => dispatch(QuestionFormActions.questionSubmit(question, left, right))
+    attemptSubmit: (question, left, right, userId) => dispatch(QuestionFormActions.questionSubmit(question, left, right, userId))
   }
 }
 

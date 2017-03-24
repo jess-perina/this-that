@@ -5,7 +5,7 @@ import Immutable from 'seamless-immutable'
 
 const { Types, Creators } = createActions({
   questionUpdate: ['field', 'text'],
-  questionSubmit: ['question', 'left', 'right'],
+  questionSubmit: ['question', 'left', 'right', 'userId'],
   questionSuccess: ['payload'],
   questionFailure: null
 })
