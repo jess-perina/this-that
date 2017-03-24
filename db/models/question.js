@@ -106,10 +106,10 @@ const Question = db.define('question', {
           if (!ids.includes(+respondentId)) {
             Answer.create({vote, comment, respondent_id: respondentId, question_id: this.id})
             .then(() => this.votesQuestionUpdate(vote))
-            .then(() => { if ((this.owner_id) === respondentId){
+            .then(() => {
+              if ((this.owner_id) === respondentId) {
                 this.update({closed: true})
-            }
-
+              }
             })
           } else {
             throw Error('attempt for uninvited entry')
