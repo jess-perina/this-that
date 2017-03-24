@@ -49,6 +49,7 @@ module.exports = require('express').Router()
     return Question.findAll({
       where: {
         public: true,
+        //  expires: {$gte: new Date()},
         open: true,
         id: {$notIn: arrAnsweredQIds}
       },
@@ -66,16 +67,22 @@ module.exports = require('express').Router()
   Question.create({title, leftText, rightText, public: publicBool, owner_id: req.params.userId})
   .then((question) => {
     let participantsAndMe = JSON.parse(respondents).push(req.params.userId)
-    return Promise.map(participantsAndMe, (respondent) => {
-      return Answer.create({respondent_id: respondent, question_id: question.id})
-    })
+    if (participantsAndMe.length) {
+      return Promise.map(participantsAndMe, (respondent) => {
+        return Answer.create({respondent_id: respondent, question_id: question.id})
+      })
+    } else {
+      throw Error('Created an empty private Question: hope you are planning to fill it up')
+    }
   })
   .then(() => res.send(200))
   .catch(err => console.log(err))
 })
 .post('/:userId/newpublicquestion', (req, res, next) => {
+  // adding poller in pollees so that we can easily close a question
   let {title, leftText, rightText} = req.body
   Question.create({title, leftText, rightText, public: true, owner_id: req.params.userId})
+  .then(question => Answer.create({respondent_id: req.params.userId, question_id: question.id}))
   .then(() => res.send(200))
   .catch(err => console.log(err))
 })
