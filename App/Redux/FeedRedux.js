@@ -7,6 +7,7 @@ const { Types, Creators } = createActions({
   feedRequest: ['userId'],
   feedSuccess: ['payload'],
   feedFailure: null
+
 })
 
 export const FeedTypes = Types
@@ -36,6 +37,7 @@ export const success = (state, action) => {
 // Something went wrong somewhere.
 export const failure = state =>
   state.merge({ fetching: false, error: true})
+
 
 /* ------------- Hookup Reducers To Types ------------- */
 
