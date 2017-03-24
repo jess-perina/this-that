@@ -27,10 +27,9 @@ const Answer = db.define('answer', {
   classMethods: {
     getAllQuestionsToUser: function (userId) {
       return this.findAll({
-        where: {respondent_id: userId, vote: null},
-        include: [
-          { model: Question, expires: {$gte: new Date()}, open: true}
-        ]
+        where: {respondent_id: userId, vote: null}
+         ,
+         include: [{model: db.model('question'), where: {expires: {$gte: new Date()}, open: true}}]
       })
     },
     getNextQuestionsToUser: function (userId, offset) {  // Offset should be the current length of the array
@@ -43,7 +42,7 @@ const Answer = db.define('answer', {
         offset: offset,
         limit: 10,
         include: [
-          { model: Question, expires: {$gte: new Date()}}
+          { model: db.model('question'),where: {expires: {$gte: new Date()}}}
         ]})
         .then(answers => answers.map(answer => answer.question))
     },
@@ -54,17 +53,9 @@ const Answer = db.define('answer', {
           vote: null,
           id: {$gt: newestAnswerId}
         },
-        include: [Question]
+        include: [db.model('question')]
       })
       .then(answers => answers.map(answer => answer.question))
-    }
-    ,
-    getASingleRandomQuestion: function () {
-      return this.findAll({
-        include: [Question],
-        where: {
-
-        }})
     }
   }
 })
