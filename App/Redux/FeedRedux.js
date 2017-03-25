@@ -31,7 +31,7 @@ export const request = (state, { userId }) =>
 // successful api lookup
 export const success = (state, action) => {
   const { feed } = action
-  return state.merge({ fetching: false, error: null, feed:feed })
+  return state.merge({ fetching: false, error: null, feed: feed })
 }
 
 // Something went wrong somewhere.
