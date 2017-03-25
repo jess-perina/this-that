@@ -24,14 +24,10 @@ class MyQuestions extends React.Component {
     console.log('questionprops---', this.props)
     return (
       <ScrollView style={styles.container}>
-        <Text color='white'>My Questions Container</Text>
-        { this.props.fetching ?
-          <Text color='white'>Fuck Off</Text> :
-          <Text color='white'>Done Fetching</Text>
-        }
-        { this.props.myQuestions ?
-          <Text color='white'>{this.props.myQuestions.myQuestions[0].title}</Text> :
-          <Text color='white'>Done Fetching</Text>
+        <Text style={styles.boldLabel}>My Questions Container</Text>
+        { this.props.myQuestions.myQuestions ?
+          <Text style={styles.boldLabel}>{JSON.stringify(this.props.myQuestions.myQuestions)}</Text> :
+          <Text style={styles.boldLabel}>Done Fetching</Text>
         }
 
       </ScrollView>
