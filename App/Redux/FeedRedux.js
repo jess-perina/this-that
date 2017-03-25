@@ -4,14 +4,10 @@ import Immutable from 'seamless-immutable'
 /* ------------- Types and Action Creators ------------- */
 
 const { Types, Creators } = createActions({
-  requestOlderFeed: ['offset'],  //the offset should be the current size of the array
-  requestNewestFeed: ['idOfFirstQuestionInFeed'],   //id of the newest question asked to me...after lunch find the exact route that does this
-  
-  olderFeedSuccess: ['olderQuestions'],
-  newestFeedSuccess: ['newestQuestions']
-  // feedRequest: ['data'],
-  // feedSuccess: ['payload'],
-  // feedFailure: null
+  feedRequest: ['userId'],
+  feedSuccess: ['payload'],
+  feedFailure: null
+
 })
 
 export const FeedTypes = Types
@@ -20,24 +16,28 @@ export default Creators
 /* ------------- Initial State ------------- */
 
 export const INITIAL_STATE = Immutable({
-  currentFeed: [] //An array of question Instances
+  feed: [], //Array Of Question Instances
+  fetching: null,
+  //payload: null,
+  error: null
 })
 
 /* ------------- Reducers ------------- */
 
 // request the data from an api
-export const request = (state, { data }) =>
-  state.merge({ fetching: true, data, payload: null })
+export const request = (state, { userId }) =>
+  state.merge({ fetching: true})
 
 // successful api lookup
 export const success = (state, action) => {
-  const { payload } = action
-  return state.merge({ fetching: false, error: null, payload })
+  const { feed } = action
+  return state.merge({ fetching: false, error: null, feed:feed })
 }
 
 // Something went wrong somewhere.
 export const failure = state =>
-  state.merge({ fetching: false, error: true, payload: null })
+  state.merge({ fetching: false, error: true})
+
 
 /* ------------- Hookup Reducers To Types ------------- */
 

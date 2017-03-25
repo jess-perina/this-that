@@ -27,6 +27,7 @@ class DrawerContent extends Component {
         <Text onPress={Actions.listviewExample} style={styles.text} >Go to ListviewExample!</Text>
         <Text onPress={Actions.questionForm} style={styles.text} >Go to Question Example!</Text>
         <Text onPress={Actions.myQuestions} style={styles.text} >Go to My Questions!</Text>
+        <Text onPress={Actions.Feed} style={styles.text} >Go to Questions Asked Me!</Text>
       </ScrollView>
     )
   }
