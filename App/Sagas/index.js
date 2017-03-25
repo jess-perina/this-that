@@ -11,6 +11,7 @@ import { LoginTypes } from '../Redux/LoginRedux'
 import { OpenScreenTypes } from '../Redux/OpenScreenRedux'
 import { QuestionFormTypes } from '../Redux/QuestionFormRedux'
 import { MyQuestionsTypes } from '../Redux/MyQuestionsRedux'
+import { QuestionInspectorTypes } from '../Redux/QuestionInspectorRedux'
 import { FeedTypes } from '../Redux/FeedRedux'
 /* ------------- Sagas ------------- */
 
@@ -20,6 +21,7 @@ import { login } from './LoginSagas'
 import { openScreen } from './OpenScreenSagas'
 import { postQuestion } from './QuestionFormSagas'
 import { getMyQuestions } from './MyQuestionsSagas'
+import { inspectQuestion } from './QuestionInspectorSagas'
 import { grabFeed } from './FeedSagas'
 /* ------------- API ------------- */
 
@@ -40,6 +42,7 @@ export default function * root () {
     // takeLatest(GithubTypes.USER_REQUEST, getUserAvatar, api),
     takeLatest(QuestionFormTypes.QUESTION_SUBMIT, postQuestion, api),
     takeLatest(MyQuestionsTypes.MY_QUESTIONS_REQUEST, getMyQuestions, api),
+    takeLatest(QuestionInspectorTypes.QUESTION_INSPECTOR_REQUEST, inspectQuestion, api),
     takeLatest(FeedTypes.FEED_REQUEST, grabFeed, api)
   ]
 }
