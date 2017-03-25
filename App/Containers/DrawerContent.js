@@ -21,11 +21,13 @@ class DrawerContent extends Component {
   }
 
   render () {
+    console.log('Action----s', Actions)
     return (
       <ScrollView style={styles.container}>
         <Image source={Images.logo} style={styles.logo} />
         <Text onPress={Actions.listviewExample} style={styles.text} >Go to ListviewExample!</Text>
         <Text onPress={Actions.questionForm} style={styles.text} >Go to Question Example!</Text>
+        <Text onPress={Actions.myQuestions} style={styles.text} >Go to My Questions!</Text>
       </ScrollView>
     )
   }

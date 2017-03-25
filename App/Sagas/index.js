@@ -1,4 +1,4 @@
-import { takeLatest } from 'redux-saga'
+import { takeLatest } from 'redux-saga/effects'
 import API from '../Services/Api'
 import FixtureAPI from '../Services/FixtureApi'
 import DebugConfig from '../Config/DebugConfig'
@@ -10,6 +10,7 @@ import { GithubTypes } from '../Redux/GithubRedux'
 import { LoginTypes } from '../Redux/LoginRedux'
 import { OpenScreenTypes } from '../Redux/OpenScreenRedux'
 import { QuestionFormTypes } from '../Redux/QuestionFormRedux'
+import { MyQuestionsTypes } from '../Redux/MyQuestionsRedux'
 
 /* ------------- Sagas ------------- */
 
@@ -18,6 +19,7 @@ import { login } from './LoginSagas'
 import { getUserAvatar } from './GithubSagas'
 import { openScreen } from './OpenScreenSagas'
 import { postQuestion } from './QuestionFormSagas'
+import { getMyQuestions } from './MyQuestionsSagas'
 
 /* ------------- API ------------- */
 
@@ -36,6 +38,7 @@ export default function * root () {
 
     // some sagas receive extra parameters in addition to an action
     takeLatest(GithubTypes.USER_REQUEST, getUserAvatar, api),
-    takeLatest(QuestionFormTypes.QUESTION_SUBMIT, postQuestion, api)
+    takeLatest(QuestionFormTypes.QUESTION_SUBMIT, postQuestion, api),
+    takeLatest(MyQuestionsTypes.MY_QUESTIONS_REQUEST, getMyQuestions, api)
   ]
 }
