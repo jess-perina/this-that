@@ -46,7 +46,6 @@ const create = (baseURL = 'https://socketsynth.ngrok.io/') => {
   const getUser = (username) => api.get('search/users', {q: username})
   const postQuestion = (question, left, right, userId) => api.post(`api/user/${userId}/newpublicquestion`, {title: question, leftText: left, rightText: right})
   const logMeIn = (username, password) => {
-    console.log(username, password)
     return api.post('api/auth/login/local', {username: username, password: password})
   }
   const getMyQuestions = (userID) => {

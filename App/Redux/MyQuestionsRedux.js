@@ -18,7 +18,8 @@ export const INITIAL_STATE = Immutable({
   data: null,
   fetching: null,
   payload: null,
-  error: null
+  error: null,
+  myQuestions: null
 })
 
 /* ------------- Reducers ------------- */

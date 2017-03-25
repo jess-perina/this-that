@@ -21,7 +21,6 @@ class DrawerContent extends Component {
   }
 
   render () {
-    console.log('Action----s', Actions)
     return (
       <ScrollView style={styles.container}>
         <Image source={Images.logo} style={styles.logo} />
