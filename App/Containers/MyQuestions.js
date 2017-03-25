@@ -16,6 +16,7 @@ class MyQuestions extends React.Component {
   }
 
   componentDidMount () {
+    console.log('fetching?', this.props.fetching)
     this.props.getMyQuestions(this.props.userId)
   }
 
@@ -23,7 +24,12 @@ class MyQuestions extends React.Component {
     console.log('questionprops---', this.props)
     return (
       <ScrollView style={styles.container}>
-        <Text>My Questions Container</Text>
+        <Text style={styles.boldLabel}>My Questions Container</Text>
+        { this.props.myQuestions.myQuestions ?
+          <Text style={styles.boldLabel}>{JSON.stringify(this.props.myQuestions.myQuestions)}</Text> :
+          <Text style={styles.boldLabel}>Done Fetching</Text>
+        }
+
       </ScrollView>
     )
   }
@@ -31,7 +37,11 @@ class MyQuestions extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    userId: state.login.userId
+    userId: state.login.userId,
+    // myQuestionsArray: state.myQuestions,
+    fetching: state.myQuestions.fetching,
+    myQuestions: state.myQuestions,
+    state: state
   }
 }
 
