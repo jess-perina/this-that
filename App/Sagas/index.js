@@ -1,4 +1,4 @@
-import { takeLatest } from 'redux-saga'
+import { takeLatest } from 'redux-saga/effects'
 import API from '../Services/Api'
 import FixtureAPI from '../Services/FixtureApi'
 import DebugConfig from '../Config/DebugConfig'
@@ -20,7 +20,7 @@ import { getUserAvatar } from './GithubSagas'
 import { openScreen } from './OpenScreenSagas'
 import { postQuestion } from './QuestionFormSagas'
 import { getMyQuestions } from './MyQuestionsSagas'
-import {grabFeed} from './FeedSagas'
+import { grabFeed } from './FeedSagas'
 /* ------------- API ------------- */
 
 // The API we use is only used from Sagas, so we create it here and pass along
