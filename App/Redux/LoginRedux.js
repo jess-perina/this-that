@@ -18,7 +18,8 @@ export default Creators
 export const INITIAL_STATE = Immutable({
   username: null,
   error: null,
-  fetching: false
+  fetching: false,
+  userId: null
 })
 
 /* ------------- Reducers ------------- */
