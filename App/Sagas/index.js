@@ -6,7 +6,6 @@ import DebugConfig from '../Config/DebugConfig'
 /* ------------- Types ------------- */
 
 import { StartupTypes } from '../Redux/StartupRedux'
-import { GithubTypes } from '../Redux/GithubRedux'
 import { LoginTypes } from '../Redux/LoginRedux'
 import { OpenScreenTypes } from '../Redux/OpenScreenRedux'
 import { QuestionFormTypes } from '../Redux/QuestionFormRedux'
@@ -17,6 +16,7 @@ import { FeedTypes } from '../Redux/FeedRedux'
 
 import { startup } from './StartupSagas'
 import { login } from './LoginSagas'
+
 // import { getUserAvatar } from './GithubSagas'
 import { openScreen } from './OpenScreenSagas'
 import { postQuestion } from './QuestionFormSagas'
@@ -41,6 +41,7 @@ export default function * root () {
     // some sagas receive extra parameters in addition to an action
     // takeLatest(GithubTypes.USER_REQUEST, getUserAvatar, api),
     takeLatest(QuestionFormTypes.QUESTION_SUBMIT, postQuestion, api),
+    // takeLatest(QuestionFormTypes.QUESTION_IMAGE_SUCCESS, postQuestion, api),
     takeLatest(MyQuestionsTypes.MY_QUESTIONS_REQUEST, getMyQuestions, api),
     takeLatest(QuestionInspectorTypes.QUESTION_INSPECTOR_REQUEST, inspectQuestion, api),
     takeLatest(FeedTypes.FEED_REQUEST, grabFeed, api)

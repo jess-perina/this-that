@@ -25,3 +25,4 @@ export function * inspectQuestion (api, questionId) {
     yield put(QuestionInspectorActions.questionInspectorFailure())
   }
 }
+

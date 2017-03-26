@@ -6,13 +6,19 @@ import { connect } from 'react-redux'
 
 // Styles
 import styles from './Styles/QuestionInspectorStyle'
+import QuestionInspectorActions from '../Redux/QuestionInspectorRedux'
 
 class QuestionInspector extends React.Component {
 
-  // constructor (props) {
-  //   super(props)
-  //   this.state = {}
-  // }
+  constructor (props) {
+    super(props)
+    this.state = {}
+  }
+
+  componentDidMount () {
+    console.log('aws testing?')
+    this.props.postTest()
+  }
 
   render () {
     return (
@@ -30,6 +36,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    postTest: () => {
+      dispatch(QuestionInspectorActions.questionInspectorAwsTest())
+    }
   }
 }
 

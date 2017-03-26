@@ -12,11 +12,52 @@
 
 import { call, put } from 'redux-saga/effects'
 import QuestionFormActions from '../Redux/QuestionFormRedux'
+import { RNS3 } from 'react-native-aws3'
+
+let file = {
+  // `uri` can also be a file system path (i.e. file://)
+  uri: 'https://lh6.googleusercontent.com/-E716YeMDc6c/VpvZ_Xth3iI/AAAAAAAAFqQ/x7F2-AwS0jA/w580-h315-no/URL-Normalization.jpg',
+  name: 'image.jpg',
+  type: 'image/jpg'
+}
+
+let options = {
+  bucket: 'thisthatfullstack',
+  region: 'us-east-2',
+  accessKey: 'AKIAIDEE6VSU3H6CP2WQ',
+  secretKey: '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',
+  successActionStatus: 201
+}
+export function * imageBucket () {
+  const response = yield call(RNS3.put, file, options)
+  console.log(response)
+  if (response.status !== 201) {
+    throw new Error('Failed to upload image to S3')
+  }
+  console.log('imageBucket response---', response)
+  return response
+  // success?
+  // if (response.ok) {
+  //   // You might need to change the response here - do this with a 'transform',
+  //   // located in ../Transforms/. Otherwise, just pass the data back from the api.
+  //   yield put(QuestionInspectorActions.questionInspectorSuccess(response.data))
+  // } else {
+  //   yield put(QuestionInspectorActions.questionInspectorFailure())
+  // }
+}
 
 export function * postQuestion (api, action) {
-  const { questionText, leftText, rightText, userId} = action
+  const { questionText, leftText, rightText, userId } = action
 
   // make the call to the api
+  let imageResponse
+  try {
+    imageResponse = yield imageBucket()
+  } catch (e) {
+    console.log(e)
+  }
+
+  console.log('erver set back---', imageResponse)
   const response = yield call(api.postQuestion, questionText, leftText, rightText, userId)
 
   // success?
@@ -28,3 +69,4 @@ export function * postQuestion (api, action) {
     yield put(QuestionFormActions.questionFailure())
   }
 }
+
