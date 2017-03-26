@@ -13,7 +13,7 @@
 import { call, put } from 'redux-saga/effects'
 import FeedActions from '../Redux/FeedRedux'
 
-export function * grabFeed (api, action) {
+export function * grabFeed(api, action) {
   const { userId } = action
   // make the call to the api
   const response = yield call(api.grabFeed, userId)
