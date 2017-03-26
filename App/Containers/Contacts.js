@@ -1,9 +1,8 @@
 import React from 'react'
 import { View, Text, ListView } from 'react-native'
 import { connect } from 'react-redux'
+import ContactsView from '../Components/ContactsView'
 
-// For empty lists
-import AlertMessage from '../Components/AlertMessage'
 
 // Styles
 import styles from './Styles/ContactsStyle'
@@ -18,7 +17,6 @@ class Contacts extends React.Component {
 
   constructor (props) {
     super(props)
-    // If you need scroll to bottom, consider http://bit.ly/2bMQ2BZ
 
     /* ***********************************************************
     * STEP 1
@@ -26,21 +24,15 @@ class Contacts extends React.Component {
     * Usually this should come from Redux mapStateToProps
     *************************************************************/
     const dataObjects = [
-      {title: 'First Title', description: 'First Description'},
-      {title: 'Second Title', description: 'Second Description'},
-      {title: 'Third Title', description: 'Third Description'},
-      {title: 'Fourth Title', description: 'Fourth Description'},
-      {title: 'Fifth Title', description: 'Fifth Description'},
-      {title: 'Sixth Title', description: 'Sixth Description'},
-      {title: 'Seventh Title', description: 'Seventh Description'}
+      {nameFirst: 'Jacquin', nameLast: 'Smith'},
+      {nameFirst: 'Ian', nameLast: 'Smith'},
+      {nameFirst: 'Jess', nameLast: 'Smith'},
+      {nameFirst: 'Konst', nameLast: 'Smith'},
+      {nameFirst: 'Silva', nameLast: 'Smith'},
+      {nameFirst: 'Mike', nameLast: 'Smith'},
+      {nameFirst: 'Maria', nameLast: 'Smith'}
     ]
 
-    /* ***********************************************************
-    * STEP 2
-    * Teach datasource how to detect if rows are different
-    * Make this function fast!  Perhaps something like:
-    *   (r1, r2) => r1.id !== r2.id}
-    *************************************************************/
     const rowHasChanged = (r1, r2) => r1 !== r2
 
     // DataSource configured
@@ -50,24 +42,32 @@ class Contacts extends React.Component {
     this.state = {
       dataSource: ds.cloneWithRows(dataObjects)
     }
+    this.handleSelected = this.handleSelected.bind(this)
   }
 
-  /* ***********************************************************
-  * STEP 3
-  * `_renderRow` function -How each cell/row should be rendered
-  * It's our best practice to place a single component here:
-  *
-  * e.g.
-    return <MyCustomCell title={rowData.title} description={rowData.description} />
-  *************************************************************/
+  handleSelected (name) {
+    const selected = this.state.selected
+    const nameIndex = selected.indexOf(name)
+    if (nameIndex === -1) {
+      selected.push(name)
+    } else {
+      selected.splice(nameIndex, 1)
+    }
+    this.setState({
+      selected: selected
+    })
+  }
+
   _renderRow (rowData) {
     return (
-      <View style={styles.row}>
-        <Text style={styles.boldLabel}>{rowData.title}</Text>
-        <Text style={styles.label}>{rowData.description}</Text>
-      </View>
+      <ContactsView
+        first={rowData.nameFirst}
+        last={rowData.nameLast}
+        onClickChange={this.handleSelected}
+      />
     )
   }
+
 
   /* ***********************************************************
   * STEP 4
@@ -87,19 +87,6 @@ class Contacts extends React.Component {
     }
   *************************************************************/
 
-  // Used for friendly AlertMessage
-  // returns true if the dataSource is empty
-  _noRowData () {
-    return this.state.dataSource.getRowCount() === 0
-  }
-
-  // Render a footer.
-  _renderFooter = () => {
-    return (
-      <Text> - Footer - </Text>
-    )
-  }
-
   render () {
     return (
       <View style={styles.container}>
@@ -107,7 +94,6 @@ class Contacts extends React.Component {
           contentContainerStyle={styles.listContent}
           dataSource={this.state.dataSource}
           renderRow={this._renderRow}
-          renderFooter={this._renderFooter}
           enableEmptySections
           pageSize={15}
         />

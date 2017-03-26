@@ -1,20 +1,25 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { Text } from 'react-native'
 import styles from './Styles/ContactsViewStyle'
+import CheckBox from 'react-native-check-box'
 
 export default class ContactsView extends React.Component {
 
   render () {
+    console.log(this.props)
+    let contactName = <Text style={styles.label}>{`${this.props.first} ${this.props.last}`}</Text>
     return (
-      <View style={styles.container}>
-        <Text>ContactsView Component</Text>
-      </View>
+      <CheckBox
+        style={{ flex: 1, padding: 10, backgroundColor: 'pink' }}
+        rightText={contactName}
+        checked
+        onClick={() => this.props.onClickChange(contactName)}
+      />
     )
   }
 }
 
 // needs to update it's container when new contact is selected
-// need a checkbox
 
 // // Prop type warnings
 // ContactsView.propTypes = {
