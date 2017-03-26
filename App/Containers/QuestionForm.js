@@ -4,7 +4,9 @@ import { connect } from 'react-redux'
 import Icons from '../Themes/Images'
 import {Images, Metrics} from '../Themes'
 import RoundedButton from '../Components/RoundedButton'
+import MainNav from '../Navigation/MainNav'
 import ExpirationDatePicker from '../Components/ExpirationDatePicker'
+
 import { Actions } from 'react-native-router-flux'
 // Styles
 import Styles from './Styles/QuestionFormStyle'
@@ -100,7 +102,7 @@ class QuestionForm extends React.Component {
     // const textInputStyle = editable ? Styles.textInput : Styles.textInputReadonly
     return (
       <View style={[Styles.container, {height: this.state.visibleHeight}]} >
-        <Text style={Styles.boldLabel}>Get Some Feedback</Text>
+        <MainNav />
         <TextInput
           ref='questionText'
           style={Styles.question}
@@ -147,7 +149,7 @@ class QuestionForm extends React.Component {
           onConfirm={this.handleDateChange}
         />
         <View style={Styles.buttonContainer}>
-          <RoundedButton text='Choose Friends' />
+          <RoundedButton text='Choose Friends' onPress={Actions.cameraView} />
           <TouchableHighlight onPress={Actions.cameraView}>
             <Image source={Icons.camera} />
           </TouchableHighlight>
@@ -170,7 +172,8 @@ const mapStateToProps = (state) => {
     expirationDate: state.question.expirationDate,
     expirationTime: state.question.expirationTime,
     userId: state.login.userId,
-    username: state.login.username
+    username: state.login.username,
+    state: state
   }
 }
 
