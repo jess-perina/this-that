@@ -1,31 +1,31 @@
 const db = require('APP/db')
 const Answer = db.model('answer')
 const Question = db.model('question')
-const User = db.model('user' )
+const User = db.model('user')
 const Promise = require('bluebird')
 const Sequelize = require('sequelize')
 const Friendship = db.model('friendship')
 
 module.exports = require('express').Router()
 
-//Gets all of a user's friends RETURNS AN ARRAY OF FRIENDS
+// Gets all of a user's friends RETURNS AN ARRAY OF FRIENDS
 .get('/:userId/friends', (req, res, next) => {
-  //Gets the user instance
+  // Gets the user instance
   User.findOne({where: {id: req.params.userId}})
   .then((userInstance) => {
-    //Passes an array of the Users friends
+    // Passes an array of the Users friends
     return userInstance.getFriend()
   })
   .then((friends) => {
-    //Gets the friend objects from the query
+    // Gets the friend objects from the query
     friends = friends.map((friend) => friend.dataValues)
-    //sends an array of User Instances who are friends
+    // sends an array of User Instances who are friends
     res.json(friends)
   })
-  .catch(next);
+  .catch(next)
 })
 
-//Returns all questions to a user--ROUTE FOR ADMINS ONLY
+// Returns all questions to a user--ROUTE FOR ADMINS ONLY
 .get('/:userId/askedto', (req, res, next) => {
   Answer.getAllQuestionsToUser(req.params.userId)
   .then((answers) => {
@@ -35,15 +35,13 @@ module.exports = require('express').Router()
   .catch(next)
 })
 
-
 .get('/:userId/askedby', (req, res, next) => {
   Question.getAllQuestionsByUser(req.params.userId)
   .then((result) => res.json(result))
   .catch(next)
 })
 
-
-//Loads the next 20 questions to user
+// Loads the next 20 questions to user
 .get('/:userId/askedtolimit/:offset', (req, res, next) => {
   Answer.getNextQuestionsToUser(req.params.userId, req.params.offset)
   .then((myQuestions) => {
@@ -52,8 +50,8 @@ module.exports = require('express').Router()
   .catch(next)
 })
 
-//Gets any new questions asked to user since last load based on the last loads most recently asked question
-.get('/:userId/askedtonew/:latestQuestionId', (req,res,next) => {
+// Gets any new questions asked to user since last load based on the last loads most recently asked question
+.get('/:userId/askedtonew/:latestQuestionId', (req, res, next) => {
   Answer.findOne({where: {respondent_id: req.params.userId}, question_id: req.params.latestQuestionId })
   .then((answerInstance) => {
     return Answer.getNewestQuestionsToUser(req.params.userId, answerInstance.id)
@@ -61,7 +59,6 @@ module.exports = require('express').Router()
   .then((arrOfNewestQuestionAnswers) => res.json(arrOfNewestQuestionAnswers))
   .catch(next)
 })
-
 
 .get('/:userId/random', (req, res, next) => {
   Answer.findAll({where: { respondent_id: req.params.userId} })
@@ -84,7 +81,6 @@ module.exports = require('express').Router()
   .catch(next)
 })
 
-
 .post('/:userId/newprivatequestion', (req, res, next) => {
   let {title, leftText, rightText, publicBool, respondents} = req.body
   Question.create({title, leftText, rightText, public: publicBool, owner_id: req.params.userId})
@@ -102,7 +98,6 @@ module.exports = require('express').Router()
   .catch(err => console.log(err))
 })
 
-
 .post('/:userId/newpublicquestion', (req, res, next) => {
   // adding poller in pollees so that we can easily close a question
   let {title, leftText, rightText} = req.body
@@ -112,17 +107,17 @@ module.exports = require('express').Router()
   .catch(err => console.log(err))
 })
 
-//The below requires a friend's (who is a member) id to work. To get the id,
-//the GET /users/[phoneNumbers here] route should be used to grab a list of all possible friends and their ids
-.put('/:userId/addFriend', (req,res,next)=> {
-  //This finds returns an array of 2 User instances: currentUser and friendUser
+// The below requires a friend's (who is a member) id to work. To get the id,
+// the GET /users/[phoneNumbers here] route should be used to grab a list of all possible friends and their ids
+.put('/:userId/addFriend', (req, res, next) => {
+  // This finds returns an array of 2 User instances: currentUser and friendUser
   Promise.all([User.findOne({where: {id: req.params.userId}}), User.findOne({where: {id: req.body.friendId}})])
   .then((arrOfUsers) => {
-    //Makes both user instances friends with each other in the join table
-    return Promise.all([arrOfUsers[0].addFriend(arrOfUsers[1]), arrOfUsers[1].addFriend(arrOfUsers[0])]);
+    // Makes both user instances friends with each other in the join table
+    return Promise.all([arrOfUsers[0].addFriend(arrOfUsers[1]), arrOfUsers[1].addFriend(arrOfUsers[0])])
   })
   .then((arrOfPromise) => {
-    //sends status that friendship was accepted
+    // sends status that friendship was accepted
     res.status(200).send()
   })
   .catch(next)
