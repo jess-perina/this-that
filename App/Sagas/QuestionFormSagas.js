@@ -13,6 +13,7 @@
 import { call, put } from 'redux-saga/effects'
 import QuestionFormActions from '../Redux/QuestionFormRedux'
 import { RNS3 } from 'react-native-aws3'
+import options from '../../secret.js'
 
 let file = {
   // `uri` can also be a file system path (i.e. file://)
@@ -21,14 +22,8 @@ let file = {
   type: 'image/jpg'
 }
 
-let options = {
-  bucket: 'thisthatfullstack',
-  region: 'us-east-2',
-  accessKey: 'AKIAIDEE6VSU3H6CP2WQ',
-  secretKey: '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',
-  successActionStatus: 201
-}
 export function * imageBucket () {
+  console.log(options)
   const response = yield call(RNS3.put, file, options)
   console.log(response)
   if (response.status !== 201) {
