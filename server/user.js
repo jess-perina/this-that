@@ -30,8 +30,11 @@ module.exports = require('express').Router()
   Answer.getAllQuestionsToUser(req.params.userId)
   .then((answers) => {
     let questions = answers.map(answer => {
+      console.log('answer---', answer)
       let question = answer.question
+      let asker = answer.question.owner
       question.dataValues.myVote = answer.dataValues.vote
+      question.dataValues.asker = asker.dataValues.name
       return question
     })
     res.json(questions)
