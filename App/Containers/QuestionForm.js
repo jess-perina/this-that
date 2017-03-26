@@ -5,6 +5,8 @@ import Icons from '../Themes/Images'
 import {Images, Metrics} from '../Themes'
 import RoundedButton from '../Components/RoundedButton'
 import MainNav from '../Navigation/MainNav'
+import ExpirationDatePicker from '../Components/ExpirationDatePicker'
+
 import { Actions } from 'react-native-router-flux'
 // Styles
 import Styles from './Styles/QuestionFormStyle'
@@ -25,6 +27,10 @@ class QuestionForm extends React.Component {
 
   constructor (props) {
     super(props)
+    let today = new Date()
+    let date = today.toLocaleDateString()
+    let time = today.toTimeString()
+
     this.state = {
       questionText: '',
       leftText: '',
@@ -32,10 +38,13 @@ class QuestionForm extends React.Component {
       leftImage: '',
       rightImage: '',
       respondents: [],
+      expirationDate: date,
+      expirationTime: time,
       isPublic: false,
       visibleHeight: Metrics.screenHeight
     }
     this.isAttempting = false
+    this.handleDateChange = this.handleDateChange.bind(this)
   }
 
   componentWillMount () {
@@ -68,21 +77,25 @@ class QuestionForm extends React.Component {
   }
 
   handlePressSubmit = () => {
-    const { questionText, leftText, rightText } = this.state
+    const { questionText, leftText, rightText, respondents, expirationDate, expirationTime } = this.state
     const { userId } = this.props
     this.isAttempting = true
     // attempt a submit - a saga is listening to pick it up from here.
-    this.props.attemptSubmit(questionText, leftText, rightText, userId)
+    this.props.attemptSubmit(questionText, leftText, rightText, respondents, expirationDate, expirationTime, userId)
     this.setState({questionText: '', leftText: '', rightText: '', leftImage: '', rightImage: '', respondents: [], isPublic: false})
   }
 
   handleTypingChange = (field, text) => {
-    console.log(field, text)
     this.setState({ [field]: text })
   }
 
+  handleDateChange = (date, time) => {
+    console.log(date, time)
+    this.setState({expirationDate: date, expirationTime: time})
+  }
+
   render () {
-    console.log('props---', this.props)
+    console.log('state---', this.state)
     const { questionText, leftText, rightText } = this.state
     const { fetching } = this.props
     const editable = !fetching
@@ -130,6 +143,11 @@ class QuestionForm extends React.Component {
             />
           </View>
         </View>
+        <ExpirationDatePicker
+          date={this.state.expirationDate}
+          time={this.state.expirationTime}
+          onConfirm={this.handleDateChange}
+        />
         <View style={Styles.buttonContainer}>
           <RoundedButton text='Choose Friends' onPress={Actions.cameraView} />
           <TouchableHighlight onPress={Actions.cameraView}>
@@ -150,6 +168,9 @@ const mapStateToProps = (state) => {
     questionText: state.question.questionText,
     leftText: state.question.leftText,
     rightText: state.question.rightText,
+    respondents: state.question.respondents,
+    expirationDate: state.question.expirationDate,
+    expirationTime: state.question.expirationTime,
     userId: state.login.userId,
     username: state.login.username,
     state: state
@@ -158,8 +179,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    questionUpdate: (field, text) => dispatch(QuestionFormActions.questionUpdate(field, text)),
-    attemptSubmit: (questionText, leftText, rightText, userId) => dispatch(QuestionFormActions.questionSubmit(questionText, leftText, rightText, userId))
+    attemptSubmit: (questionText, leftText, rightText, respondents, expirationDate, expirationTime, userId) => dispatch(QuestionFormActions.questionSubmit(questionText, leftText, rightText, respondents, expirationDate, expirationTime, userId))
   }
 }
 
