@@ -47,6 +47,7 @@
     "react-native-animatable": "^1.1.1",
     "react-native-aws3": "^0.0.4",
     "react-native-camera": "https://github.com/lwansbrough/react-native-camera.git",
+    "react-native-checkbox": "^1.1.0",
     "react-native-cli": "^2.0.1",
     "react-native-config": "^0.2.1",
     "react-native-contacts": "^0.8.0",
