@@ -21,7 +21,7 @@ export default (rootReducer, rootSaga) => {
   /* ------------- logger Middleware ------------- */
 
   const logger = store => next => action => {
-    console.log('Action>>> ', action, 'State>>>', store.getState())
+    console.log('Action>>> ', action)
     next(action)
   }
 
