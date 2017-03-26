@@ -28,7 +28,7 @@ const Answer = db.define('answer', {
     getAllQuestionsToUser: function (userId) {
       return this.findAll({
         where: {respondent_id: userId},
-        include: [{model: db.model('question'), include: [{model: db.model('user'), as: 'owner'}]}],
+        include: [{model: db.model('question'), where: {expires: {$gte: new Date()}, open: true }, include: [{model: db.model('user'), as: 'owner'}]}],
         order: [
           ['vote', 'ASC nulls first'],
           ['created_at', 'DESC']
