@@ -8,6 +8,7 @@ import LoginScreen from '../Containers/LoginScreen'
 import ListviewExample from '../Containers/ListviewExample'
 import QuestionForm from '../Containers/QuestionForm'
 import MyQuestions from '../Containers/MyQuestions'
+import QuestionInspector from '../Containers/QuestionInspector'
 import CameraView from '../Components/CameraView'
 import Feed from '../Containers/Feed'
 /* **************************
@@ -24,6 +25,7 @@ class NavigationRouter extends Component {
             <Scene key='myQuestions' component={MyQuestions} title='My Question' />
             <Scene initial key='loginScreen' component={LoginScreen} title='LoginScreen' />
             <Scene key='Feed' component={Feed} title='Feed' />
+            <Scene key='QuestionInspector' component={QuestionInspector} title='Feed' />
             <Scene key='cameraView' component={CameraView} title='CameraView' />
           </Scene>
         </Scene>

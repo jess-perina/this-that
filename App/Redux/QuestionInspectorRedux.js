@@ -6,7 +6,8 @@ import Immutable from 'seamless-immutable'
 const { Types, Creators } = createActions({
   questionInspectorRequest: ['questionId'],
   questionInspectorSuccess: ['question'],
-  questionInspectorFailure: null
+  questionInspectorFailure: null,
+  questionInspectorAwsTest: null
 })
 
 export const QuestionInspectorTypes = Types
@@ -27,6 +28,8 @@ export const INITIAL_STATE = Immutable({
 export const request = (state, { data }) =>
   state.merge({ fetching: true, data, payload: null })
 
+export const awsTest = (state) => state
+
 // successful api lookup
 export const success = (state, action) => {
   const { payload } = action
@@ -41,7 +44,8 @@ export const failure = state =>
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
-  [Types.QUESTION_INSPECTOR_REQUEST]: request,
+  [Types.QUESTION_INSPECTOR_AWS_TEST]: awsTest,
   [Types.QUESTION_INSPECTOR_SUCCESS]: success,
+  [Types.QUESTION_INSPECTOR_REQUEST]: request,
   [Types.QUESTION_INSPECTOR_FAILURE]: failure
 })
