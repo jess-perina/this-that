@@ -4,45 +4,48 @@ import Immutable from 'seamless-immutable'
 /* ------------- Types and Action Creators ------------- */
 
 const { Types, Creators } = createActions({
-  feedRequest: ['userId'],
-  feedSuccess: ['payload'],
-  feedFailure: null
-
+  questionInspectorRequest: ['questionId'],
+  questionInspectorSuccess: ['question'],
+  questionInspectorFailure: null,
+  questionInspectorAwsTest: null
 })
 
-export const FeedTypes = Types
+export const QuestionInspectorTypes = Types
 export default Creators
 
 /* ------------- Initial State ------------- */
 
 export const INITIAL_STATE = Immutable({
-  feed: [], //Array Of Question Instances
+  questionId: null,
   fetching: null,
-  //payload: null,
+  payload: null,
   error: null
 })
 
 /* ------------- Reducers ------------- */
 
 // request the data from an api
-export const request = (state, { userId }) =>
-  state.merge({ fetching: true})
+export const request = (state, { data }) =>
+  state.merge({ fetching: true, data, payload: null })
+
+export const awsTest = (state) => state
 
 // successful api lookup
 export const success = (state, action) => {
   const { payload } = action
-  return state.merge({ fetching: false, error: null, feed: payload })
+  console.log(payload)
+  // return state.merge({ fetching: false, error: null, payload })
 }
 
 // Something went wrong somewhere.
 export const failure = state =>
-  state.merge({ fetching: false, error: true})
-
+  state.merge({ fetching: false, error: true, payload: null })
 
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
-  [Types.FEED_REQUEST]: request,
-  [Types.FEED_SUCCESS]: success,
-  [Types.FEED_FAILURE]: failure
+  [Types.QUESTION_INSPECTOR_AWS_TEST]: awsTest,
+  [Types.QUESTION_INSPECTOR_SUCCESS]: success,
+  [Types.QUESTION_INSPECTOR_REQUEST]: request,
+  [Types.QUESTION_INSPECTOR_FAILURE]: failure
 })

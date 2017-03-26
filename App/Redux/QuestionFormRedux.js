@@ -5,7 +5,7 @@ import Immutable from 'seamless-immutable'
 
 const { Types, Creators } = createActions({
   questionUpdate: ['field', 'text'],
-  questionSubmit: ['questionText', 'leftText', 'rightText', 'userId'],
+  questionSubmit: ['questionText', 'leftText', 'rightText', 'respondents', 'expirationDate', 'expirationTime', 'userId'],
   questionSuccess: ['payload'],
   questionFailure: null
 })
@@ -22,6 +22,8 @@ export const INITIAL_STATE = Immutable({
   leftImage: '',
   rightImage: '',
   respondents: [],
+  expirationDate: '',
+  expirationTime: '',
   isPublic: false
 })
 
