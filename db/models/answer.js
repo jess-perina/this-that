@@ -26,10 +26,9 @@ const Answer = db.define('answer', {
   classMethods: {
     getAllQuestionsToUser: function (userId) {
       return this.findAll({
-        where: {respondent_id: userId}
-         ,
-         include: [{model: db.model('question'), where: {expires: {$gte: new Date()}, open: true}}],
-         order: 'vote ASC'
+        where: {respondent_id: userId},
+        include: [{model: db.model('question'), where: {expires: {$gte: new Date()}, open: true}}],
+        order: 'vote ASC'
       })
     },
     getNextQuestionsToUser: function (userId, offset) {  // Offset should be the current length of the array
