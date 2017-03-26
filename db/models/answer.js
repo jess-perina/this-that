@@ -29,8 +29,8 @@ const Answer = db.define('answer', {
         where: {respondent_id: userId},
         include: [{model: db.model('question'), where: {expires: {$gte: new Date()}, open: true}}],
         order: [
-          ['created_at', 'DESC'],
-          ['vote', 'ASC nulls first']
+          ['vote', 'ASC nulls first'],
+          ['created_at', 'DESC']
       ]
       })
     },
