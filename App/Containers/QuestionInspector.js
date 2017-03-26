@@ -1,5 +1,5 @@
 import React from 'react'
-import { ScrollView, Text } from 'react-native'
+import { ScrollView, Text, TextInput, View } from 'react-native'
 import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
@@ -16,15 +16,20 @@ class QuestionInspector extends React.Component {
   }
 
   componentDidMount () {
-    console.log('aws testing?')
-    this.props.postTest()
+    this.props.goGetTheQuestion()
   }
 
   render () {
     return (
-      <ScrollView style={styles.container}>
-        <Text>QuestionInspector Container</Text>
-      </ScrollView>
+      <View style={styles.container}>
+        <View style={{marginTop: 20}}>
+          <Text style={styles.boldLabel} >Top</Text>
+        </View>
+        <View style={styles.optionsContainer} >
+          <Text style={styles.boldLabel} >Left</Text>
+          <Text style={styles.boldLabel} >Right</Text>
+        </View>
+      </View>
     )
   }
 }
@@ -36,8 +41,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    postTest: () => {
-      dispatch(QuestionInspectorActions.questionInspectorAwsTest())
+    goGetTheQuestion: () => {
+      dispatch(QuestionInspectorActions.questionInspectorRequest())
     }
   }
 }

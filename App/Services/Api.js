@@ -52,11 +52,12 @@ const create = (baseURL = 'https://socketsynth.ngrok.io/') => {
     let myQresponse = api.get(`api/user/${userID}/askedby`)
     return myQresponse
   }
-  const getQuestion = (questionId) => {
+  const getQuestion = () => {
     return api.get(`api/question/2`)
   }
-  const grabFeed = (userId) =>{
-    return api.get(`api/user/${userId}/askedto`)
+  const grabFeed = (userId) => {
+    let gottenQuestion = api.get(`api/user/${userId}/askedto`)
+    return gottenQuestion
   }
   // will also need respondents and proper userId
 
