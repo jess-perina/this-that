@@ -149,7 +149,7 @@ class QuestionForm extends React.Component {
           onConfirm={this.handleDateChange}
         />
         <View style={Styles.buttonContainer}>
-          <RoundedButton text='Choose Friends' onPress={Actions.cameraView} />
+          <RoundedButton text='Choose Friends' onPress={Actions.Contacts} />
           <TouchableHighlight onPress={Actions.cameraView}>
             <Image source={Icons.camera} />
           </TouchableHighlight>
