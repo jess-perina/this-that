@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text } from 'react-native'
+import { Text, View } from 'react-native'
 import styles from './Styles/ContactsViewStyle'
 import CheckBox from 'react-native-check-box'
 
@@ -10,12 +10,14 @@ export default class ContactsView extends React.Component {
     let contactName = <Text style={styles.label}>{name}</Text>
 
     return (
-      <CheckBox
-        style={{ flex: 1, padding: 10, backgroundColor: 'pink' }}
-        rightText={contactName}
-        checked={false}
-        onClick={(event) => { this.props.clickChange(name) }}
-      />
+      <View>
+        <CheckBox
+          style={{ flex: 1, padding: 10, backgroundColor: 'pink' }}
+          rightText={contactName}
+          checked={false}
+          onClick={(event) => { this.props.clickChange(this.props.userId) }}
+        />
+      </View>
     )
   }
 }
