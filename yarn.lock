@@ -4901,6 +4901,10 @@ react-native-aws3@^0.0.4:
   version "0.6.0"
   resolved "https://github.com/lwansbrough/react-native-camera.git#98de15cf9a250dd667e7459f5378e4dfe6a60f3c"
 
+react-native-check-box@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/react-native-check-box/-/react-native-check-box-1.0.4.tgz#228507af6df59fa07b334dfd569aeb709e9ca1e6"
+
 react-native-cli@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/react-native-cli/-/react-native-cli-2.0.1.tgz#f2cd3c7aa1b83828cdfba630e2dfd817df766d54"

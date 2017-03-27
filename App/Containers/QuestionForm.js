@@ -54,6 +54,14 @@ class QuestionForm extends React.Component {
     this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this.keyboardDidHide)
   }
 
+  componentWillReceiveProps (newProps) {
+    if (newProps.respondents) {
+      this.setState({
+        respondents: newProps.respondents
+      })
+    }
+  }
+
   componentWillUnmount () {
     this.keyboardDidShowListener.remove()
     this.keyboardDidHideListener.remove()
@@ -149,7 +157,7 @@ class QuestionForm extends React.Component {
           onConfirm={this.handleDateChange}
         />
         <View style={Styles.buttonContainer}>
-          <RoundedButton text='Choose Friends' onPress={Actions.cameraView} />
+          <RoundedButton text='Choose Friends' onPress={Actions.Contacts} />
           <TouchableHighlight onPress={Actions.cameraView}>
             <Image source={Icons.camera} />
           </TouchableHighlight>

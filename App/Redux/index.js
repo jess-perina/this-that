@@ -11,7 +11,8 @@ export default () => {
     search: require('./SearchRedux').reducer,
     myQuestions: require('./MyQuestionsRedux').reducer,
     questionInspector: require('./MyQuestionsRedux').reducer,
-    feed: require('./FeedRedux').reducer
+    feed: require('./FeedRedux').reducer,
+    userContacts: require('./ContactsRedux').reducer
   })
 
   return configureStore(rootReducer, rootSaga)
