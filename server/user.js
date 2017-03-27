@@ -83,7 +83,7 @@ module.exports = require('express').Router()
     res.json(arrOfSingleAnswer[0])
   })
   .catch(next)
-}) // '[' + array.toString + ']'
+})
 
 .post('/:userId/newprivatequestion', (req, res, next) => {
   let {title, leftText, rightText, leftImage, rightImage, publicBool, respondents} = req.body
