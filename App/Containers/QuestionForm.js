@@ -54,6 +54,15 @@ class QuestionForm extends React.Component {
     this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this.keyboardDidHide)
   }
 
+  componentWillReceiveProps (newProps) {
+    console.log(newProps)
+    if (newProps.respondents) {
+      this.setState({
+        respondents: newProps.respondents
+      })
+    }
+  }
+
   componentWillUnmount () {
     this.keyboardDidShowListener.remove()
     this.keyboardDidHideListener.remove()
