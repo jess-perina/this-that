@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Text, ListView } from 'react-native'
 import { connect } from 'react-redux'
 import ContactsView from '../Components/ContactsView'
+import ContactsActions from '../Redux/ContactsRedux'
 
 
 // Styles
@@ -39,14 +40,18 @@ class Contacts extends React.Component {
     const ds = new ListView.DataSource({rowHasChanged})
 
     // Datasource is always in state
+    console.log('contactsContainer pre state');
     this.state = {
-      dataSource: ds.cloneWithRows(dataObjects)
+      dataSource: ds.cloneWithRows(dataObjects),
+      selected: []
     }
+    console.log('in contactsContainer constructor')
     this.handleSelected = this.handleSelected.bind(this)
+    this._renderRow = this._renderRow.bind(this)
   }
 
   handleSelected (name) {
-    const selected = this.state.selected
+    const selected = Array.from(this.state.selected)
     const nameIndex = selected.indexOf(name)
     if (nameIndex === -1) {
       selected.push(name)
@@ -58,12 +63,19 @@ class Contacts extends React.Component {
     })
   }
 
+  handleDone = () => {
+    const respondents = this.state.selected
+    this.props.setResponders(respondents)
+  }
+
+
   _renderRow (rowData) {
     return (
       <ContactsView
         first={rowData.nameFirst}
         last={rowData.nameLast}
-        onClickChange={this.handleSelected}
+        clickChange={this.handleSelected}
+        empty='empty'
       />
     )
   }
@@ -105,6 +117,9 @@ class Contacts extends React.Component {
 const mapStateToProps = (state) => {
   return {
     // ...redux state to props here
+    fetching: state.userContacts.fetching,
+    contacts: state.userContacts.contacts,
+    selected: state.question.respondents
     // doesn't exist on login state yet, but I think this is where we should grab contacts/friends
     // contacts: state.login.contacts
   }
@@ -112,6 +127,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    setResponders: respondents => dispatch(ContactsActions.responedntRequest(respondents))
   }
 }
 

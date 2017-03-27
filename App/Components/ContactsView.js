@@ -6,14 +6,15 @@ import CheckBox from 'react-native-check-box'
 export default class ContactsView extends React.Component {
 
   render () {
-    console.log(this.props)
-    let contactName = <Text style={styles.label}>{`${this.props.first} ${this.props.last}`}</Text>
+    const name = `${this.props.first} ${this.props.last}`
+    let contactName = <Text style={styles.label}>{name}</Text>
+
     return (
       <CheckBox
         style={{ flex: 1, padding: 10, backgroundColor: 'pink' }}
         rightText={contactName}
-        checked
-        onClick={() => this.props.onClickChange(contactName)}
+        checked={false}
+        onClick={(event) => { this.props.clickChange(name) }}
       />
     )
   }
