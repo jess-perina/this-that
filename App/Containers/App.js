@@ -18,6 +18,9 @@ const store = createStore()
  */
 class App extends Component {
   render () {
+    const unsubscribe = store.subscribe(() => {
+      console.log('State>>> ', store.getState())
+    })
     return (
       <Provider store={store}>
         <RootContainer />

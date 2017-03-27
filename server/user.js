@@ -29,7 +29,11 @@ module.exports = require('express').Router()
 .get('/:userId/askedto', (req, res, next) => {
   Answer.getAllQuestionsToUser(req.params.userId)
   .then((answers) => {
-    let questions = answers.map(answer => answer.question)
+    let questions = answers.map(answer => {
+      let question = answer.question
+      question.dataValues.myVote = answer.dataValues.vote
+      return question
+    })
     res.json(questions)
   })
   .catch(next)
