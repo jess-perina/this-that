@@ -2,7 +2,8 @@ import React from 'react'
 import { View, Text, ListView } from 'react-native'
 import { connect } from 'react-redux'
 import ContactsView from '../Components/ContactsView'
-import ContactsActions from '../Redux/ContactsRedux'
+import QuestionFormActions from '../Redux/QuestionFormRedux'
+import FullButton from '../Components/FullButton'
 
 
 // Styles
@@ -25,13 +26,13 @@ class Contacts extends React.Component {
     * Usually this should come from Redux mapStateToProps
     *************************************************************/
     const dataObjects = [
-      {nameFirst: 'Jacquin', nameLast: 'Smith'},
-      {nameFirst: 'Ian', nameLast: 'Smith'},
-      {nameFirst: 'Jess', nameLast: 'Smith'},
-      {nameFirst: 'Konst', nameLast: 'Smith'},
-      {nameFirst: 'Silva', nameLast: 'Smith'},
-      {nameFirst: 'Mike', nameLast: 'Smith'},
-      {nameFirst: 'Maria', nameLast: 'Smith'}
+      {nameFirst: 'Jacquin', nameLast: 'Smith', userId: 2},
+      {nameFirst: 'Ian', nameLast: 'Smith', userId: 3},
+      {nameFirst: 'Jess', nameLast: 'Smith', userId: 4},
+      {nameFirst: 'Konst', nameLast: 'Smith', userId: 5},
+      {nameFirst: 'Silva', nameLast: 'Smith', userId: 7},
+      {nameFirst: 'Mike', nameLast: 'Smith', userId: 12},
+      {nameFirst: 'Maria', nameLast: 'Smith', userId: 13}
     ]
 
     const rowHasChanged = (r1, r2) => r1 !== r2
@@ -40,12 +41,10 @@ class Contacts extends React.Component {
     const ds = new ListView.DataSource({rowHasChanged})
 
     // Datasource is always in state
-    console.log('contactsContainer pre state');
     this.state = {
       dataSource: ds.cloneWithRows(dataObjects),
       selected: []
     }
-    console.log('in contactsContainer constructor')
     this.handleSelected = this.handleSelected.bind(this)
     this._renderRow = this._renderRow.bind(this)
   }
@@ -74,8 +73,8 @@ class Contacts extends React.Component {
       <ContactsView
         first={rowData.nameFirst}
         last={rowData.nameLast}
+        userId={rowData.userId}
         clickChange={this.handleSelected}
-        empty='empty'
       />
     )
   }
@@ -109,6 +108,10 @@ class Contacts extends React.Component {
           enableEmptySections
           pageSize={15}
         />
+        <FullButton
+          text='Done'
+          onPress={this.handleDone}
+        />
       </View>
     )
   }
@@ -127,7 +130,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setResponders: respondents => dispatch(ContactsActions.responedntRequest(respondents))
+    setResponders: respondents => dispatch(QuestionFormActions.questionSetRespondents(respondents))
   }
 }
 
