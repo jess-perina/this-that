@@ -4,7 +4,7 @@ import styles from './Styles/QuestionViewStyle'
 
 export default class FeedQuestionAnswered extends React.Component {
   calculatePercentage (input) {
-    const percent = Math.floor(input / (this.props.rightVotes + this.props.leftVotes)) * 100
+    const percent = Math.floor(input / (this.props.rightVotes + this.props.leftVotes) * 100)
     if (percent === Infinity) return 100
     else return (isNaN(percent) ? 0 : percent)
   }

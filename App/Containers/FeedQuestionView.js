@@ -7,7 +7,6 @@ import {View} from 'react-native'
 import FeedQuestionAnswered from '../Components/FeedQuestionAnswered'
 
 export default class FeedQuestionView extends React.Component {
-
   constructor (props) {
     super(props)
     this.state = {
@@ -18,10 +17,16 @@ export default class FeedQuestionView extends React.Component {
     this.onClickLeft = this.onClickLeft.bind(this)
     this.onClickRight = this.onClickRight.bind(this)
   }
+  componentWillReceiveProps (nextProps) {
+    this.setState({
+      myVote: nextProps.question.myVote,
+      leftVotes: nextProps.question.leftVotes,
+      rightVotes: nextProps.question.rightVotes
+    })
+  }
   onClickLeft () {
     return axios.post(`https://socketsynth.ngrok.io/api/question/${this.props.question.id}`, { vote: 'left', comment: '', respondentId: this.props.userId })
     .then(() => {
-      console.log('We made it, b')
       this.setState({myVote: 'left', leftVotes: this.state.leftVotes + 1})
     })
     .catch((error) => console.log(error))
@@ -36,7 +41,6 @@ export default class FeedQuestionView extends React.Component {
 
   render () {
     const { title, leftText, rightText, asker } = this.props.question         // leftVotes, rightVotes,
-
     if (this.state.myVote) {
       return (
         <View>
