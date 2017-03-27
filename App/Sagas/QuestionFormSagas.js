@@ -23,6 +23,7 @@ let file = {
 }
 
 export function * imageBucket () {
+  // image url
   console.log(options)
   const response = yield call(RNS3.put, file, options)
   console.log(response)
@@ -42,19 +43,23 @@ export function * imageBucket () {
 }
 
 export function * postQuestion (api, action) {
-  const { questionText, leftText, rightText, userId } = action
-
+  const { questionText, leftText, rightText, respondents, leftImage, rightImage, userId } = action
+console.log('action log--- ', action)
   // make the call to the api
   let imageResponse
+  let location
   try {
     imageResponse = yield imageBucket()
   } catch (e) {
     console.log(e)
   }
 
-  console.log('erver set back---', imageResponse)
-  const response = yield call(api.postQuestion, questionText, leftText, rightText, userId)
+  location = imageResponse.headers.Location
+  console.log('location---', location, 'imageResponse---', imageResponse)
 
+  console.log('AWS server set back---', imageResponse)
+  const response = yield call(api.postQuestion, questionText, leftText, rightText, respondents, leftImage, location, userId)
+  console.log('DB server set back---', response)
   // success?
   if (response.ok) {
     // You might need to change the response here - do this with a 'transform',
