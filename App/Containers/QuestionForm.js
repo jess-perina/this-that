@@ -55,7 +55,6 @@ class QuestionForm extends React.Component {
   }
 
   componentWillReceiveProps (newProps) {
-    console.log(newProps)
     if (newProps.respondents) {
       this.setState({
         respondents: newProps.respondents
