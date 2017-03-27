@@ -12,7 +12,6 @@ class Feed extends React.Component {
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
     return (
       <ListView dataSource={ds.cloneWithRows(this.props.feed)} renderRow={(question) => {
-        console.log('question', question.id)
         return (<FeedQuestionView
           question={question}
           userId={this.props.userId} />)
