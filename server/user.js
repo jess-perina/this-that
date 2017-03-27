@@ -83,13 +83,15 @@ module.exports = require('express').Router()
     res.json(arrOfSingleAnswer[0])
   })
   .catch(next)
-})
+}) // '[' + array.toString + ']'
 
 .post('/:userId/newprivatequestion', (req, res, next) => {
-  let {title, leftText, rightText, publicBool, respondents} = req.body
-  Question.create({title, leftText, rightText, public: publicBool, owner_id: req.params.userId})
+  let {title, leftText, rightText, leftImage, rightImage, publicBool, respondents} = req.body
+  Question.create({title, leftText, rightText, leftImage, rightImage, public: publicBool, owner_id: req.params.userId})
   .then((question) => {
-    let participantsAndMe = JSON.parse(respondents).push(req.params.userId)
+    let participantsAndMe = JSON.parse(respondents)
+    participantsAndMe.push(req.params.userId)
+
     if (participantsAndMe.length) {
       return Promise.map(participantsAndMe, (respondent) => {
         return Answer.create({respondent_id: respondent, question_id: question.id})
