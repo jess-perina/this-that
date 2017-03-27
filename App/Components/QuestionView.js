@@ -11,8 +11,8 @@ export default class QuestionView extends React.Component {
           <Text style={styles.boldLabel} >{this.props.text}</Text>
         </View>
         <View style={styles.optionsContainer} >
-          <Text style={styles.boldLabel} >{this.props.left}</Text>
-          <Text style={styles.boldLabel} >{this.props.right}</Text>
+          <Text style={styles.boldLabel} onPress={this.props.onClickLeft} >{this.props.left}</Text>
+          <Text style={styles.boldLabel} onPress={this.props.onClickRight} >{this.props.right}</Text>
         </View>
       </View>
     )

@@ -32,7 +32,7 @@ const Answer = db.define('answer', {
         order: [
           ['vote', 'ASC nulls first'],
           ['created_at', 'DESC']
-      ]
+        ]
       })
     },
     getNextQuestionsToUser: function (userId, offset) {  // Offset should be the current length of the array

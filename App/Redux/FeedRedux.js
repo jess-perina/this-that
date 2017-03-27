@@ -16,9 +16,9 @@ export default Creators
 /* ------------- Initial State ------------- */
 
 export const INITIAL_STATE = Immutable({
-  feed: [], //Array Of Question Instances
+  feed: [], // Array Of Question Instances
   fetching: null,
-  //payload: null,
+  // payload: null,
   error: null
 })
 
@@ -37,7 +37,6 @@ export const success = (state, action) => {
 // Something went wrong somewhere.
 export const failure = state =>
   state.merge({ fetching: false, error: true})
-
 
 /* ------------- Hookup Reducers To Types ------------- */
 
