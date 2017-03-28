@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text } from 'react-native'
-import styles from './Styles/QuestionViewStyle'
+import styles from './Styles/FeedQuestionAnsweredStyle'
 
 export default class FeedQuestionAnswered extends React.Component {
   calculatePercentage (input) {
@@ -12,7 +12,7 @@ export default class FeedQuestionAnswered extends React.Component {
   render () {
     return (
       <View style={styles.container}>
-        <View style={{marginTop: 20}}>
+        <View style={{marginTop: 5}}>
           <Text style={styles.boldLabel} >{this.props.text}</Text>
         </View>
         <View style={styles.optionsContainer} >
