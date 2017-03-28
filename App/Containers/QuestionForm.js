@@ -37,12 +37,13 @@ class QuestionForm extends React.Component {
       rightText: '',
       leftImage: '',
       rightImage: '',
+      photoSide: '',
+      photoUri: '',
       respondents: [],
       expirationDate: date,
       expirationTime: time,
       isPublic: false,
-      visibleHeight: Metrics.screenHeight,
-      photoSide: ''
+      visibleHeight: Metrics.screenHeight
     }
     this.isAttempting = false
     this.handleDateChange = this.handleDateChange.bind(this)
@@ -56,9 +57,15 @@ class QuestionForm extends React.Component {
   }
 
   componentWillReceiveProps (newProps) {
+    console.log('newProps---', newProps)
     if (newProps.respondents) {
       this.setState({
         respondents: newProps.respondents
+      })
+    }
+    if (newProps.photoUri) {
+      this.setState({
+        [`${this.state.photoSide}Image`]: newProps.photoUri
       })
     }
   }
@@ -189,6 +196,7 @@ const mapStateToProps = (state) => {
     rightText: state.question.rightText,
     leftImage: state.question.leftImage,
     rightImage: state.question.rightImage,
+    photoUri: state.question.photoUri,
     respondents: state.question.respondents,
     expirationDate: state.question.expirationDate,
     expirationTime: state.question.expirationTime,
