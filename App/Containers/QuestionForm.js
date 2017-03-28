@@ -57,7 +57,6 @@ class QuestionForm extends React.Component {
   }
 
   componentWillReceiveProps (newProps) {
-    console.log('newProps---', newProps)
     if (newProps.respondents) {
       this.setState({
         respondents: newProps.respondents
@@ -106,7 +105,6 @@ class QuestionForm extends React.Component {
   }
 
   handleDateChange = (date, time) => {
-    console.log(date, time)
     this.setState({expirationDate: date, expirationTime: time})
   }
 
@@ -116,7 +114,6 @@ class QuestionForm extends React.Component {
   }
 
   render () {
-    console.log('state---', this.state)
     const { questionText, leftText, rightText } = this.state
     const { fetching } = this.props
     const editable = !fetching
