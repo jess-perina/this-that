@@ -13,7 +13,7 @@ export default class FeedQuestionAnswered extends React.Component {
   render () {
     return (
       <View style={styles.container}>
-        <View style={{marginTop: 20}}>
+        <View style={{marginTop: 5}}>
           <Text style={styles.boldLabel} >{this.props.text}</Text>
           { (this.props.leftVotes && this.props.rightVotes) ? (<PieChart
             chart_wh={100}
