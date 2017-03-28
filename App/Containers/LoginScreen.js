@@ -149,7 +149,11 @@ class LoginScreen extends React.Component {
             </TouchableOpacity>
           </View>
         </View>
-
+        <Text
+          style={{color: 'white', textAlign: 'center', textDecorationLine: 'underline', marginTop: 25}}
+        >
+          New to This/That? Create an account
+        </Text>
       </ScrollView>
     )
   }
