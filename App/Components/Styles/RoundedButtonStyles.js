@@ -3,8 +3,10 @@ import { Fonts, Colors, Metrics } from '../../Themes/'
 
 export default StyleSheet.create({
   button: {
-    height: 45,
+    height: 25,
     borderRadius: 5,
+    paddingLeft: 10,
+    paddingRight: 10,
     marginHorizontal: Metrics.section,
     marginVertical: Metrics.baseMargin,
     backgroundColor: Colors.fire,
