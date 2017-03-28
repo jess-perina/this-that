@@ -17,7 +17,6 @@ import { FeedTypes } from '../Redux/FeedRedux'
 import { startup } from './StartupSagas'
 import { login } from './LoginSagas'
 
-// import { getUserAvatar } from './GithubSagas'
 import { openScreen } from './OpenScreenSagas'
 import { postQuestion } from './QuestionFormSagas'
 import { getMyQuestions } from './MyQuestionsSagas'
@@ -39,7 +38,6 @@ export default function * root () {
     takeLatest(OpenScreenTypes.OPEN_SCREEN, openScreen),
 
     // some sagas receive extra parameters in addition to an action
-    // takeLatest(GithubTypes.USER_REQUEST, getUserAvatar, api),
     takeLatest(QuestionFormTypes.QUESTION_SUBMIT, postQuestion, api),
     // takeLatest(QuestionFormTypes.QUESTION_IMAGE_SUCCESS, postQuestion, api),
     takeLatest(MyQuestionsTypes.MY_QUESTIONS_REQUEST, getMyQuestions, api),
