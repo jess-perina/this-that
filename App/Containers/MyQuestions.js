@@ -1,8 +1,8 @@
 import React from 'react'
 import { ScrollView, Text } from 'react-native'
 import { connect } from 'react-redux'
-// Add Actions - replace 'Your' with whatever your reducer is called :)
-// import YourActions from '../Redux/YourRedux'
+import MainNav from '../Navigation/MainNav'
+
 import MyQuestionsActions from '../Redux/MyQuestionsRedux'
 
 // Styles
@@ -23,7 +23,8 @@ class MyQuestions extends React.Component {
   render () {
     console.log('questionprops---', this.props)
     return (
-      <ScrollView style={styles.container}>
+      <ScrollView style={styles.container} stickyHeaderIndices={[0]}>
+        <MainNav />
         <Text style={styles.boldLabel}>My Questions Container</Text>
         { this.props.myQuestions.myQuestions ?
           <Text style={styles.boldLabel}>{JSON.stringify(this.props.myQuestions.myQuestions)}</Text> :

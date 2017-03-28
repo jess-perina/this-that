@@ -1,21 +1,33 @@
 import React from 'react'
-import { ListView } from 'react-native'
+import { ListView, View } from 'react-native'
 import { connect } from 'react-redux'
 import FeedQuestionView from './FeedQuestionView'
 import FeedActions from '../Redux/FeedRedux'
+import MainNav from '../Navigation/MainNav'
+
+import styles from './Styles/QuestionFormStyle'
 
 class Feed extends React.Component {
   componentDidMount () {
     this.props.grabFeed(this.props.userId)
   }
+
   render () {
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
     return (
-      <ListView dataSource={ds.cloneWithRows(this.props.feed)} renderRow={(question) => {
-        return (<FeedQuestionView
-          question={question}
-          userId={this.props.userId} />)
-      }} />
+      <ListView
+        style={styles.container}
+        renderHeader={() => <MainNav />}
+        dataSource={ds.cloneWithRows(this.props.feed)}
+        renderRow={(question) => {
+          return (
+            <FeedQuestionView
+              question={question}
+              userId={this.props.userId}
+            />
+          )
+        }}
+      />
     )
   }
 }
