@@ -13,8 +13,10 @@
 import { call, put } from 'redux-saga/effects'
 import QuestionInspectorActions from '../Redux/QuestionInspectorRedux'
 
-export function * inspectQuestion (api, questionId) {
-  const response = yield call(api.getquestion, questionId)
+export function * inspectQuestion (api) {
+  const response = yield call(api.getQuestion)
+
+  console.log(response)
 
   // success?
   if (response.ok) {

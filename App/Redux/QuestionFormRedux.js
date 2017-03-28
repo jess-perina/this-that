@@ -7,6 +7,8 @@ const { Types, Creators } = createActions({
   questionUpdate: ['field', 'text'],
   questionSubmit: ['questionText', 'leftText', 'rightText', 'respondents', 'expirationDate', 'expirationTime', 'userId'],
   questionSuccess: ['payload'],
+  questionSetRespondents: ['respondents'],
+  dispatchPhoto: ['photoUri'],
   questionFailure: null
 })
 
@@ -21,6 +23,7 @@ export const INITIAL_STATE = Immutable({
   rightText: '',
   leftImage: '',
   rightImage: '',
+  photoUri: '',
   respondents: [],
   expirationDate: '',
   expirationTime: '',
@@ -33,9 +36,16 @@ export const INITIAL_STATE = Immutable({
 export const update = (state, {field, text}) =>
   state.merge({ [field]: text })
 
+// set respondents for question
+export const submit = (state, {questionText, leftText, rightText, respondents, leftImage, rightImage, userId}) => state.merge({questionText, leftText, rightText, respondents})
+
 // update form text
-export const submit = (state, {questionText, leftText, rightText}) =>
-  state.merge({questionText, leftText, rightText})
+export const registerRespondents = (state, {respondents}) =>
+  state.merge({respondents})
+
+// send photo taken to question form
+export const setPhotoUri = (state, {photoUri}) =>
+  state.merge({photoUri})
 
 // request the data from an api
 export const request = (state, { data }) =>
@@ -55,6 +65,8 @@ export const failure = state =>
 
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.QUESTION_UPDATE]: update,
+  [Types.QUESTION_SET_RESPONDENTS]: registerRespondents,
+  [Types.DISPATCH_PHOTO]: setPhotoUri,
   [Types.QUESTION_SUBMIT]: submit,
   [Types.QUESTION_REQUEST]: request,
   [Types.QUESTION_SUCCESS]: success,

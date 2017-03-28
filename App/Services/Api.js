@@ -44,7 +44,12 @@ const create = (baseURL = 'https://socketsynth.ngrok.io/') => {
   const getRoot = () => api.get('')
   const getRate = () => api.get('rate_limit')
   const getUser = (username) => api.get('search/users', {q: username})
-  const postQuestion = (question, left, right, userId) => api.post(`api/user/${userId}/newpublicquestion`, {title: question, leftText: left, rightText: right})
+
+  const postQuestion = (question, left, right, respondents, leftImage, rightImage, userId) => {
+    respondents = `[${respondents.toString()}]`
+    return api.post(`api/user/${userId}/newprivatequestion`, {title: question, leftText: left, rightText: right, respondents: respondents, leftImage: leftImage, rightImage: rightImage, userId: userId})
+  }
+
   const logMeIn = (username, password) => {
     return api.post('api/auth/login/local', {username: username, password: password})
   }
@@ -52,11 +57,12 @@ const create = (baseURL = 'https://socketsynth.ngrok.io/') => {
     let myQresponse = api.get(`api/user/${userID}/askedby`)
     return myQresponse
   }
-  const getQuestion = (questionId) => {
+  const getQuestion = () => {
     return api.get(`api/question/2`)
   }
-  const grabFeed = (userId) =>{
-    return api.get(`api/user/${userId}/askedto`)
+  const grabFeed = (userId) => {
+    let gottenQuestion = api.get(`api/user/${userId}/askedto`)
+    return gottenQuestion
   }
   // will also need respondents and proper userId
 
