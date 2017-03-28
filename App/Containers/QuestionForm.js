@@ -37,6 +37,8 @@ class QuestionForm extends React.Component {
       rightText: '',
       leftImage: '',
       rightImage: '',
+      photoSide: '',
+      photoUri: '',
       respondents: [],
       expirationDate: date,
       expirationTime: time,
@@ -58,6 +60,11 @@ class QuestionForm extends React.Component {
     if (newProps.respondents) {
       this.setState({
         respondents: newProps.respondents
+      })
+    }
+    if (newProps.photoUri) {
+      this.setState({
+        [`${this.state.photoSide}Image`]: newProps.photoUri
       })
     }
   }
@@ -98,12 +105,15 @@ class QuestionForm extends React.Component {
   }
 
   handleDateChange = (date, time) => {
-    console.log(date, time)
     this.setState({expirationDate: date, expirationTime: time})
   }
 
+  leftCam = (side) => {
+    this.setState({photoSide: side})
+    Actions.cameraView()
+  }
+
   render () {
-    console.log('state---', this.state)
     const { questionText, leftText, rightText } = this.state
     const { fetching } = this.props
     const editable = !fetching
@@ -151,17 +161,22 @@ class QuestionForm extends React.Component {
             />
           </View>
         </View>
+        <View style={{height: 80}}>
+          <View style={Styles.buttonContainer}>
+            <View>
+              <RoundedButton text='Left Photo' onPress={() => { this.leftCam('left') }} />
+            </View>
+            <View>
+              <RoundedButton text='Right Photo' onPress={() => { this.leftCam('right') }} />
+            </View>
+          </View>
+        </View>
         <ExpirationDatePicker
           date={this.state.expirationDate}
           time={this.state.expirationTime}
           onConfirm={this.handleDateChange}
         />
-        <View style={Styles.buttonContainer}>
-          <RoundedButton text='Choose Friends' onPress={Actions.Contacts} />
-          <TouchableHighlight onPress={Actions.cameraView}>
-            <Image source={Icons.camera} />
-          </TouchableHighlight>
-        </View>
+        <RoundedButton text='Choose Friends' onPress={Actions.Contacts} />
         <RoundedButton
           text='Submit'
           onPress={this.handlePressSubmit}
@@ -176,6 +191,9 @@ const mapStateToProps = (state) => {
     questionText: state.question.questionText,
     leftText: state.question.leftText,
     rightText: state.question.rightText,
+    leftImage: state.question.leftImage,
+    rightImage: state.question.rightImage,
+    photoUri: state.question.photoUri,
     respondents: state.question.respondents,
     expirationDate: state.question.expirationDate,
     expirationTime: state.question.expirationTime,
@@ -187,7 +205,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    attemptSubmit: (questionText, leftText, rightText, respondents, expirationDate, expirationTime, userId) => dispatch(QuestionFormActions.questionSubmit(questionText, leftText, rightText, respondents, expirationDate, expirationTime, userId))
+    attemptSubmit: (questionText, leftText, rightText, leftImage, rightImage, respondents, expirationDate, expirationTime, userId) => dispatch(QuestionFormActions.questionSubmit(questionText, leftText, rightText, leftImage, rightImage, respondents, expirationDate, expirationTime, userId))
   }
 }
 

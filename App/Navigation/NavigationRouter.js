@@ -9,7 +9,7 @@ import Contacts from '../Containers/Contacts'
 import QuestionForm from '../Containers/QuestionForm'
 import MyQuestions from '../Containers/MyQuestions'
 import QuestionInspector from '../Containers/QuestionInspector'
-import CameraView from '../Components/CameraView'
+import CameraView from '../Containers/CameraView'
 import Feed from '../Containers/Feed'
 /* **************************
 * Documentation: https://github.com/aksonov/react-native-router-flux
