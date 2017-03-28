@@ -30,7 +30,7 @@ export default StyleSheet.create({
     marginTop: Metrics.baseMargin
   },
   question: {
-    height: 40,
+    height: 35,
     borderColor: 'gray',
     borderWidth: 1,
     borderRadius: 5,
