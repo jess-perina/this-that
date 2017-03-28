@@ -1,6 +1,7 @@
 import React from 'react'
-import { View, Text } from 'react-native'
-import styles from './Styles/FeedQuestionAnsweredStyle'
+import styles from './Styles/QuestionViewStyle'
+import { AppRegistry, Text, View } from 'react-native'
+import PieChart from 'react-native-pie-chart'
 
 export default class FeedQuestionAnswered extends React.Component {
   calculatePercentage (input) {
@@ -14,6 +15,13 @@ export default class FeedQuestionAnswered extends React.Component {
       <View style={styles.container}>
         <View style={{marginTop: 5}}>
           <Text style={styles.boldLabel} >{this.props.text}</Text>
+          { (this.props.leftVotes && this.props.rightVotes) ? (<PieChart
+            chart_wh={100}
+            series={[10000 * this.props.rightVotes + 1, 10000 * this.props.leftVotes + 1]}
+            sliceColor={['#F44336', '#2196F3']}
+            />)
+            : null
+          }
         </View>
         <View style={styles.optionsContainer} >
           <Text style={styles.boldLabel} >{this.props.leftQ + ' : ' + this.calculatePercentage(this.props.leftVotes) + '%'}</Text>
@@ -23,6 +31,8 @@ export default class FeedQuestionAnswered extends React.Component {
     )
   }
 }
+
+AppRegistry.registerComponent('FeedQuestionAnswered', () => FeedQuestionAnswered)
 
 // // Prop type warnings
 // FeedQuestionAnswered.propTypes = {
