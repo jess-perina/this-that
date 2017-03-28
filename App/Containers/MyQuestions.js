@@ -23,7 +23,7 @@ class MyQuestions extends React.Component {
   render () {
     console.log('questionprops---', this.props)
     return (
-      <ScrollView style={styles.container}>
+      <ScrollView style={styles.container} stickyHeaderIndices={[0]}>
         <MainNav />
         <Text style={styles.boldLabel}>My Questions Container</Text>
         { this.props.myQuestions.myQuestions ?
