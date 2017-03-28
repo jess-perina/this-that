@@ -1,5 +1,7 @@
 import { call, put } from 'redux-saga/effects'
 import LoginActions from '../Redux/LoginRedux'
+import NavActions from '../Redux/NavRedux'
+import { Actions } from 'react-native-router-flux'
 
 // attempts to login
 export function * login (api, { userNumber, password }) {
@@ -12,6 +14,8 @@ export function * login (api, { userNumber, password }) {
     // You might need to change the response here - do this with a 'transform',
     // located in ../Transforms/. Otherwise, just pass the data back from the api.
     yield put(LoginActions.loginSuccess(userName, userId))
+    yield put(NavActions.changePage('questionForm'))
+    Actions.questionForm()
   } else {
     yield put(LoginActions.loginFailure())
   }
