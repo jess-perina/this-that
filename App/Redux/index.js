@@ -12,7 +12,8 @@ export default () => {
     myQuestions: require('./MyQuestionsRedux').reducer,
     questionInspector: require('./MyQuestionsRedux').reducer,
     feed: require('./FeedRedux').reducer,
-    userContacts: require('./ContactsRedux').reducer
+    userContacts: require('./ContactsRedux').reducer,
+    nav: require('./NavRedux').reducer
   })
 
   return configureStore(rootReducer, rootSaga)
