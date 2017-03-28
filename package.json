@@ -57,6 +57,7 @@
     "react-native-fit-image": "^1.4.7",
     "react-native-i18n": "^1.0.0",
     "react-native-image-picker": "^0.26.2",
+    "react-native-pathjs-charts": "^0.0.26",
     "react-native-router-flux": "^3.37.0",
     "react-native-vector-icons": "^4.0.0",
     "react-redux": "^5.0.2",
