@@ -2,6 +2,7 @@ import React from 'react'
 import { ScrollView, Text } from 'react-native'
 import { connect } from 'react-redux'
 import MainNav from '../Navigation/MainNav'
+import QuestionView from '../Components/QuestionView'
 
 import MyQuestionsActions from '../Redux/MyQuestionsRedux'
 
@@ -22,11 +23,23 @@ class MyQuestions extends React.Component {
 
   render () {
     console.log('questionprops---', this.props)
+
+    const questions = this.props.myQuestions.myQuestions.map(question => {
+      return (
+        <QuestionView
+          questionText={title}
+          leftText={leftText}
+          rightText={rightText}
+        />
+      )
+    })
+
     return (
       <ScrollView style={styles.container} stickyHeaderIndices={[0]}>
         <MainNav />
         <Text style={styles.boldLabel}>My Questions Container</Text>
         { this.props.myQuestions.myQuestions ?
+          // map questions to question view
           <Text style={styles.boldLabel}>{JSON.stringify(this.props.myQuestions.myQuestions)}</Text> :
           <Text style={styles.boldLabel}>Done Fetching</Text>
         }

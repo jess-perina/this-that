@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Component, ScrollView, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 
 import FitImage from 'react-native-fit-image'
 import styles from './Styles/QuestionViewStyle'
