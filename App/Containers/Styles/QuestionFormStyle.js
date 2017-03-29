@@ -53,7 +53,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'flex-end',
-    paddingBottom: 10,
+    paddingBottom: 0,
     borderColor: 'gray',
     borderWidth: 1,
     borderRadius: 5,
@@ -61,7 +61,7 @@ export default StyleSheet.create({
   },
   options: {
     width: 175,
-    height: 200,
+    height: 276,
     borderBottomColor: 'white',
     borderBottomWidth: 1
   },
