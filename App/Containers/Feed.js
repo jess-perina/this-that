@@ -1,5 +1,5 @@
 import React from 'react'
-import { ListView, View } from 'react-native'
+import { ListView } from 'react-native'
 import { connect } from 'react-redux'
 import FeedQuestionView from './FeedQuestionView'
 import FeedActions from '../Redux/FeedRedux'
