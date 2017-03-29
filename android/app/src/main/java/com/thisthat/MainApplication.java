@@ -3,7 +3,6 @@ package com.thisthat;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.rt2zz.reactnativecontacts.ReactNativeContacts;
 import com.horcrux.svg.RNSvgPackage;
 import com.imagepicker.ImagePickerPackage;
 import com.lwansbrough.RCTCamera.RCTCameraPackage;
@@ -32,7 +31,6 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new ReactNativeContacts(),
             new RNSvgPackage(),
             new ImagePickerPackage(),
             new RCTCameraPackage(),

@@ -25,7 +25,6 @@ class CameraView extends React.Component {
     return (
       <View style={Styles.container}>
         <Camera
-          // captureTarget={Camera.constants.CaptureTarget.memory}
           ref={(cam) => { this.camera = cam }}
           type={this.state.cameraType}
           style={Styles.preview}
@@ -55,10 +54,7 @@ class CameraView extends React.Component {
     const options = {}
     // options.location = ...
     this.camera.capture({metadata: options})
-      .then((data) => {
-        console.log('camera data ---', data)
-        this.props.sendPicture(data.mediaUri)
-      })
+      .then((data) => this.props.sendPicture(data.mediaUri))
       .catch(err => console.error(err))
     Actions.pop()
   }

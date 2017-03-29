@@ -62,7 +62,6 @@
     "react-native-pathjs-charts": "^0.0.26",
     "react-native-pie-chart": "^1.0.6",
     "react-native-router-flux": "^3.37.0",
-    "react-native-save-asset-library": "^1.0.2",
     "react-native-svg": "^5.1.6",
     "react-native-vector-icons": "^4.0.0",
     "react-redux": "^5.0.2",
