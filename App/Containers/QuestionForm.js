@@ -35,8 +35,8 @@ class QuestionForm extends React.Component {
       questionText: '',
       leftText: '',
       rightText: '',
-      leftImage: '',
-      rightImage: '',
+      leftImage: 'https://lorempixel.com/400/600/',
+      rightImage: 'https://lorempixel.com/400/600/',
       photoSide: '',
       photoUri: '',
       respondents: [],
@@ -57,15 +57,20 @@ class QuestionForm extends React.Component {
   }
 
   componentWillReceiveProps (newProps) {
-    if (newProps.respondents) {
+    console.log('newProps', newProps)
+    if (newProps.respondents !== this.props.respondents) {
+      console.log('hit new respondents')
       this.setState({
         respondents: newProps.respondents
-      })
+      }, () => console.log('post recieved respondents props state', this.state))
+      // console.log('post respondens state', this.state)
     }
-    if (newProps.photoUri) {
+    if (newProps.photoUri !== this.props.photoUri) {
+      console.log('hit new photo uri')
       this.setState({
         [`${this.state.photoSide}Image`]: newProps.photoUri
-      })
+      }, () => console.log('post recieved photoUri props state', this.state))
+      // console.log('post photouri state', this.state)
     }
   }
 
@@ -92,11 +97,11 @@ class QuestionForm extends React.Component {
   }
 
   handlePressSubmit = () => {
-    const { questionText, leftText, rightText, respondents, expirationDate, expirationTime } = this.state
+    const { questionText, leftText, rightText, respondents, leftImage, rightImage, expirationDate, expirationTime } = this.state
     const { userId } = this.props
     this.isAttempting = true
     // attempt a submit - a saga is listening to pick it up from here.
-    this.props.attemptSubmit(questionText, leftText, rightText, respondents, expirationDate, expirationTime, userId)
+    this.props.attemptSubmit(questionText, leftText, rightText, leftImage, rightImage, respondents, expirationDate, expirationTime, userId)
     this.setState({questionText: '', leftText: '', rightText: '', leftImage: '', rightImage: '', respondents: [], isPublic: false})
   }
 
@@ -148,7 +153,7 @@ class QuestionForm extends React.Component {
               />
             </Image>
           </View>
-
+          <View style={{borderLeftWidth: 1, borderLeftColor: 'gray'}} />
           <View style={Styles.options} >
             <Image source={Images.launch} style={Styles.imageContainer}>
               <TextInput
@@ -167,7 +172,7 @@ class QuestionForm extends React.Component {
         </View>
         <View style={{height: 50}}>
           <View style={Styles.buttonContainer}>
-            <View >
+            <View>
               <RoundedButton text='Left Photo' onPress={() => { this.leftCam('left') }} />
             </View>
             <View>
