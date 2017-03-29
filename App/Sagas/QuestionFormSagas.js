@@ -22,9 +22,7 @@ export function * imageBucket (imageUri) {
     name: imageUri.slice(-40, -8) + '.jpg',
     type: 'image/jpg'
   }
-  console.log('fileObject', file)
   const response = yield call(RNS3.put, file, options)
-  console.log('amazon resp0nse ==== ', response)
   if (response.status !== 201) {
     throw new Error('Failed to upload image to S3')
   }
@@ -33,8 +31,6 @@ export function * imageBucket (imageUri) {
 
 export function * postQuestion (api, action) {
   const { questionText, leftText, rightText, respondents, leftImage, rightImage, userId } = action
-  console.log('action log--- ', action)
-  // make the call to the api
   let leftImageResponse, leftLocation, rightImageResponse, rightLocation
   try {
     leftImageResponse = yield imageBucket(leftImage)
