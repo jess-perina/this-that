@@ -57,15 +57,13 @@ class QuestionForm extends React.Component {
   }
 
   componentWillReceiveProps (newProps) {
-    if (newProps.respondents) {
-      this.setState({
-        respondents: newProps.respondents
-      })
+    if (newProps.respondents !== this.props.respondents) {
+      this.setState({ respondents: newProps.respondents })
+
     }
-    if (newProps.photoUri) {
-      this.setState({
-        [`${this.state.photoSide}Image`]: newProps.photoUri
-      })
+    if (newProps.photoUri !== this.props.photoUri) {
+      this.setState({ [`${this.state.photoSide}Image`]: newProps.photoUri })
+
     }
   }
 
@@ -92,11 +90,11 @@ class QuestionForm extends React.Component {
   }
 
   handlePressSubmit = () => {
-    const { questionText, leftText, rightText, respondents, expirationDate, expirationTime } = this.state
+    const { questionText, leftText, rightText, respondents, leftImage, rightImage, expirationDate, expirationTime } = this.state
     const { userId } = this.props
     this.isAttempting = true
     // attempt a submit - a saga is listening to pick it up from here.
-    this.props.attemptSubmit(questionText, leftText, rightText, respondents, expirationDate, expirationTime, userId)
+    this.props.attemptSubmit(questionText, leftText, rightText, leftImage, rightImage, respondents, expirationDate, expirationTime, userId)
     this.setState({questionText: '', leftText: '', rightText: '', leftImage: '', rightImage: '', respondents: [], isPublic: false})
   }
 
