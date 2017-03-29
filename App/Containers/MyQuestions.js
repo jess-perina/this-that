@@ -14,6 +14,7 @@ class MyQuestions extends React.Component {
   constructor (props) {
     super(props)
     this.state = {}
+    this.mapQuestions = this.mapQuestions.bind(this)
   }
 
   componentDidMount () {
@@ -21,33 +22,36 @@ class MyQuestions extends React.Component {
     this.props.getMyQuestions(this.props.userId)
   }
 
+  mapQuestions = (questions) => questions.map((question) => {
+    console.log(question)
+    return (<QuestionView
+      key={question.id}
+      text={question.title}
+      left={question.leftText}
+      right={question.rightText}
+      leftImage={question.leftImage}
+      rightImage={question.rightImage}
+    />)
+  })
+
   render () {
     console.log('questionprops---', this.props)
+    console.log('myQuestions---', this.props.myQuestions.myQuestions)
 
-    const questions = this.props.myQuestions.myQuestions.map(question => {
-      return (
-        <QuestionView
-          questionText={title}
-          leftText={leftText}
-          rightText={rightText}
-        />
-      )
-    })
 
     return (
       <ScrollView style={styles.container} stickyHeaderIndices={[0]}>
         <MainNav />
         <Text style={styles.boldLabel}>My Questions Container</Text>
-        { this.props.myQuestions.myQuestions ?
-          // map questions to question view
-          <Text style={styles.boldLabel}>{JSON.stringify(this.props.myQuestions.myQuestions)}</Text> :
-          <Text style={styles.boldLabel}>Done Fetching</Text>
+        { this.props.myQuestions.myQuestions
+          ? this.mapQuestions(this.props.myQuestions.myQuestions)
+          : <Text style={styles.boldLabel}>Done Fetching</Text>
         }
-
       </ScrollView>
     )
   }
 }
+//  <Text style={styles.boldLabel}>{JSON.stringify(this.props.myQuestions.myQuestions)}</Text>
 
 const mapStateToProps = (state) => {
   return {
