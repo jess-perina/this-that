@@ -15,14 +15,14 @@ import QuestionFormActions from '../Redux/QuestionFormRedux'
 import { RNS3 } from 'react-native-aws3'
 import options from '../../secret.js'
 
-export function * imageBucket (imageUri) {
-  let file = {
-    // `uri` can also be a file system path (i.e. file://)
-    uri: imageUri,
-    name: imageUri.slice(-40, -8) + '.jpg',
-    type: 'image/jpg'
-  }
-  console.log('fileObject', file)
+let file = {
+  // `uri` can also be a file system path (i.e. file://)
+  uri: 'https://lh6.googleusercontent.com/-E716YeMDc6c/VpvZ_Xth3iI/AAAAAAAAFqQ/x7F2-AwS0jA/w580-h315-no/URL-Normalization.jpg',
+  name: 'image.jpg',
+  type: 'image/jpg'
+}
+
+export function * imageBucket () {
   const response = yield call(RNS3.put, file, options)
   if (response.status !== 201) {
     throw new Error('Failed to upload image to S3')
@@ -32,24 +32,19 @@ export function * imageBucket (imageUri) {
 
 export function * postQuestion (api, action) {
   const { questionText, leftText, rightText, respondents, leftImage, rightImage, userId } = action
-  console.log('postQuestion action log--- ', action)
+console.log('action log--- ', action)
   // make the call to the api
-  let leftImageResponse, leftLocation, rightImageResponse, rightLocation
+  let imageResponse
+  let location
   try {
-    leftImageResponse = yield imageBucket(leftImage)
-  } catch (e) {
-    console.log(e)
-  }
-  try {
-    rightImageResponse = yield imageBucket(rightImage)
+    imageResponse = yield imageBucket()
   } catch (e) {
     console.log(e)
   }
 
-  leftLocation = leftImageResponse.headers.Location
-  rightLocation = rightImageResponse.headers.Location
+  location = imageResponse.headers.Location
 
-  const response = yield call(api.postQuestion, questionText, leftText, rightText, respondents, leftLocation, rightLocation, userId)
+  const response = yield call(api.postQuestion, questionText, leftText, rightText, respondents, leftImage, location, userId)
   // success?
   if (response.ok) {
     // You might need to change the response here - do this with a 'transform',
