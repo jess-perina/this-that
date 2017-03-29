@@ -36,15 +36,16 @@ class QuestionInspector extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
+    question: state.questionInspector.question
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    goGetTheQuestion: () => {
-      dispatch(QuestionInspectorActions.questionInspectorRequest())
-    }
-  }
-}
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     goGetTheQuestion: () => {
+//       dispatch(QuestionInspectorActions.questionInspectorRequest())
+//     }
+//   }
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(QuestionInspector)
+export default connect(mapStateToProps)(QuestionInspector)

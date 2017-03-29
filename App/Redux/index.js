@@ -10,7 +10,7 @@ export default () => {
     question: require('./QuestionFormRedux').reducer,
     search: require('./SearchRedux').reducer,
     myQuestions: require('./MyQuestionsRedux').reducer,
-    questionInspector: require('./MyQuestionsRedux').reducer,
+    questionInspector: require('./QuestionInspectorRedux').reducer,
     feed: require('./FeedRedux').reducer,
     userContacts: require('./ContactsRedux').reducer,
     nav: require('./NavRedux').reducer
