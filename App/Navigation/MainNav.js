@@ -16,10 +16,9 @@ class MainNav extends React.Component {
   }
 
   handlePress = (nextView) => {
-    console.log(nextView)
+    console.log('current page state---', this.state.currentPage)
     switch (nextView) {
       case 'questionForm':
-        console.log('in switch--', nextView)
         Actions.questionForm()
         break
       case 'myQuestions':
@@ -37,21 +36,37 @@ class MainNav extends React.Component {
     this.props.changeView(nextView)
   }
 
+  componentWillReceiveProps (newProps) {
+    if (newProps.currentPage !== this.state.currentPage) {
+      this.setState({
+        currentPage: newProps.currentPage
+      })
+    }
+  }
+
+  setStyle = (view) => {
+    if (this.state.currentPage === view) {
+      return styles.selectedRow
+    } else return styles.row
+  }
+
   render () {
+    let current = this.state.currentPage
+    console.log('current---', current)
     return (
       <View style={{height: 50, paddingLeft: 10, paddingRight: 10}}>
         <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', height: 20, backgroundColor: 'pink'}} >
           <TouchableHighlight onPress={(event) => this.handlePress('questionForm')}>
-            <Text style={styles.row}>New{'\n'}Question</Text>
+            <Text style={[styles.row, current === 'questionForm' && styles.selectedRow]}>New{'\n'}Question</Text>
           </TouchableHighlight>
           <TouchableHighlight onPress={(event) => this.handlePress('myQuestions')}>
-            <Text style={styles.row}>My{'\n'}Questions</Text>
+            <Text style={this.setStyle('myQuestions')}>My{'\n'}Questions</Text>
           </TouchableHighlight>
           <TouchableHighlight onPress={(event) => this.handlePress('Feed')}>
-            <Text style={styles.row}>Friend{'\n'}Question</Text>
+            <Text style={this.setStyle('Feed')}>Friend{'\n'}Question</Text>
           </TouchableHighlight>
           <TouchableHighlight onPress={(event) => this.handlePress('random')}>
-            <Text style={styles.row}>Random{'\n'}Question</Text>
+            <Text style={this.setStyle('random')}>Random{'\n'}Question</Text>
           </TouchableHighlight>
         </View>
       </View>
