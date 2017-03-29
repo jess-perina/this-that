@@ -15,14 +15,11 @@ import QuestionInspectorActions from '../Redux/QuestionInspectorRedux'
 
 export function * inspectQuestion (api) {
   const response = yield call(api.getQuestion)
-
-  console.log(response)
-
   // success?
   if (response.ok) {
     // You might need to change the response here - do this with a 'transform',
     // located in ../Transforms/. Otherwise, just pass the data back from the api.
-    yield put(QuestionInspectorActions.questionInspectorSuccess(response.data))
+    yield put(QuestionInspectorActions.questionInspectorSuccess(response.question))
   } else {
     yield put(QuestionInspectorActions.questionInspectorFailure())
   }

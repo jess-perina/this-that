@@ -11,6 +11,7 @@ import MyQuestions from '../Containers/MyQuestions'
 import QuestionInspector from '../Containers/QuestionInspector'
 import CameraView from '../Containers/CameraView'
 import Feed from '../Containers/Feed'
+import QuestionInspector from '../Containers/QuestionInspector'
 /* **************************
 * Documentation: https://github.com/aksonov/react-native-router-flux
 ***************************/
@@ -26,8 +27,8 @@ class NavigationRouter extends Component {
             <Scene initial key='loginScreen' component={LoginScreen} title='LoginScreen' />
             <Scene key='Feed' component={Feed} title='Feed' />
             <Scene key='Contacts' component={Contacts} title='Contacts' />
-            <Scene key='QuestionInspector' component={QuestionInspector} title='Feed' />
             <Scene key='cameraView' component={CameraView} title='CameraView' />
+            <Scene key='QuestionInspector' component={QuestionInspector} title={'QuestionInspector'} />
           </Scene>
         </Scene>
       </Router>
