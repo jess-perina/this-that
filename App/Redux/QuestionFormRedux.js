@@ -5,7 +5,7 @@ import Immutable from 'seamless-immutable'
 
 const { Types, Creators } = createActions({
   questionUpdate: ['field', 'text'],
-  questionSubmit: ['questionText', 'leftText', 'rightText', 'respondents', 'expirationDate', 'expirationTime', 'userId'],
+  questionSubmit: ['questionText', 'leftText', 'rightText', 'leftImage', 'rightImage', 'respondents', 'expirationDate', 'expirationTime', 'userId'],
   questionSuccess: ['payload'],
   questionSetRespondents: ['respondents'],
   dispatchPhoto: ['photoUri'],
@@ -37,7 +37,7 @@ export const update = (state, {field, text}) =>
   state.merge({ [field]: text })
 
 // set respondents for question
-export const submit = (state, {questionText, leftText, rightText, respondents, leftImage, rightImage, userId}) => state.merge({questionText, leftText, rightText, respondents})
+export const submit = (state, {questionText, leftText, rightText, respondents, leftImage, rightImage, userId}) => state.merge({questionText, leftText, rightText, respondents, leftImage, rightImage})
 
 // update form text
 export const registerRespondents = (state, {respondents}) =>
