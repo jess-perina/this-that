@@ -37,7 +37,8 @@ export default StyleSheet.create({
     textAlign: 'center',
     margin: 10,
     marginBottom: -5,
-    color: 'white'
+    color: 'white',
+    zIndex: 0
   },
   imageContainer: {
     flex: 1,
@@ -45,7 +46,9 @@ export default StyleSheet.create({
     height: undefined,
     backgroundColor: 'transparent',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    borderRadius: 3,
+    zIndex: -1
   },
   optionsContainer: {
     height: 400,
@@ -61,7 +64,7 @@ export default StyleSheet.create({
   },
   options: {
     width: 175,
-    height: 276,
+    height: 286,
     borderBottomColor: 'white',
     borderBottomWidth: 1
   },
