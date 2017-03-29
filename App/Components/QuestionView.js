@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Component, ScrollView, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 
 import FitImage from 'react-native-fit-image'
 import styles from './Styles/QuestionViewStyle'
@@ -25,7 +25,7 @@ export default class QuestionView extends React.Component {
           </View>
           <View>
             <FitImage
-              source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
+              source={{uri: this.props.leftImage}}
               originalWidth={750}
               originalHeight={1334}
               style={myStyles.flex}
