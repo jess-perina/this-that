@@ -9,8 +9,8 @@ import { connect } from 'react-redux'
 import Icons from '../Themes/Images'
 import Camera from 'react-native-camera'
 import Styles from './Styles/CameraViewStyle'
-// Add Actions - replace 'Your' with whatever your reducer is called :)
-// import YourActions from '../Redux/YourRedux'
+import { Actions } from 'react-native-router-flux'
+
 import QuestionFormActions from '../Redux/QuestionFormRedux'
 
 class CameraView extends React.Component {
@@ -60,6 +60,7 @@ class CameraView extends React.Component {
         this.props.sendPicture(data.mediaUri)
       })
       .catch(err => console.error(err))
+    Actions.pop()
   }
 }
 

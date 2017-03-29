@@ -17,6 +17,18 @@ export default StyleSheet.create({
     height: 50,
     color: 'white'
   },
+  selectedRow: {
+    flex: 1,
+    backgroundColor: Colors.background,
+    marginVertical: Metrics.smallMargin,
+    justifyContent: 'center',
+    textAlign: 'center',
+    height: 50,
+    color: 'white',
+    textDecorationLine: 'underline',
+    borderBottomColor: 'white',
+    borderBottomWidth: 2
+  },
   boldLabel: {
     fontWeight: 'bold',
     alignSelf: 'center',

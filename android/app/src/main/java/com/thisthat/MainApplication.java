@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 import com.rt2zz.reactnativecontacts.ReactNativeContacts;
+import com.horcrux.svg.RNSvgPackage;
 import com.imagepicker.ImagePickerPackage;
 import com.lwansbrough.RCTCamera.RCTCameraPackage;
 import com.i18n.reactnativei18n.ReactNativeI18n;
@@ -32,6 +33,7 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
             new ReactNativeContacts(),
+            new RNSvgPackage(),
             new ImagePickerPackage(),
             new RCTCameraPackage(),
             new ReactNativeI18n(),

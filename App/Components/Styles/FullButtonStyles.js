@@ -11,7 +11,7 @@ export default StyleSheet.create({
     backgroundColor: Colors.ember
   },
   buttonText: {
-    margin: 18,
+    margin: 10,
     textAlign: 'center',
     color: Colors.snow,
     fontSize: Fonts.size.medium,

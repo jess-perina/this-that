@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react'
 import { View, Text, TextInput, Image, Keyboard, LayoutAnimation, TouchableHighlight } from 'react-native'
 import { connect } from 'react-redux'
-import Icons from '../Themes/Images'
-import {Images, Metrics} from '../Themes'
+import {Images, Metrics, Colors} from '../Themes'
 import RoundedButton from '../Components/RoundedButton'
+import FullButton from '../Components/FullButton'
 import MainNav from '../Navigation/MainNav'
 import ExpirationDatePicker from '../Components/ExpirationDatePicker'
 
@@ -132,36 +132,40 @@ class QuestionForm extends React.Component {
         />
         <View style={Styles.optionsContainer} >
           <View style={Styles.options} >
-            <TextInput
-              ref='leftText'
-              style={{height: 40, color: 'white', textAlign: 'center'}}
-              value={leftText}
-              editable={editable}
-              keyboardType='default'
-              returnKeyType='next'
-              onChangeText={(text) => this.handleTypingChange('leftText', text)}
-              placeholder='This'
-              placeholderTextColor='white'
-            />
+            <Image source={Images.launch} style={Styles.imageContainer}>
+              <TextInput
+                ref='leftText'
+                style={{height: 40, color: 'white', textAlign: 'center', marginTop: 180}}
+                value={leftText}
+                editable={editable}
+                keyboardType='default'
+                returnKeyType='next'
+                onChangeText={(text) => this.handleTypingChange('leftText', text)}
+                placeholder='This'
+                placeholderTextColor='white'
+              />
+            </Image>
           </View>
-          <View style={{borderLeftWidth: 1, borderLeftColor: 'gray'}} />
+
           <View style={Styles.options} >
-            <TextInput
-              ref='rightText'
-              style={{height: 40, color: 'white', textAlign: 'center'}}
-              value={rightText}
-              editable={editable}
-              keyboardType='default'
-              returnKeyType='go'
-              onChangeText={(text) => this.handleTypingChange('rightText', text)}
-              placeholder='That'
-              placeholderTextColor='white'
-            />
+            <Image source={Images.launch} style={Styles.imageContainer}>
+              <TextInput
+                ref='rightText'
+                style={{height: 40, color: 'white', textAlign: 'center', marginTop: 180}}
+                value={rightText}
+                editable={editable}
+                keyboardType='default'
+                returnKeyType='go'
+                onChangeText={(text) => this.handleTypingChange('rightText', text)}
+                placeholder='That'
+                placeholderTextColor='white'
+              />
+            </Image>
           </View>
         </View>
-        <View style={{height: 80}}>
+        <View style={{height: 50}}>
           <View style={Styles.buttonContainer}>
-            <View>
+            <View >
               <RoundedButton text='Left Photo' onPress={() => { this.leftCam('left') }} />
             </View>
             <View>
@@ -175,7 +179,7 @@ class QuestionForm extends React.Component {
           onConfirm={this.handleDateChange}
         />
         <RoundedButton text='Choose Friends' onPress={Actions.Contacts} />
-        <RoundedButton
+        <FullButton
           text='Submit'
           onPress={this.handlePressSubmit}
         />
