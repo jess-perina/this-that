@@ -43,7 +43,7 @@ export default StyleSheet.create({
     borderColor: 'gray',
     borderWidth: 1,
     borderRadius: 5,
-    margin: 10
+    margin: 5
   },
   options: {
     width: 175,

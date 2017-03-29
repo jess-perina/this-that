@@ -18,6 +18,10 @@ Answer.belongsTo(User, {as: 'respondent'}) // Answer has method getUser, Answer 
 Answer.belongsTo(Question)
 // .getQuestion()
 Question.hasMany(Answer) // Question has methods getAnswer, getAnswers, setAnswer, addAnswer, Answer has foreign key for Question
+
 Question.belongsTo(User, {as: 'owner'}) // Question has method getUser, Question has foreign key for User 'owner_id'
+User.hasMany(Question)
+
+User.belongsToMany(User, {through: 'friendship', as: 'friend'})
 
 module.exports = {User, Question, Answer}

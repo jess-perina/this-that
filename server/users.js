@@ -12,11 +12,14 @@ module.exports = require('express').Router()
 // FOR QUERIES: Get array of numbers from contact and pass it into query as such: '['+array+']'
 // ANYTHING ELSE WILL FAIL...EPICALLY!!!
 .get('/', (req, res, next) => {
+  // Gets all the contacts that are members and returns an a array of registered users---Does not seem
+  // entirely safe...
   if (req.query.numbers) {
     let numbers = req.query.numbers.slice(1, -1).split(',')
     User.verifyFriendsAreMembers(numbers)
     .then((arrOfUsers) => res.json(arrOfUsers))
     .catch(next)
+  // Gets all users...period
   } else {
     User.findAll({})
     .then(users => res.json(users))

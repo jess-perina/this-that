@@ -24,6 +24,12 @@
     <true/>
     <key>UILaunchStoryboardName</key>
     <string>LaunchScreen</string>
+    <key>NSCameraUsageDescription</key>
+    <string>Would you like to let This/That use your camera?</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Would you like to let This/That access your photos?</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Would you like to let This/That access you microphone for video recording?</string>
     <key>UIRequiredDeviceCapabilities</key>
     <array>
       <string>armv7</string>

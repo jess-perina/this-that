@@ -30,20 +30,33 @@ export default StyleSheet.create({
     marginTop: Metrics.baseMargin
   },
   question: {
-    height: 40,
+    height: 35,
     borderColor: 'gray',
     borderWidth: 1,
     borderRadius: 5,
     textAlign: 'center',
     margin: 10,
-    color: 'white'
+    marginBottom: -5,
+    color: 'white',
+    zIndex: 0
+  },
+  imageContainer: {
+    flex: 1,
+    width: undefined,
+    height: undefined,
+    backgroundColor: 'transparent',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 3,
+    zIndex: -1
   },
   optionsContainer: {
-    height: 300,
+    height: 400,
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-end',
+    paddingBottom: 0,
     borderColor: 'gray',
     borderWidth: 1,
     borderRadius: 5,
@@ -51,7 +64,7 @@ export default StyleSheet.create({
   },
   options: {
     width: 175,
-    height: 40,
+    height: 286,
     borderBottomColor: 'white',
     borderBottomWidth: 1
   },

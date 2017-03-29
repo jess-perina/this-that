@@ -3,6 +3,9 @@ package com.thisthat;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.horcrux.svg.RNSvgPackage;
+import com.imagepicker.ImagePickerPackage;
+import com.lwansbrough.RCTCamera.RCTCameraPackage;
 import com.i18n.reactnativei18n.ReactNativeI18n;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
@@ -11,6 +14,7 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
+import com.lwansbrough.RCTCamera.RCTCameraPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -27,10 +31,14 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNSvgPackage(),
+            new ImagePickerPackage(),
+            new RCTCameraPackage(),
             new ReactNativeI18n(),
             new VectorIconsPackage(),
             new RNDeviceInfo(),
-            new ReactNativeConfigPackage()
+            new ReactNativeConfigPackage(),
+            new RCTCameraPackage()
       );
     }
   };

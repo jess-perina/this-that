@@ -30,8 +30,8 @@ class LoginScreen extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      username: 'reactnative@infinite.red',
-      password: 'password',
+      userNumber: '1234567890',
+      password: '1234',
       visibleHeight: Metrics.screenHeight,
       topLogo: { width: Metrics.screenWidth }
     }
@@ -78,14 +78,14 @@ class LoginScreen extends React.Component {
   }
 
   handlePressLogin = () => {
-    const { username, password } = this.state
+    const { userNumber, password } = this.state
     this.isAttempting = true
     // attempt a login - a saga is listening to pick it up from here.
-    this.props.attemptLogin(username, password)
+    this.props.attemptLogin(userNumber, password)
   }
 
   handleChangeUsername = (text) => {
-    this.setState({ username: text })
+    this.setState({ userNumber: text })
   }
 
   handleChangePassword = (text) => {
@@ -93,7 +93,7 @@ class LoginScreen extends React.Component {
   }
 
   render () {
-    const { username, password } = this.state
+    const { userNumber, password } = this.state
     const { fetching } = this.props
     const editable = !fetching
     const textInputStyle = editable ? Styles.textInput : Styles.textInputReadonly
@@ -102,11 +102,11 @@ class LoginScreen extends React.Component {
         <Image source={Images.logo} style={[Styles.topLogo, this.state.topLogo]} />
         <View style={Styles.form}>
           <View style={Styles.row}>
-            <Text style={Styles.rowLabel}>Username</Text>
+            <Text style={Styles.rowLabel}>Phone Number</Text>
             <TextInput
               ref='username'
               style={textInputStyle}
-              value={username}
+              value={userNumber}
               editable={editable}
               keyboardType='default'
               returnKeyType='next'
@@ -115,7 +115,7 @@ class LoginScreen extends React.Component {
               onChangeText={this.handleChangeUsername}
               underlineColorAndroid='transparent'
               onSubmitEditing={() => this.refs.password.focus()}
-              placeholder='Username' />
+              placeholder='1234567890' />
           </View>
 
           <View style={Styles.row}>
@@ -133,7 +133,7 @@ class LoginScreen extends React.Component {
               onChangeText={this.handleChangePassword}
               underlineColorAndroid='transparent'
               onSubmitEditing={this.handlePressLogin}
-              placeholder='Password' />
+              placeholder='1234' />
           </View>
 
           <View style={[Styles.loginRow]}>
@@ -149,7 +149,11 @@ class LoginScreen extends React.Component {
             </TouchableOpacity>
           </View>
         </View>
-
+        <Text
+          style={{color: 'white', textAlign: 'center', textDecorationLine: 'underline', marginTop: 25}}
+        >
+          New to This/That? Create an account
+        </Text>
       </ScrollView>
     )
   }
@@ -158,13 +162,15 @@ class LoginScreen extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    fetching: state.login.fetching
+    fetching: state.login.fetching,
+    userNumber: state.login.username,
+    userId: state.login.userId
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    attemptLogin: (username, password) => dispatch(LoginActions.loginRequest(username, password))
+    attemptLogin: (userNumber, password) => dispatch(LoginActions.loginRequest(userNumber, password))
   }
 }
 
