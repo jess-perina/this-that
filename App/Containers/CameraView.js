@@ -56,7 +56,6 @@ class CameraView extends React.Component {
     // options.location = ...
     this.camera.capture({metadata: options})
       .then((data) => {
-        console.log('camera data? ---', data)
         this.props.sendPicture(data.path)
       })
       .catch(err => console.error(err))
