@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import ContactsView from '../Components/ContactsView'
 import QuestionFormActions from '../Redux/QuestionFormRedux'
 import FullButton from '../Components/FullButton'
+import { Actions } from 'react-native-router-flux'
 
 
 // Styles
@@ -65,6 +66,7 @@ class Contacts extends React.Component {
   handleDone = () => {
     const respondents = this.state.selected
     this.props.setResponders(respondents)
+    Actions.pop()
   }
 
 
