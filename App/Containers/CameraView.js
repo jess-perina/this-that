@@ -10,7 +10,6 @@ import Icons from '../Themes/Images'
 import Camera from 'react-native-camera'
 import Styles from './Styles/CameraViewStyle'
 import { Actions } from 'react-native-router-flux'
-
 import QuestionFormActions from '../Redux/QuestionFormRedux'
 
 class CameraView extends React.Component {
@@ -25,6 +24,8 @@ class CameraView extends React.Component {
     return (
       <View style={Styles.container}>
         <Camera
+          // VVV  comment this in when testing on phone VVV
+          // captureTarget={Camera.constants.CaptureTarget.disk}
           ref={(cam) => { this.camera = cam }}
           type={this.state.cameraType}
           style={Styles.preview}
@@ -54,7 +55,9 @@ class CameraView extends React.Component {
     const options = {}
     // options.location = ...
     this.camera.capture({metadata: options})
-      .then((data) => this.props.sendPicture(data.mediaUri))
+      .then((data) => {
+        this.props.sendPicture(data.path)
+      })
       .catch(err => console.error(err))
     Actions.pop()
   }
