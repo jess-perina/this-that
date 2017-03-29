@@ -32,7 +32,7 @@ export function * imageBucket (imageUri) {
 
 export function * postQuestion (api, action) {
   const { questionText, leftText, rightText, respondents, leftImage, rightImage, userId } = action
-  console.log('action log--- ', action)
+  console.log('postQuestion action log--- ', action)
   // make the call to the api
   let leftImageResponse, leftLocation, rightImageResponse, rightLocation
   try {
