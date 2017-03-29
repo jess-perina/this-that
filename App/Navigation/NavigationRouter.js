@@ -11,7 +11,6 @@ import MyQuestions from '../Containers/MyQuestions'
 import QuestionInspector from '../Containers/QuestionInspector'
 import CameraView from '../Containers/CameraView'
 import Feed from '../Containers/Feed'
-import QuestionInspector from '../Containers/QuestionInspector'
 /* **************************
 * Documentation: https://github.com/aksonov/react-native-router-flux
 ***************************/
