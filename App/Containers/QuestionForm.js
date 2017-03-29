@@ -57,20 +57,15 @@ class QuestionForm extends React.Component {
   }
 
   componentWillReceiveProps (newProps) {
-    console.log('newProps', newProps)
     if (newProps.respondents !== this.props.respondents) {
-      console.log('hit new respondents')
       this.setState({
         respondents: newProps.respondents
-      }, () => console.log('post recieved respondents props state', this.state))
-      // console.log('post respondens state', this.state)
+      })
     }
     if (newProps.photoUri !== this.props.photoUri) {
-      console.log('hit new photo uri')
       this.setState({
         [`${this.state.photoSide}Image`]: newProps.photoUri
-      }, () => console.log('post recieved photoUri props state', this.state))
-      // console.log('post photouri state', this.state)
+      })
     }
   }
 
