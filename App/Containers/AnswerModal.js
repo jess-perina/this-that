@@ -1,7 +1,10 @@
 import React from 'react'
 import { View, Text } from 'react-native'
 import { Actions } from 'react-native-router-flux'
-import { Form, Item, Input } from 'native-base'
+import { Form, Item, Textarea } from 'native-base'
+import { Metrics, Colors } from '../Themes'
+import RoundedButton from '../Components/RoundedButton'
+import FullButton from '../Components/RoundedButton'
 
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
@@ -34,18 +37,20 @@ export default class AnswerModal extends React.Component {
     console.log('RENDERING MODAL', this.state)
     if (this.state.modal) {
       return (
-        <View>
-          <Form>
+        <View style={{flex: 1, height: Metrics.screenHeight, width: Metrics.screenWidth, top: 120, position: 'absolute', backgroundColor: Colors.background}}>
+          <Form style={{height: 400}}>
             <Item last>
-              <Input placeholder='Add Comment Here' />
+              <Textarea
+                placeholder='Add Comment Here'
+                placeholderTextColor='white'
+                style={{height: 400, width: Metrics.screenWidth, alignItems: 'center', color: 'white'}} />
             </Item>
           </Form>
-          <Text onPress={this.modalCancel}> CANCEL </Text>
-          <Text onPress={
-            () => {
-              this.props.onClickSubmit(this.state.comment)
-              Actions.pop()
-            }}> Submit </Text>
+          <RoundedButton text='CANCEL' onPress={this.modalCancel} />
+          <RoundedButton text='Submit' onPress={() => {
+            this.props.onClickSubmit(this.state.comment)
+            Actions.pop()
+          }} />
         </View>
       )
     } else {
