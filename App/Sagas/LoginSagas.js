@@ -11,7 +11,6 @@ function * getFriends (api, userId) {
   // make the call to the api
   const response = yield call(api.getFriends, userId)
 
-  // success?
   if (response.ok) {
     // You might need to change the response here - do this with a 'transform',
     // located in ../Transforms/. Otherwise, just pass the data back from the api.

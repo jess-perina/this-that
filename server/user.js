@@ -18,7 +18,7 @@ module.exports = require('express').Router()
   .then((friends) => {
     // Gets the friend objects from the query
     let friendsLight = friends.map(friend => ({friendId: friend.id, userName: friend.name}))
-    return friendsLight
+    res.json(friendsLight)
   })
   .catch(next)
 })
