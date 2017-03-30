@@ -4,21 +4,20 @@ import Immutable from 'seamless-immutable'
 /* ------------- Types and Action Creators ------------- */
 
 const { Types, Creators } = createActions({
-  feedRequest: ['userId'],
-  feedSuccess: ['payload'],
-  feedFailure: null
+  friendsRequest: ['userId'],
+  friendsSuccess: ['payload'],
+  friendsFailure: null
 
 })
 
-export const FeedTypes = Types
+export const FriendsTypes = Types
 export default Creators
 
 /* ------------- Initial State ------------- */
 
 export const INITIAL_STATE = Immutable({
-  feed: [], // Array Of Question Instances
+  friends: [], // Array Of Question Instances
   fetching: null,
-  // payload: null,
   error: null
 })
 
@@ -26,12 +25,12 @@ export const INITIAL_STATE = Immutable({
 
 // request the data from an api
 export const request = (state, { userId }) =>
-  state.merge({fetching: true})
+  state.merge({fetching: true, userId})
 
 // successful api lookup
 export const success = (state, action) => {
   const { payload } = action
-  return state.merge({ fetching: false, error: null, feed: payload })
+  return state.merge({ fetching: false, error: null, friends: payload })
 }
 
 // Something went wrong somewhere.
@@ -41,7 +40,7 @@ export const failure = state =>
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
-  [Types.FEED_REQUEST]: request,
-  [Types.FEED_SUCCESS]: success,
-  [Types.FEED_FAILURE]: failure
+  [Types.FRIENDS_REQUEST]: request,
+  [Types.FRIENDS_SUCCESS]: success,
+  [Types.FRIENDS_FAILURE]: failure
 })
