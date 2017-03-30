@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text } from 'react-native'
 import { Actions } from 'react-native-router-flux'
-import { Form, Item, Input } from 'native-base'
+import { Form, Item, Input, Button } from 'native-base'
 
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
@@ -40,12 +40,16 @@ export default class AnswerModal extends React.Component {
               <Input placeholder='Add Comment Here' />
             </Item>
           </Form>
-          <Text onPress={this.modalCancel}> CANCEL </Text>
-          <Text onPress={
+          <Button block danger onPress={this.modalCancel}>
+            <Text>Cancel</Text>
+          </Button>
+          <Button block success onPress={
             () => {
               this.props.onClickSubmit(this.state.comment)
               Actions.pop()
-            }}> Submit </Text>
+            }}>
+            <Text>Submit</Text>
+          </Button>
         </View>
       )
     } else {
