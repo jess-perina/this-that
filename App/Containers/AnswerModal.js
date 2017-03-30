@@ -36,7 +36,11 @@ export default class AnswerModal extends React.Component {
         <View>
           <Text >Add A Comment</Text>
           <Text onPress={this.modalCancel}> CANCEL </Text>
-          <Text > Submit </Text>
+          <Text onPress={
+            () => {
+              this.props.onClickSubmit()
+              Actions.pop()
+            }}> Submit </Text>
         </View>
       )
     } else {

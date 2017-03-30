@@ -54,12 +54,12 @@ export default class FeedQuestionView extends React.Component {
   onClickLeft () {
     console.log('left click')
     this.setState({myVotePreSubmit: 'left'})
-    Actions.AnswerModal({modal: true})
+    Actions.AnswerModal({modal: true, onClickSubmit: this.onClickSubmitModal})
   }
   onClickRight () {
     console.log('right click')
     this.setState({myVotePreSubmit: 'right'})
-    Actions.AnswerModal({modal: true})
+    Actions.AnswerModal({modal: true, onClickSubmit: this.onClickSubmitModal})
   }
 
   render () {
@@ -87,16 +87,7 @@ export default class FeedQuestionView extends React.Component {
           asker={asker}
           onClickLeft={this.onClickLeft}
           onClickRight={this.onClickRight} />
-
       )
     }
   }
 }
-
-// <View>
-//                        <Text >Add A Comment</Text>
-//                        <Text onPress={this.modalCancel} > CANCEL </Text>
-//                        <Text onPress={this.onClick}> Submit </Text>
-//                      </View>
-//           </Modal> */}
-
