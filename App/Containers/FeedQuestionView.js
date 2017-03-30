@@ -3,10 +3,9 @@
 import React from 'react'
 import QuestionView from '../Components/QuestionView'
 import axios from 'axios'
-import { View, Text, Modal } from 'react-native'
+import { View } from 'react-native'
 import FeedQuestionAnswered from '../Components/FeedQuestionAnswered'
-// import QuestionModal from '../Components/QuestionModal'
-import styles from '../Components/Styles/QuestionViewStyle'
+import { Actions } from 'react-native-router-flux'
 
 export default class FeedQuestionView extends React.Component {
   constructor (props) {
@@ -16,8 +15,7 @@ export default class FeedQuestionView extends React.Component {
       leftVotes: props.question.leftVotes,
       rightVotes: props.question.rightVotes,
       answerOptionsModal: false,
-      myVotePreSubmit: null,
-      modalVisible: false
+      myVotePreSubmit: null
     }
     this.onClickLeft = this.onClickLeft.bind(this)
     this.onClickRight = this.onClickRight.bind(this)
@@ -28,17 +26,14 @@ export default class FeedQuestionView extends React.Component {
       myVote: nextProps.question.myVote,
       leftVotes: nextProps.question.leftVotes,
       rightVotes: nextProps.question.rightVotes,
-      answerOptionsModal: false,
       myVotePreSubmit: null
     })
   }
   // -------------------------------------------
   // Functions START HERE
   // -------------------------------------------
-  modalCancel () { this.setState({answerOptionsModal: false}) }
 
   onClickSubmitModal () {
-    console.log('onSubmit is happening')
     const vote = this.state.myVotePreSubmit
     return axios.post(`https://socketsynth.ngrok.io/api/question/${this.props.question.id}`, { vote: vote, comment: '', respondentId: this.props.userId })
     .then(() => {
@@ -58,11 +53,13 @@ export default class FeedQuestionView extends React.Component {
 
   onClickLeft () {
     console.log('left click')
-    this.setState({answerOptionsModal: true, myVotePreSubmit: 'left'})
+    this.setState({myVotePreSubmit: 'left'})
+    Actions.AnswerModal({modal: true})
   }
   onClickRight () {
     console.log('right click')
-    this.setState({answerOptionsModal: true, myVotePreSubmit: 'right'})
+    this.setState({myVotePreSubmit: 'right'})
+    Actions.AnswerModal({modal: true})
   }
 
   render () {
@@ -77,44 +74,29 @@ export default class FeedQuestionView extends React.Component {
             rightQ={rightText}// + ': ' + this.state.rightVotes}
             leftVotes={this.state.leftVotes}
             rightVotes={this.state.rightVotes}
+            asker={asker}
             />
         </View>
       )
     } else {
-      console.log('Rendering ModalView')
       return (
-        <View>
-          <Modal
-            onShow={() => { console.log('Modal is showing') }}
-            animationType={'slide'}
-            transparent={false}
+        <QuestionView
+          text={title}
+          left={leftText}
+          right={rightText}
+          asker={asker}
+          onClickLeft={this.onClickLeft}
+          onClickRight={this.onClickRight} />
 
-            visible={this.state.answerOptionsModal} >
-            <View style={{marginTop: 22}}>
-              <View>
-                <Text>Hello World</Text>
-              </View>
-            </View>
-          </Modal>
-          { /* <View>
-                       <Text >Add A Comment</Text>
-                       <Text onPress={this.modalCancel} > CANCEL </Text>
-                       <Text onPress={this.onClick}> Submit </Text>
-                     </View>
-          </Modal> */}
-          <QuestionView
-            text={title}
-            left={leftText}
-            right={rightText}
-            onClickLeft={this.onClickLeft}
-            onClickRight={this.onClickRight} />
-
-          {/* <QuestionModal
-                      modalCancel={() => { this.setState({answerOptionsModal: false}) }}
-                      onClick={() => { this.onClickSubmitModal(this.state.myVotePreSubmit) }}
-                      answerOptionsModal={this.state.answerOptionsModal} /> */}
-        </View>
       )
     }
   }
 }
+
+// <View>
+//                        <Text >Add A Comment</Text>
+//                        <Text onPress={this.modalCancel} > CANCEL </Text>
+//                        <Text onPress={this.onClick}> Submit </Text>
+//                      </View>
+//           </Modal> */}
+

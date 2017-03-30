@@ -8,6 +8,7 @@ import MainNav from '../Navigation/MainNav'
 import styles from './Styles/QuestionFormStyle'
 
 class Feed extends React.Component {
+
   componentDidMount () {
     this.props.grabFeed(this.props.userId)
   }
