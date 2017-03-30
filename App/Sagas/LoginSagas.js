@@ -31,7 +31,7 @@ export function * login (api, { userNumber, password }) {
     // You might need to change the response here - do this with a 'transform',
     // located in ../Transforms/. Otherwise, just pass the data back from the api.
     yield put(LoginActions.loginSuccess(userName, userId))
-    yield call(getFriends, userId)
+    yield call(getFriends, api, userId)
     yield put(NavActions.changePage('questionForm'))
     Actions.questionForm()
   } else {

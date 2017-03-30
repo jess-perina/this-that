@@ -17,7 +17,7 @@ module.exports = require('express').Router()
   })
   .then((friends) => {
     // Gets the friend objects from the query
-    friends = friends.map((friend) => friend.dataValues)
+    //console.log(friends)
     // sends an array of User Instances who are friends
     res.json(friends)
   })
