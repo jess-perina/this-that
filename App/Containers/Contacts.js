@@ -26,15 +26,15 @@ class Contacts extends React.Component {
     * This is an array of objects with the properties you desire
     * Usually this should come from Redux mapStateToProps
     *************************************************************/
-    const dataObjects = [
-      {nameFirst: 'Jacquin', nameLast: 'Smith', userId: 2},
-      {nameFirst: 'Ian', nameLast: 'Smith', userId: 3},
-      {nameFirst: 'Jess', nameLast: 'Smith', userId: 4},
-      {nameFirst: 'Konst', nameLast: 'Smith', userId: 5},
-      {nameFirst: 'Silva', nameLast: 'Smith', userId: 7},
-      {nameFirst: 'Mike', nameLast: 'Smith', userId: 12},
-      {nameFirst: 'Maria', nameLast: 'Smith', userId: 13}
-    ]
+    const dataObjects = this.props.friends
+      // {nameFirst: 'Jacquin', nameLast: 'Smith', userId: 2},
+      // {nameFirst: 'Ian', nameLast: 'Smith', userId: 3},
+      // {nameFirst: 'Jess', nameLast: 'Smith', userId: 4},
+      // {nameFirst: 'Konst', nameLast: 'Smith', userId: 5},
+      // {nameFirst: 'Silva', nameLast: 'Smith', userId: 7},
+      // {nameFirst: 'Mike', nameLast: 'Smith', userId: 12},
+      // {nameFirst: 'Maria', nameLast: 'Smith', userId: 13}
+
 
     const rowHasChanged = (r1, r2) => r1 !== r2
 
@@ -73,8 +73,7 @@ class Contacts extends React.Component {
   _renderRow (rowData) {
     return (
       <ContactsView
-        first={rowData.nameFirst}
-        last={rowData.nameLast}
+        first={rowData.userName}
         userId={rowData.userId}
         clickChange={this.handleSelected}
       />
@@ -123,7 +122,8 @@ const mapStateToProps = (state) => {
   return {
     // ...redux state to props here
     contacts: state.userContacts.contacts,
-    selected: state.question.respondents
+    selected: state.question.respondents,
+    friends: state.friends.friends
     // doesn't exist on login state yet, but I think this is where we should grab contacts/friends
     // contacts: state.login.contacts
   }
