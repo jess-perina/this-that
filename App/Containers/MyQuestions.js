@@ -35,16 +35,12 @@ class MyQuestions extends React.Component {
   })
 
   render () {
-    console.log('questionprops---', this.props)
-    console.log('myQuestions---', this.props.myQuestions.myQuestions)
-
-
     return (
       <ScrollView style={styles.container} stickyHeaderIndices={[0]}>
         <MainNav />
         <Text style={styles.boldLabel}>My Questions Container</Text>
-        { this.props.myQuestions.myQuestions
-          ? this.mapQuestions(this.props.myQuestions.myQuestions)
+        { this.props.myQuestions
+          ? this.mapQuestions(this.props.myQuestions)
           : <Text style={styles.boldLabel}>Done Fetching</Text>
         }
       </ScrollView>
@@ -58,7 +54,7 @@ const mapStateToProps = (state) => {
     userId: state.login.userId,
     // myQuestionsArray: state.myQuestions,
     fetching: state.myQuestions.fetching,
-    myQuestions: state.myQuestions,
+    myQuestions: state.myQuestions.myQuestions,
     state: state
   }
 }

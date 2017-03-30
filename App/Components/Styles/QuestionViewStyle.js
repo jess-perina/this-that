@@ -4,7 +4,7 @@ import { Metrics, Colors } from '../../Themes/'
 export default StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: Metrics.navBarHeight,
+    marginTop: 10,
     backgroundColor: Colors.background
   },
   row: {
@@ -33,6 +33,16 @@ export default StyleSheet.create({
     borderRadius: 5,
     textAlign: 'center',
     margin: 10
+  },
+  imageContainer: {
+    flex: 1,
+    width: 181,
+    height: undefined,
+    backgroundColor: 'transparent',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 3,
+    zIndex: -1
   },
   optionsContainer: {
     height: 300,
