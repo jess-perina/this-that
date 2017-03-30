@@ -33,9 +33,10 @@ export default class FeedQuestionView extends React.Component {
   // Functions START HERE
   // -------------------------------------------
 
-  onClickSubmitModal () {
+  onClickSubmitModal (comment) {
     const vote = this.state.myVotePreSubmit
-    return axios.post(`https://socketsynth.ngrok.io/api/question/${this.props.question.id}`, { vote: vote, comment: '', respondentId: this.props.userId })
+    comment = (comment !== '') ? comment : null
+    return axios.post(`https://socketsynth.ngrok.io/api/question/${this.props.question.id}`, { vote: vote, comment: comment, respondentId: this.props.userId })
     .then(() => {
       let leftVotes = 0
       let rightVotes = 0
