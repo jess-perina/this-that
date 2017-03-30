@@ -122,7 +122,6 @@ class Contacts extends React.Component {
 const mapStateToProps = (state) => {
   return {
     // ...redux state to props here
-    fetching: state.userContacts.fetching,
     contacts: state.userContacts.contacts,
     selected: state.question.respondents
     // doesn't exist on login state yet, but I think this is where we should grab contacts/friends
