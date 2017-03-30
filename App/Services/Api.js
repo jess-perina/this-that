@@ -58,12 +58,15 @@ const create = (baseURL = 'https://socketsynth.ngrok.io/') => {
     return myQresponse
   }
   const getQuestion = (questionId) => {
-    console.log('HIT', questionId)
     return api.get(`api/question/${questionId}`)
   }
   const grabFeed = (userId) => {
     let gottenQuestion = api.get(`api/user/${userId}/askedto`)
     return gottenQuestion
+  }
+
+  const getFriends = (userId) => {
+    return api.get(`api/user/${userId}/friends`)
   }
   // will also need respondents and proper userId
 
@@ -88,7 +91,8 @@ const create = (baseURL = 'https://socketsynth.ngrok.io/') => {
     logMeIn,
     getMyQuestions,
     getQuestion,
-    grabFeed
+    grabFeed,
+    getFriends
   }
 }
 
