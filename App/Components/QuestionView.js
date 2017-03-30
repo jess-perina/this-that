@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet, Image } from 'react-native'
 
-import FitImage from 'react-native-fit-image'
+// import FitImage from 'react-native-fit-image'
 import styles from './Styles/QuestionViewStyle'
 
 export default class QuestionView extends React.Component {
@@ -12,7 +12,6 @@ export default class QuestionView extends React.Component {
         <View style={{marginTop: 10}}>
           <Text style={styles.boldLabel} >{this.props.text}</Text>
         </View>
-
         <View style={styles.optionsContainer} >
           <View >
             <Image source={{uri: this.props.leftImage}} style={styles.imageContainer} />
@@ -28,29 +27,29 @@ export default class QuestionView extends React.Component {
   }
 }
 
-const myStyles = StyleSheet.create({
-  container: {
-    backgroundColor: '#F5FCFF',
-    flex: 1,
-    paddingTop: 20
-  },
-  flex: {
-    flex: 1
-  },
-  imageRounded: {
-    borderRadius: 20,
-    marginTop: 20
-  },
-  marginAndBorder: {
-    borderColor: 'red',
-    borderWidth: 2,
-    margin: 20
-  },
-  twoColumnsContainer: {
-    flexDirection: 'row',
-    marginTop: 20
-  }
-})
+// const myStyles = StyleSheet.create({
+//   container: {
+//     backgroundColor: '#F5FCFF',
+//     flex: 1,
+//     paddingTop: 20
+//   },
+//   flex: {
+//     flex: 1
+//   },
+//   imageRounded: {
+//     borderRadius: 20,
+//     marginTop: 20
+//   },
+//   marginAndBorder: {
+//     borderColor: 'red',
+//     borderWidth: 2,
+//     margin: 20
+//   },
+//   twoColumnsContainer: {
+//     flexDirection: 'row',
+//     marginTop: 20
+//   }
+// })
 
 // // Prop type warnings
 // QuestionView.propTypes = {

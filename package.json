@@ -36,6 +36,7 @@
     "format-json": "^1.0.3",
     "globally": "^0.0.0",
     "lodash": "^4.17.2",
+    "native-base": "^2.1.0",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "pg": "^6.1.5",
