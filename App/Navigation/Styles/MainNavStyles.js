@@ -22,7 +22,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
     textAlign: 'center',
     height: 50,
-    color: 'white'
+    color: Colors.snow
   },
   selectedRow: {
     flex: 1,
@@ -31,9 +31,9 @@ export default StyleSheet.create({
     justifyContent: 'center',
     textAlign: 'center',
     height: 50,
-    color: 'white',
+    color: Colors.snow,
     textDecorationLine: 'underline',
-    borderBottomColor: 'white',
+    borderBottomColor: Colors.snow,
     borderBottomWidth: 2
   },
   boldLabel: {
@@ -58,7 +58,7 @@ export default StyleSheet.create({
     borderRadius: 5,
     textAlign: 'center',
     margin: 10,
-    color: 'white'
+    color: Colors.snow
   },
   optionsContainer: {
     height: 300,
@@ -74,7 +74,7 @@ export default StyleSheet.create({
   options: {
     width: 175,
     height: 40,
-    borderBottomColor: 'white',
+    borderBottomColor: Colors.snow,
     borderBottomWidth: 1
   },
   buttonContainer: {

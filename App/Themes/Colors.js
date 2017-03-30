@@ -22,7 +22,7 @@ const colors = {
   border: '#483F53',
   banner: '#5F3E63',
   text: '#E0D7E5',
-  peach: '#FF8959',
+  peach: '#FFB159',
   smolder: '#B22A03'
 }
 

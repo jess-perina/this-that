@@ -38,7 +38,7 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     margin: 10,
     marginBottom: -5,
-    color: 'white',
+    color: Colors.snow,
     zIndex: 0
   },
   imageContainer: {

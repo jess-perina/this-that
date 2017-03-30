@@ -131,7 +131,7 @@ class QuestionForm extends React.Component {
           onChangeText={(text) => this.handleTypingChange('questionText', text)}
           onSubmitEditing={() => this.refs.leftText.focus()}
           placeholder='Question???'
-          placeholderTextColor='white'
+          placeholderTextColor={Colors.snow}
         />
         <View style={Styles.optionsContainer} >
           <View style={Styles.options} >
@@ -146,7 +146,7 @@ class QuestionForm extends React.Component {
                 onChangeText={(text) => this.handleTypingChange('leftText', text)}
                 onSubmitEditing={() => this.refs.rightText.focus()}
                 placeholder='This'
-                placeholderTextColor='white'
+                placeholderTextColor={Colors.snow}
               />
             </Image>
           </View>
@@ -162,7 +162,7 @@ class QuestionForm extends React.Component {
                 returnKeyType='done'
                 onChangeText={(text) => this.handleTypingChange('rightText', text)}
                 placeholder='That'
-                placeholderTextColor='white'
+                placeholderTextColor={Colors.snow}
               />
             </Image>
           </View>

@@ -11,7 +11,7 @@ import {
 } from 'react-native'
 import { connect } from 'react-redux'
 import Styles from './Styles/LoginScreenStyles'
-import {Images, Metrics} from '../Themes'
+import {Images, Metrics, Colors} from '../Themes'
 import LoginActions from '../Redux/LoginRedux'
 import { Actions as NavigationActions } from 'react-native-router-flux'
 
@@ -150,7 +150,7 @@ class LoginScreen extends React.Component {
           </View>
         </View>
         <Text
-          style={{color: 'white', textAlign: 'center', textDecorationLine: 'underline', marginTop: 25}}
+          style={{color: Colors.snow, textAlign: 'center', textDecorationLine: 'underline', marginTop: 25}}
         >
           New to This/That? Create an account
         </Text>

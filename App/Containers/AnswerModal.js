@@ -42,8 +42,8 @@ export default class AnswerModal extends React.Component {
             <Item last>
               <Textarea
                 placeholder='Add Comment Here'
-                placeholderTextColor='white'
-                style={{height: 400, width: Metrics.screenWidth, alignItems: 'center', color: 'white'}} />
+                placeholderTextColor={Colors.snow}
+                style={{height: 400, width: Metrics.screenWidth, alignItems: 'center', color: Colors.snow}} />
             </Item>
           </Form>
           <RoundedButton text='CANCEL' onPress={this.modalCancel} />

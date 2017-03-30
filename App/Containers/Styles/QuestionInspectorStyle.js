@@ -48,7 +48,7 @@ export default StyleSheet.create({
   options: {
     width: 175,
     height: 40,
-    borderBottomColor: 'white',
+    borderBottomColor: Colors.snow,
     borderBottomWidth: 1
   }
 })
