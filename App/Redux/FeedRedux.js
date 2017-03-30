@@ -26,7 +26,7 @@ export const INITIAL_STATE = Immutable({
 
 // request the data from an api
 export const request = (state, { userId }) =>
-  state.merge({ fetching: true})
+  state.merge({fetching: true})
 
 // successful api lookup
 export const success = (state, action) => {
@@ -36,7 +36,7 @@ export const success = (state, action) => {
 
 // Something went wrong somewhere.
 export const failure = state =>
-  state.merge({ fetching: false, error: true})
+  state.merge({fetching: false, error: true})
 
 /* ------------- Hookup Reducers To Types ------------- */
 

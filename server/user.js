@@ -4,7 +4,6 @@ const Question = db.model('question')
 const User = db.model('user')
 const Promise = require('bluebird')
 const Sequelize = require('sequelize')
-const Friendship = db.model('friendship')
 
 module.exports = require('express').Router()
 
@@ -56,7 +55,7 @@ module.exports = require('express').Router()
 
 // Gets any new questions asked to user since last load based on the last loads most recently asked question
 .get('/:userId/askedtonew/:latestQuestionId', (req, res, next) => {
-  Answer.findOne({where: {respondent_id: req.params.userId}, question_id: req.params.latestQuestionId })
+  Answer.findOne({where: {respondent_id: req.params.userId}, question_id: req.params.latestQuestionId})
   .then((answerInstance) => {
     return Answer.getNewestQuestionsToUser(req.params.userId, answerInstance.id)
   })
@@ -65,7 +64,7 @@ module.exports = require('express').Router()
 })
 
 .get('/:userId/random', (req, res, next) => {
-  Answer.findAll({where: { respondent_id: req.params.userId} })
+  Answer.findAll({where: {respondent_id: req.params.userId}})
   .then((arrOfUserAnswers) => {
     const arrAnsweredQIds = arrOfUserAnswers.map((answer) => (answer.question_id))
     return Question.findAll({
