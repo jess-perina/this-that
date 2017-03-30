@@ -12,7 +12,6 @@ import QuestionInspector from '../Containers/QuestionInspector'
 import CameraView from '../Containers/CameraView'
 import Feed from '../Containers/Feed'
 import AnswerModal from '../Containers/AnswerModal'
-import CommentModal from '../Containers/CommentModal'
 
 /* **************************
 * Documentation: https://github.com/aksonov/react-native-router-flux
@@ -35,7 +34,6 @@ class NavigationRouter extends Component {
             </Scene>
           </Scene>
           <Scene key='AnswerModal' component={AnswerModal} title='AnswerModal' />
-          <Scene key='CommentModal' component={CommentModal} title='CommentModal' />
         </Scene>
       </Router>
     )
