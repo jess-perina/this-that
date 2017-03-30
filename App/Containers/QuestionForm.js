@@ -137,7 +137,7 @@ class QuestionForm extends React.Component {
             <Image source={{uri: this.state.leftImage}} style={Styles.imageContainer}>
               <TextInput
                 ref='leftText'
-                style={{height: 40, color: 'white', textAlign: 'center', marginTop: 250}}
+                style={Styles.boldLabel}
                 value={leftText}
                 editable={editable}
                 keyboardType='default'
@@ -153,7 +153,7 @@ class QuestionForm extends React.Component {
             <Image source={{uri: this.state.rightImage}} style={Styles.imageContainer}>
               <TextInput
                 ref='rightText'
-                style={{height: 40, color: 'white', textAlign: 'center', marginTop: 250}}
+                style={Styles.boldLabel}
                 value={rightText}
                 editable={editable}
                 keyboardType='default'
