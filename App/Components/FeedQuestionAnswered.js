@@ -28,7 +28,7 @@ export default class FeedQuestionAnswered extends React.Component {
           <Text style={styles.boldLabel} >{this.props.leftQ + ' : ' + this.calculatePercentage(this.props.leftVotes) + '%'}</Text>
           <Text style={styles.boldLabel} >{this.props.rightQ + ' : ' + this.calculatePercentage(this.props.rightVotes) + '%'}</Text>
         </View>
-        <TouchableHighlight onPress = {() => {
+        <TouchableHighlight onPress={() => {
           this.props.goGetTheQuestion(this.props.questionId)
         }}>
           <Text>DETAILs</Text>
