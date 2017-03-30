@@ -58,6 +58,7 @@ const create = (baseURL = 'https://socketsynth.ngrok.io/') => {
     return myQresponse
   }
   const getQuestion = (questionId) => {
+    console.log('HIT', questionId)
     return api.get(`api/question/${questionId}`)
   }
   const grabFeed = (userId) => {
