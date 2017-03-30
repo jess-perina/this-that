@@ -12,7 +12,7 @@ export default class ContactsView extends React.Component {
     return (
       <View>
         <CheckBox
-          style={{ flex: 1, padding: 10, backgroundColor: 'pink' }}
+          style={styles.checkbox}
           rightText={contactName}
           checked={false}
           onClick={(event) => { this.props.clickChange(this.props.userId) }}
