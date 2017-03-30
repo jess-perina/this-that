@@ -34,7 +34,7 @@ export default class ExpirationDatePicker extends React.Component {
           customStyles={[styles.dateInput, styles.dateIcon]}
           onDateChange={this.handleDateChange}
         />
-        <Text style={{color: Colors.frost, textAlign: 'center'}}>Expires</Text>
+        <Text style={{color: Colors.snow, textAlign: 'center'}}>Expires</Text>
       </View>
     )
   }

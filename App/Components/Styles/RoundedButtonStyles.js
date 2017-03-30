@@ -9,7 +9,7 @@ export default StyleSheet.create({
     paddingRight: 10,
     marginHorizontal: Metrics.section,
     marginVertical: Metrics.baseMargin,
-    backgroundColor: Colors.fire,
+    backgroundColor: Colors.peach,
     justifyContent: 'center'
   },
   buttonText: {

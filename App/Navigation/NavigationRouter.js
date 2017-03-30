@@ -24,13 +24,13 @@ class NavigationRouter extends Component {
         <Scene key='modal' component={Modal}>
           <Scene key='drawer' component={NavigationDrawer} open={false}>
             <Scene key='drawerChildrenWrapper' navigationBarStyle={Styles.navBar} titleStyle={Styles.title} leftButtonIconStyle={Styles.leftButton} rightButtonTextStyle={Styles.rightButton}>
-              <Scene key='questionForm' component={QuestionForm} title='QuestionForm' />
-              <Scene key='myQuestions' component={MyQuestions} title='My Question' />
-              <Scene initial key='loginScreen' component={LoginScreen} title='LoginScreen' />
+              <Scene key='questionForm' component={QuestionForm} title='ThisThat' />
+              <Scene key='myQuestions' component={MyQuestions} title='ThisThat' />
+              <Scene initial key='loginScreen' component={LoginScreen} title='ThisThat' />
               <Scene key='Feed' component={Feed} title='Feed' />
-              <Scene key='Contacts' component={Contacts} title='Contacts' />
-              <Scene key='QuestionInspector' component={QuestionInspector} title='QuestionInspector' />
-              <Scene key='cameraView' component={CameraView} title='CameraView' />
+              <Scene key='Contacts' component={Contacts} title='ThisThat' />
+              <Scene key='QuestionInspector' component={QuestionInspector} title='ThisThat' />
+              <Scene key='cameraView' component={CameraView} title='ThisThat' />
             </Scene>
           </Scene>
           <Scene key='AnswerModal' component={AnswerModal} title='AnswerModal' />

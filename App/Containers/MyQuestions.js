@@ -38,7 +38,6 @@ class MyQuestions extends React.Component {
     return (
       <ScrollView style={styles.container} stickyHeaderIndices={[0]}>
         <MainNav />
-        <Text style={styles.boldLabel}>My Questions Container</Text>
         { this.props.myQuestions
           ? this.mapQuestions(this.props.myQuestions)
           : <Text style={styles.boldLabel}>Done Fetching</Text>

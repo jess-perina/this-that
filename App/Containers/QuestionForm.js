@@ -35,8 +35,8 @@ class QuestionForm extends React.Component {
       questionText: '',
       leftText: '',
       rightText: '',
-      leftImage: 'https://lorempixel.com/400/600/cats/',
-      rightImage: 'https://lorempixel.com/400/600/cats/',
+      leftImage: 'https://lorempixel.com/400/600/black/',
+      rightImage: 'https://lorempixel.com/400/600/black/',
       photoSide: '',
       photoUri: '',
       respondents: [],
@@ -131,14 +131,14 @@ class QuestionForm extends React.Component {
           onChangeText={(text) => this.handleTypingChange('questionText', text)}
           onSubmitEditing={() => this.refs.leftText.focus()}
           placeholder='Question???'
-          placeholderTextColor='white'
+          placeholderTextColor={Colors.snow}
         />
         <View style={Styles.optionsContainer} >
           <View style={Styles.options} >
             <Image source={{uri: this.state.leftImage}} style={Styles.imageContainer}>
               <TextInput
                 ref='leftText'
-                style={{height: 40, color: 'white', textAlign: 'center', marginTop: 250}}
+                style={Styles.boldLabel}
                 value={leftText}
                 editable={editable}
                 keyboardType='default'
@@ -146,7 +146,7 @@ class QuestionForm extends React.Component {
                 onChangeText={(text) => this.handleTypingChange('leftText', text)}
                 onSubmitEditing={() => this.refs.rightText.focus()}
                 placeholder='This'
-                placeholderTextColor='white'
+                placeholderTextColor={Colors.snow}
               />
             </Image>
           </View>
@@ -155,14 +155,14 @@ class QuestionForm extends React.Component {
             <Image source={{uri: this.state.rightImage}} style={Styles.imageContainer}>
               <TextInput
                 ref='rightText'
-                style={{height: 40, color: 'white', textAlign: 'center', marginTop: 250}}
+                style={Styles.boldLabel}
                 value={rightText}
                 editable={editable}
                 keyboardType='default'
                 returnKeyType='done'
                 onChangeText={(text) => this.handleTypingChange('rightText', text)}
                 placeholder='That'
-                placeholderTextColor='white'
+                placeholderTextColor={Colors.snow}
               />
             </Image>
           </View>
