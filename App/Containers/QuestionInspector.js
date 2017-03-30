@@ -1,6 +1,7 @@
 import React from 'react'
 import { ScrollView, Text, TextInput, View } from 'react-native'
 import { connect } from 'react-redux'
+import FeedQuestionAnswered from '../Components/FeedQuestionAnswered'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
 
@@ -16,19 +17,20 @@ class QuestionInspector extends React.Component {
   }
 
   componentDidMount () {
-    this.props.goGetTheQuestion()
+
   }
 
   render () {
+    console.log(this.props.question)
+    const {leftText, rightText, leftVotes, rightVotes, title} = this.props.question
     return (
       <View style={styles.container}>
-        <View style={{marginTop: 20}}>
-          <Text style={styles.boldLabel} >Top</Text>
-        </View>
-        <View style={styles.optionsContainer} >
-          <Text style={styles.boldLabel} >Left</Text>
-          <Text style={styles.boldLabel} >Right</Text>
-        </View>
+        <FeedQuestionAnswered text={title}
+        leftQ={leftText}// + ': ' + this.state.leftVotes}
+        rightQ={rightText}// + ': ' + this.state.rightVotes}
+        leftVotes={leftVotes}
+        rightVotes={rightVotes}
+        />
       </View>
     )
   }
@@ -36,7 +38,7 @@ class QuestionInspector extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    question: state.questionInspector.question
+    question: state.questionInspector.payload.question
   }
 }
 

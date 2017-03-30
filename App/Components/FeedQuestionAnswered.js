@@ -1,8 +1,8 @@
 import React from 'react'
 import styles from './Styles/QuestionViewStyle'
-import { AppRegistry, Text, View } from 'react-native'
+import { AppRegistry, Text, View, TouchableHighlight } from 'react-native'
 import PieChart from 'react-native-pie-chart'
-
+import QuestionInspectorActions from '../Redux/QuestionInspectorRedux'
 export default class FeedQuestionAnswered extends React.Component {
   calculatePercentage (input) {
     const percent = Math.floor(input / (this.props.rightVotes + this.props.leftVotes) * 100)
@@ -11,6 +11,7 @@ export default class FeedQuestionAnswered extends React.Component {
   }
 
   render () {
+    console.log('FEED QUESTION PROPS', this.props)
     return (
       <View style={styles.container}>
         <View style={{marginTop: 5}}>
@@ -27,12 +28,25 @@ export default class FeedQuestionAnswered extends React.Component {
           <Text style={styles.boldLabel} >{this.props.leftQ + ' : ' + this.calculatePercentage(this.props.leftVotes) + '%'}</Text>
           <Text style={styles.boldLabel} >{this.props.rightQ + ' : ' + this.calculatePercentage(this.props.rightVotes) + '%'}</Text>
         </View>
+        <TouchableHighlight onPress = {() => {
+          this.props.goGetTheQuestion(this.props.questionId)
+        }}>
+          <Text>DETAILs</Text>
+        </TouchableHighlight>
       </View>
     )
   }
 }
 
 AppRegistry.registerComponent('FeedQuestionAnswered', () => FeedQuestionAnswered)
+
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     // goGetTheQuestion: (questionId) => {
+//     //   dispatch(QuestionInspectorActions.questionInspectorRequest(questionId))
+//     // }
+//   }
+// }
 
 // // Prop type warnings
 // FeedQuestionAnswered.propTypes = {
