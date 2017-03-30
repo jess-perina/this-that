@@ -16,7 +16,6 @@ import {Actions} from 'react-native-router-flux'
 
 export function * inspectQuestion (api, {questionId}) {
   const response = yield call(api.getQuestion, questionId)
-
   // success?
   if (response.ok) {
     // You might need to change the response here - do this with a 'transform',
