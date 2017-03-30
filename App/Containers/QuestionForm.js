@@ -134,10 +134,10 @@ class QuestionForm extends React.Component {
         />
         <View style={Styles.optionsContainer} >
           <View style={Styles.options} >
-            <Image source={Images.launch} style={Styles.imageContainer}>
+            <Image source={{uri: this.state.leftImage}} style={Styles.imageContainer}>
               <TextInput
                 ref='leftText'
-                style={{height: 40, color: 'white', textAlign: 'center', marginTop: 180}}
+                style={{height: 40, color: 'white', textAlign: 'center', marginTop: 250}}
                 value={leftText}
                 editable={editable}
                 keyboardType='default'
@@ -150,10 +150,10 @@ class QuestionForm extends React.Component {
           </View>
           <View style={{borderLeftWidth: 1, borderLeftColor: 'gray'}} />
           <View style={Styles.options} >
-            <Image source={Images.launch} style={Styles.imageContainer}>
+            <Image source={{uri: this.state.rightImage}} style={Styles.imageContainer}>
               <TextInput
                 ref='rightText'
-                style={{height: 40, color: 'white', textAlign: 'center', marginTop: 180}}
+                style={{height: 40, color: 'white', textAlign: 'center', marginTop: 250}}
                 value={rightText}
                 editable={editable}
                 keyboardType='default'

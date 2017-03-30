@@ -30,7 +30,7 @@ class NavigationRouter extends Component {
               <Scene initial key='loginScreen' component={LoginScreen} title='LoginScreen' />
               <Scene key='Feed' component={Feed} title='Feed' />
               <Scene key='Contacts' component={Contacts} title='Contacts' />
-              <Scene key='QuestionInspector' component={QuestionInspector} title='Feed' />
+              <Scene key='QuestionInspector' component={QuestionInspector} title='QuestionInspector' />
               <Scene key='cameraView' component={CameraView} title='CameraView' />
             </Scene>
           </Scene>

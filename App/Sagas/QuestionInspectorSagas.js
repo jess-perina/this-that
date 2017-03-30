@@ -12,19 +12,19 @@
 
 import { call, put } from 'redux-saga/effects'
 import QuestionInspectorActions from '../Redux/QuestionInspectorRedux'
+import {Actions} from 'react-native-router-flux'
 
-export function * inspectQuestion (api) {
-  const response = yield call(api.getQuestion)
-
-  console.log(response)
-
+export function * inspectQuestion (api, {questionId}) {
+  const response = yield call(api.getQuestion, questionId)
+  console.log("QUESTION QUERY",response)
   // success?
   if (response.ok) {
     // You might need to change the response here - do this with a 'transform',
     // located in ../Transforms/. Otherwise, just pass the data back from the api.
     yield put(QuestionInspectorActions.questionInspectorSuccess(response.data))
+    yield Actions.QuestionInspector()
+
   } else {
     yield put(QuestionInspectorActions.questionInspectorFailure())
   }
 }
-

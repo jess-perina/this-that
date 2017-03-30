@@ -24,15 +24,14 @@ export default class QuestionView extends React.Component {
             <Text style={styles.boldLabel} onPress={this.props.onClickLeft} >{this.props.left}</Text>
           </View>
           <View>
-            {/* <FitImage
-                          source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
-                          originalWidth={750}
-                          originalHeight={1334}
-                          style={myStyles.flex}
-                        /> */}
+            <FitImage
+              source={{uri: this.props.leftImage}}
+              originalWidth={750}
+              originalHeight={1334}
+              style={myStyles.flex}
+              />
             <Text style={styles.boldLabel} onPress={this.props.onClickRight} >{this.props.right}</Text>
           </View>
-
         </View>
       </View>
     )

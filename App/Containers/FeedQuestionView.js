@@ -63,8 +63,7 @@ export default class FeedQuestionView extends React.Component {
   }
 
   render () {
-    const { title, leftText, rightText, asker } = this.props.question     // TODO: DISPLAY ASKER NAME    // leftVotes, rightVotes,
-    console.log(this.state)
+    const { title, leftText, rightText, asker, id } = this.props.question         // leftVotes, rightVotes,
     if (this.state.myVote) {
       return (
         <View>
@@ -75,6 +74,8 @@ export default class FeedQuestionView extends React.Component {
             leftVotes={this.state.leftVotes}
             rightVotes={this.state.rightVotes}
             asker={asker}
+            questionId={id}
+            goGetTheQuestion={this.props.goGetTheQuestion}
             />
         </View>
       )

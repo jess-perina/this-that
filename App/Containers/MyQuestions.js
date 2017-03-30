@@ -2,6 +2,7 @@ import React from 'react'
 import { ScrollView, Text } from 'react-native'
 import { connect } from 'react-redux'
 import MainNav from '../Navigation/MainNav'
+import QuestionView from '../Components/QuestionView'
 
 import MyQuestionsActions from '../Redux/MyQuestionsRedux'
 
@@ -13,6 +14,7 @@ class MyQuestions extends React.Component {
   constructor (props) {
     super(props)
     this.state = {}
+    this.mapQuestions = this.mapQuestions.bind(this)
   }
 
   componentDidMount () {
@@ -20,21 +22,36 @@ class MyQuestions extends React.Component {
     this.props.getMyQuestions(this.props.userId)
   }
 
+  mapQuestions = (questions) => questions.map((question) => {
+    console.log(question)
+    return (<QuestionView
+      key={question.id}
+      text={question.title}
+      left={question.leftText}
+      right={question.rightText}
+      leftImage={question.leftImage}
+      rightImage={question.rightImage}
+    />)
+  })
+
   render () {
     console.log('questionprops---', this.props)
+    console.log('myQuestions---', this.props.myQuestions.myQuestions)
+
+
     return (
       <ScrollView style={styles.container} stickyHeaderIndices={[0]}>
         <MainNav />
         <Text style={styles.boldLabel}>My Questions Container</Text>
-        { this.props.myQuestions.myQuestions ?
-          <Text style={styles.boldLabel}>{JSON.stringify(this.props.myQuestions.myQuestions)}</Text> :
-          <Text style={styles.boldLabel}>Done Fetching</Text>
+        { this.props.myQuestions.myQuestions
+          ? this.mapQuestions(this.props.myQuestions.myQuestions)
+          : <Text style={styles.boldLabel}>Done Fetching</Text>
         }
-
       </ScrollView>
     )
   }
 }
+//  <Text style={styles.boldLabel}>{JSON.stringify(this.props.myQuestions.myQuestions)}</Text>
 
 const mapStateToProps = (state) => {
   return {
