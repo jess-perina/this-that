@@ -129,6 +129,7 @@ class QuestionForm extends React.Component {
           keyboardType='default'
           returnKeyType='next'
           onChangeText={(text) => this.handleTypingChange('questionText', text)}
+          onSubmitEditing={() => this.refs.leftText.focus()}
           placeholder='Question???'
           placeholderTextColor='white'
         />
@@ -143,6 +144,7 @@ class QuestionForm extends React.Component {
                 keyboardType='default'
                 returnKeyType='next'
                 onChangeText={(text) => this.handleTypingChange('leftText', text)}
+                onSubmitEditing={() => this.refs.rightText.focus()}
                 placeholder='This'
                 placeholderTextColor='white'
               />
@@ -157,7 +159,7 @@ class QuestionForm extends React.Component {
                 value={rightText}
                 editable={editable}
                 keyboardType='default'
-                returnKeyType='go'
+                returnKeyType='done'
                 onChangeText={(text) => this.handleTypingChange('rightText', text)}
                 placeholder='That'
                 placeholderTextColor='white'
