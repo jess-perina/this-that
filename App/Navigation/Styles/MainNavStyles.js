@@ -3,9 +3,16 @@ import { ApplicationStyles, Metrics, Colors } from '../../Themes/'
 
 export default StyleSheet.create({
 
-  container: {
+  navContainer: {
+    height: 50,
+    paddingLeft: 10,
+    paddingRight: 10
+  },
+  navContentContainer: {
     flex: 1,
-    marginTop: Metrics.navBarHeight,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    height: 20,
     backgroundColor: Colors.background
   },
   row: {
