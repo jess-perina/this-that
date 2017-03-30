@@ -54,8 +54,8 @@ class MainNav extends React.Component {
     let current = this.state.currentPage
     console.log('current---', current)
     return (
-      <View style={{height: 50, paddingLeft: 10, paddingRight: 10}}>
-        <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', height: 20, backgroundColor: 'pink'}} >
+      <View style={styles.navContainer}>
+        <View style={styles.navContentContainer} >
           <TouchableHighlight onPress={(event) => this.handlePress('questionForm')}>
             <Text style={[styles.row, current === 'questionForm' && styles.selectedRow]}>New{'\n'}Question</Text>
           </TouchableHighlight>
