@@ -30,8 +30,9 @@ export const request = (state, { questionId }) =>
 
 // successful api lookup
 export const success = (state, action) => {
-  const { question } = action
-  return state.merge({ fetching: false, error: null, payload: question, questionId: question.id })
+  console.log('ACTION SUCCESS', action)
+  const { question} = action
+  return state.merge({ fetching: false, error: null, payload: question, questionId: question.question.id })
 }
 
 // Something went wrong somewhere.

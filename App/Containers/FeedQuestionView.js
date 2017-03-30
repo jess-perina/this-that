@@ -3,8 +3,9 @@
 import React from 'react'
 import QuestionView from '../Components/QuestionView'
 import axios from 'axios'
-import {View} from 'react-native'
+import { View } from 'react-native'
 import FeedQuestionAnswered from '../Components/FeedQuestionAnswered'
+import { Actions } from 'react-native-router-flux'
 
 export default class FeedQuestionView extends React.Component {
   constructor (props) {
@@ -12,35 +13,57 @@ export default class FeedQuestionView extends React.Component {
     this.state = {
       myVote: props.question.myVote,
       leftVotes: props.question.leftVotes,
-      rightVotes: props.question.rightVotes
+      rightVotes: props.question.rightVotes,
+      answerOptionsModal: false,
+      myVotePreSubmit: null
     }
     this.onClickLeft = this.onClickLeft.bind(this)
     this.onClickRight = this.onClickRight.bind(this)
+    this.onClickSubmitModal = this.onClickSubmitModal.bind(this)
   }
   componentWillReceiveProps (nextProps) {
     this.setState({
       myVote: nextProps.question.myVote,
       leftVotes: nextProps.question.leftVotes,
-      rightVotes: nextProps.question.rightVotes
+      rightVotes: nextProps.question.rightVotes,
+      myVotePreSubmit: null
     })
   }
-  onClickLeft () {
-    return axios.post(`https://socketsynth.ngrok.io/api/question/${this.props.question.id}`, { vote: 'left', comment: '', respondentId: this.props.userId })
+  // -------------------------------------------
+  // Functions START HERE
+  // -------------------------------------------
+
+  onClickSubmitModal () {
+    const vote = this.state.myVotePreSubmit
+    return axios.post(`https://socketsynth.ngrok.io/api/question/${this.props.question.id}`, { vote: vote, comment: '', respondentId: this.props.userId })
     .then(() => {
-      this.setState({myVote: 'left', leftVotes: this.state.leftVotes + 1})
-    })
-    .catch((error) => console.log(error))
-  }
-  onClickRight () {
-    return axios.post(`https://socketsynth.ngrok.io/api/question/${this.props.question.id}`, { vote: 'right', comment: '', respondentId: this.props.userId })
-    .then(() => {
-      this.setState({myVote: 'right', rightVotes: this.state.rightVotes + 1})
+      let leftVotes = 0
+      let rightVotes = 0
+      if (vote === 'right') {
+        rightVotes = this.state.rightVotes + 1
+        leftVotes = this.state.leftVotes
+      } else {
+        rightVotes = this.state.rightVotes
+        leftVotes = this.state.leftVotes + 1
+      }
+      this.setState({myVote: vote, leftVotes: leftVotes, rightVotes: rightVotes})
     })
     .catch((error) => console.log(error))
   }
 
+  onClickLeft () {
+    console.log('left click')
+    this.setState({myVotePreSubmit: 'left'})
+    Actions.AnswerModal({modal: true, onClickSubmit: this.onClickSubmitModal})
+  }
+  onClickRight () {
+    console.log('right click')
+    this.setState({myVotePreSubmit: 'right'})
+    Actions.AnswerModal({modal: true, onClickSubmit: this.onClickSubmitModal})
+  }
+
   render () {
-    const { title, leftText, rightText, asker } = this.props.question         // leftVotes, rightVotes,
+    const { title, leftText, rightText, asker, id } = this.props.question         // leftVotes, rightVotes,
     if (this.state.myVote) {
       return (
         <View>
@@ -50,19 +73,21 @@ export default class FeedQuestionView extends React.Component {
             rightQ={rightText}// + ': ' + this.state.rightVotes}
             leftVotes={this.state.leftVotes}
             rightVotes={this.state.rightVotes}
+            asker={asker}
+            questionId={id}
+            goGetTheQuestion={this.props.goGetTheQuestion}
             />
         </View>
       )
     } else {
       return (
-        <View>
-          <QuestionView
-            text={title}
-            left={leftText}
-            right={rightText}
-            onClickLeft={this.onClickLeft}
-            onClickRight={this.onClickRight} />
-        </View>
+        <QuestionView
+          text={title}
+          left={leftText}
+          right={rightText}
+          asker={asker}
+          onClickLeft={this.onClickLeft}
+          onClickRight={this.onClickRight} />
       )
     }
   }

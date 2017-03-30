@@ -13,7 +13,7 @@ export default class QuestionView extends React.Component {
           <Text style={styles.boldLabel} >{this.props.text}</Text>
         </View>
 
-        <View style={styles.optionsContainer} >
+        <View >
           <View >
             <Image source={{uri: this.props.leftImage}} style={styles.imageContainer} />
             <Text style={styles.boldLabel} onPress={this.props.onClickLeft} >{this.props.left}</Text>
@@ -22,7 +22,6 @@ export default class QuestionView extends React.Component {
             <Image source={{uri: this.props.rightImage}} style={styles.imageContainer} />
             <Text style={styles.boldLabel} onPress={this.props.onClickRight} >{this.props.right}</Text>
           </View>
-
         </View>
       </View>
     )

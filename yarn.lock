@@ -5083,6 +5083,10 @@ react-native-router-flux@^3.37.0:
     react-native-tabs "^1.0.9"
     react-static-container "1.0.1"
 
+react-native-simple-modal@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-simple-modal/-/react-native-simple-modal-5.0.0.tgz#c1c6bbf122d5a2310f15f44c1a46854a3da4c5f1"
+
 react-native-svg@^5.1.6:
   version "5.1.6"
   resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-5.1.6.tgz#c9670eb6b3f62b013d8e135ddfaaca07bb0aec27"
