@@ -16,7 +16,8 @@ class QuestionInspector extends React.Component {
   render () {
     console.log(this.props)
     const {leftText, rightText, leftVotes, rightVotes, title, leftImage, rightImage} = this.props.question
-    // const asker = this.props.question.owner.name
+    const asker = this.props.owner
+
     let chart = null
     if (leftVotes && rightVotes) {
       chart = (<PieChart
@@ -24,15 +25,24 @@ class QuestionInspector extends React.Component {
         series={[rightVotes, leftVotes]}
         sliceColor={['#F44336', '#2196F3']}
                             />)
-    } else if (!leftVotes || !rightVotes) {
+    } else if (leftVotes === 0 && rightVotes === 0) {
       chart = (<Text>NO VOTES YET </Text>)
     } else {
-      chart = (<PieChart
-        chart_wh={100}
-        series={[10000 * rightVotes + 1, 10000 * leftVotes + 1]}
-        sliceColor={['#F44336', '#2196F3']}
+      if (leftVotes) {
+        chart = (<PieChart
+          chart_wh={100}
+          series={[leftVotes]}
+          sliceColor={['#2196F3']}
                             />)
+      } else {
+        chart = (<PieChart
+          chart_wh={100}
+          series={[rightVotes]}
+          sliceColor={['#F44336']}
+                            />)
+      }
     }
+    console.log(chart)
     return (
       <View style={styles.container}>
         <FeedQuestionAnswered
@@ -44,7 +54,7 @@ class QuestionInspector extends React.Component {
           leftVotes={leftVotes}
           rightVotes={rightVotes}
           details={false}
-          // asker={asker}
+          asker={asker}
         />
         <View style={{alignItems: 'center'}}>
           {chart}
@@ -57,7 +67,8 @@ class QuestionInspector extends React.Component {
 const mapStateToProps = (state) => {
   return {
     question: state.questionInspector.payload.question,
-    answersPerUser: state.questionInspector.payload.answersPerUser
+    answersPerUser: state.questionInspector.payload.answersPerUser,
+    owner: state.questionInspector.payload.owner.name
   }
 }
 
