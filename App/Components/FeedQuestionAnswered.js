@@ -23,7 +23,7 @@ export default class FeedQuestionAnswered extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={styles.boldLabel}> {this.props.text} </Text>
-        <Text style={styles.label}> QUESTION ASKED BY {this.props.asker} </Text>
+        <Text style={styles.label}> ASKED BY {this.props.asker} </Text>
         <View style={styles.optionsContainer} >
           <View>
             <Image source={{uri: this.props.leftImage}} style={styles.imageContainer} />
