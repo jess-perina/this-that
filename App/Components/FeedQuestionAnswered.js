@@ -4,6 +4,7 @@ import { AppRegistry, Text, View, TouchableHighlight, Image } from 'react-native
 import { Colors } from '../Themes/'
 
 export default class FeedQuestionAnswered extends React.Component {
+
   calculatePercentage (input) {
     const percent = Math.floor(input / (this.props.rightVotes + this.props.leftVotes) * 100)
     if (percent === Infinity) return 100
@@ -11,7 +12,16 @@ export default class FeedQuestionAnswered extends React.Component {
   }
 
   render () {
-    console.log('FEED QUESTION PROPS', this.props)
+    let detailsButton = null
+    if (this.props.details) {
+      detailsButton =
+      (<TouchableHighlight onPress={() => {
+        this.props.goGetTheQuestion(this.props.questionId)
+      }}>
+        <Text style={{color: 'white'}}>DETAILs</Text>
+      </TouchableHighlight>)
+    }
+
     return (
       <View style={styles.container}>
         <Text style={{color: 'white'}}> QUESTION ASKED BY {this.props.asker} </Text>
@@ -25,12 +35,8 @@ export default class FeedQuestionAnswered extends React.Component {
             <Text style={styles.boldLabel} >{this.props.rightQ + ' : ' + this.calculatePercentage(this.props.rightVotes) + '%'}</Text>
           </View>
         </View>
-        <View>
-          <TouchableHighlight onPress={() => {
-            this.props.goGetTheQuestion(this.props.questionId)
-          }}>
-            <Text style={{color: 'white'}}>DETAILs</Text>
-          </TouchableHighlight>
+        <View >
+          {detailsButton}
         </View>
       </View>
     )

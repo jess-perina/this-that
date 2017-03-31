@@ -13,15 +13,6 @@ import QuestionInspectorActions from '../Redux/QuestionInspectorRedux'
 
 class QuestionInspector extends React.Component {
 
-  constructor (props) {
-    super(props)
-    this.state = {}
-  }
-
-  componentDidMount () {
-
-  }
-
   render () {
     console.log(this.props)
     const {leftText, rightText, leftVotes, rightVotes, title, leftImage, rightImage} = this.props.question
@@ -52,6 +43,7 @@ class QuestionInspector extends React.Component {
           leftImage={leftImage}
           leftVotes={leftVotes}
           rightVotes={rightVotes}
+          details={false}
           // asker={asker}
         />
         <View style={{alignItems: 'center'}}>

@@ -80,6 +80,7 @@ export default class FeedQuestionView extends React.Component {
             rightImage={rightImage}
             asker={asker}
             questionId={id}
+            details
             goGetTheQuestion={this.props.goGetTheQuestion}
             />
         </View>
