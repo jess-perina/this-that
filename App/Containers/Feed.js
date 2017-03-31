@@ -27,7 +27,7 @@ class Feed extends React.Component {
             <FeedQuestionView
               question={question}
               userId={this.props.userId}
-              goGetTheQuestion = {this.props.goGetTheQuestion}
+              goGetTheQuestion={this.props.goGetTheQuestion}
             />
           )
         }}
