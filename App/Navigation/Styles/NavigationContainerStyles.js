@@ -1,4 +1,4 @@
-import {Colors} from '../../Themes/'
+import {Colors, Fonts} from '../../Themes/'
 
 export default {
   container: {
@@ -14,6 +14,8 @@ export default {
     tintColor: Colors.snow
   },
   rightButton: {
-    color: Colors.snow
+    color: Colors.snow,
+    marginTop: 8,
+    fontSize: Fonts.size.small
   }
 }
