@@ -30,7 +30,8 @@ const Question = db.define('question', {
     defaultValue: true
   },
   expires: {
-    type: Sequelize.DATE
+    type: Sequelize.DATE,
+    defaultValue: '2017-04-07 11:00:00-04'
   },
   leftVotes: {
     type: Sequelize.INTEGER,
@@ -49,7 +50,7 @@ const Question = db.define('question', {
 }, {
   instanceMethods: {
     getAnswersPerUser: function () {
-      return Promise.map(this.getAnswers(), (answer) => Promise.all([answer, answer.getRespondent()]))
+      return Promise.map(Promise.filter(this.getAnswers(), answer => !!answer.vote), (answer) => Promise.all([answer, answer.getRespondent()]))
     },
     getAnswerOfUser: function (userId) {
       return Answer.findOne({where: {question_id: this.id, respondent_id: userId }})
