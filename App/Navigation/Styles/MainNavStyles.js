@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { ApplicationStyles, Metrics, Colors } from '../../Themes/'
+import { Metrics, Colors } from '../../Themes/'
 
 export default StyleSheet.create({
 
@@ -7,6 +7,9 @@ export default StyleSheet.create({
     height: 50,
     paddingLeft: 10,
     paddingRight: 10
+  },
+  background: {
+    backgroundColor: Colors.background
   },
   navContentContainer: {
     flex: 1,
