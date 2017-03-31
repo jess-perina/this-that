@@ -11,6 +11,7 @@ export default class QuestionView extends React.Component {
       <View style={styles.container}>
         <View style={{marginTop: 10}}>
           <Text style={styles.boldLabel} >{this.props.text}</Text>
+          <Text style={styles.boldLabel} >Question Asked By: {this.props.asker}</Text>
         </View>
         <View style={styles.optionsContainer} >
           <View >
@@ -28,7 +29,6 @@ export default class QuestionView extends React.Component {
     )
   }
 }
-
 
 // // Prop type warnings
 // QuestionView.propTypes = {

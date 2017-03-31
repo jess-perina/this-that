@@ -24,6 +24,7 @@ export default class FeedQuestionAnswered extends React.Component {
 
     return (
       <View style={styles.container}>
+        <Text style={{color: 'white'}}> {this.props.text} </Text>
         <Text style={{color: 'white'}}> QUESTION ASKED BY {this.props.asker} </Text>
         <View style={styles.optionsContainer} >
           <View>

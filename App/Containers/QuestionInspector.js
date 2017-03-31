@@ -16,7 +16,7 @@ class QuestionInspector extends React.Component {
   render () {
     console.log(this.props)
     const {leftText, rightText, leftVotes, rightVotes, title, leftImage, rightImage} = this.props.question
-    console.log(leftVotes, rightVotes)
+    const asker = this.props.question.owner.name
     let chart = null
     if (leftVotes && rightVotes) {
       chart = (<PieChart
@@ -44,7 +44,7 @@ class QuestionInspector extends React.Component {
           leftVotes={leftVotes}
           rightVotes={rightVotes}
           details={false}
-          // asker={asker}
+          asker={asker}
         />
         <View style={{alignItems: 'center'}}>
           {chart}
