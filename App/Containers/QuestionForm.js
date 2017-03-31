@@ -97,7 +97,7 @@ class QuestionForm extends React.Component {
     this.isAttempting = true
     // attempt a submit - a saga is listening to pick it up from here.
     this.props.attemptSubmit(questionText, leftText, rightText, leftImage, rightImage, respondents, expirationDate, expirationTime, userId)
-    this.setState({questionText: '', leftText: '', rightText: '', leftImage: '', rightImage: '', respondents: [], isPublic: false})
+    this.setState({questionText: '', leftText: '', rightText: '', leftImage: 'https://lorempixel.com/400/600/black/', rightImage: 'https://lorempixel.com/400/600/black/', respondents: [], isPublic: false})
   }
 
   handleTypingChange = (field, text) => {
