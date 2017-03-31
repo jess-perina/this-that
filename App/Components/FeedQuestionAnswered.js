@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './Styles/QuestionViewStyle'
 import { AppRegistry, Text, View, TouchableHighlight, Image } from 'react-native'
-import { Colors } from '../Themes/'
+import RoundedButton from '../Components/RoundedButton'
 
 export default class FeedQuestionAnswered extends React.Component {
 
@@ -15,17 +15,15 @@ export default class FeedQuestionAnswered extends React.Component {
     let detailsButton = null
     if (this.props.details) {
       detailsButton =
-      (<TouchableHighlight onPress={() => {
+      (<RoundedButton text='Details' onPress={() => {
         this.props.goGetTheQuestion(this.props.questionId)
-      }}>
-        <Text style={{color: 'white'}}>DETAILs</Text>
-      </TouchableHighlight>)
+      }} />)
     }
 
     return (
       <View style={styles.container}>
-        <Text style={{color: 'white'}}> {this.props.text} </Text>
-        <Text style={{color: 'white'}}> QUESTION ASKED BY {this.props.asker} </Text>
+        <Text style={styles.boldLabel}> {this.props.text} </Text>
+        <Text style={styles.label}> QUESTION ASKED BY {this.props.asker} </Text>
         <View style={styles.optionsContainer} >
           <View>
             <Image source={{uri: this.props.leftImage}} style={styles.imageContainer} />
