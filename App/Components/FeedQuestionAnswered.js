@@ -2,11 +2,9 @@ import React from 'react'
 import styles from './Styles/QuestionViewStyle'
 import { AppRegistry, Text, View, TouchableHighlight, Image } from 'react-native'
 import { Colors } from '../Themes/'
-import PieChart from 'react-native-pie-chart'
-import QuestionInspectorActions from '../Redux/QuestionInspectorRedux'
-
 
 export default class FeedQuestionAnswered extends React.Component {
+
   calculatePercentage (input) {
     const percent = Math.floor(input / (this.props.rightVotes + this.props.leftVotes) * 100)
     if (percent === Infinity) return 100
@@ -14,32 +12,33 @@ export default class FeedQuestionAnswered extends React.Component {
   }
 
   render () {
-    console.log('FEED QUESTION PROPS', this.props)
+    let detailsButton = null
+    if (this.props.details) {
+      detailsButton =
+      (<TouchableHighlight onPress={() => {
+        this.props.goGetTheQuestion(this.props.questionId)
+      }}>
+        <Text style={{color: 'white'}}>DETAILs</Text>
+      </TouchableHighlight>)
+    }
+
     return (
       <View style={styles.container}>
-        <View style={{marginTop: 5}}>
-          <Text style={styles.boldLabel} >{this.props.text}</Text>
-          { (this.props.leftVotes && this.props.rightVotes) ? (<PieChart
-            chart_wh={100}
-            series={[10000 * this.props.rightVotes + 1, 10000 * this.props.leftVotes + 1]}
-            sliceColor={['#F44336', '#2196F3']}
-            />)
-            : null
-          }
-        </View>
+        <Text style={{color: 'white'}}> {this.props.text} </Text>
+        <Text style={{color: 'white'}}> QUESTION ASKED BY {this.props.asker} </Text>
         <View style={styles.optionsContainer} >
-          <Image source={{uri: this.props.leftImage}} style={styles.feedImageContainer}>
-            <Text style={[styles.boldLabel, {backgroundColor: Colors.background}]} >{this.props.leftQ + ' : ' + this.calculatePercentage(this.props.leftVotes) + '%'}</Text>
-          </Image>
-          <Image source={{uri: this.props.rightImage}} style={styles.feedImageContainer}>
-            <Text style={[styles.boldLabel, {backgroundColor: Colors.background}]} >{this.props.rightQ + ' : ' + this.calculatePercentage(this.props.rightVotes) + '%'}</Text>
-          </Image>
+          <View>
+            <Image source={{uri: this.props.leftImage}} style={styles.imageContainer} />
+            <Text style={styles.boldLabel} >{this.props.leftQ + ' : ' + this.calculatePercentage(this.props.leftVotes) + '%'}</Text>
+          </View>
+          <View>
+            <Image source={{uri: this.props.rightImage}} style={styles.imageContainer} />
+            <Text style={styles.boldLabel} >{this.props.rightQ + ' : ' + this.calculatePercentage(this.props.rightVotes) + '%'}</Text>
+          </View>
         </View>
-        <TouchableHighlight onPress={() => {
-          this.props.goGetTheQuestion(this.props.questionId)
-        }}>
-          <Text>DETAILs</Text>
-        </TouchableHighlight>
+        <View >
+          {detailsButton}
+        </View>
       </View>
     )
   }

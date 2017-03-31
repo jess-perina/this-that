@@ -36,7 +36,7 @@ export default class FeedQuestionView extends React.Component {
   onClickSubmitModal (comment) {
     const vote = this.state.myVotePreSubmit
     comment = (comment !== '') ? comment : null
-    return axios.post(`https://socketsynth.ngrok.io/api/question/${this.props.question.id}`, { vote: vote, comment: comment, respondentId: this.props.userId })
+    return axios.post(`https://sheltered-fjord-16288.herokuapp.com/api/question/${this.props.question.id}`, { vote: vote, comment: comment, respondentId: this.props.userId })
     .then(() => {
       let leftVotes = 0
       let rightVotes = 0
@@ -65,7 +65,8 @@ export default class FeedQuestionView extends React.Component {
 
   render () {
     console.log('questionprops---', this.props.question)
-    const { title, leftText, rightText, leftImage, rightImage, asker, id } = this.props.question         // leftVotes, rightVotes,
+    const { title, leftText, rightText, leftImage, rightImage, id } = this.props.question
+    const asker = this.props.question.owner.name         // leftVotes, rightVotes,
     if (this.state.myVote) {
       return (
         <View>
@@ -79,6 +80,7 @@ export default class FeedQuestionView extends React.Component {
             rightImage={rightImage}
             asker={asker}
             questionId={id}
+            details
             goGetTheQuestion={this.props.goGetTheQuestion}
             />
         </View>
