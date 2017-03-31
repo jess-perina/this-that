@@ -44,6 +44,16 @@ export default StyleSheet.create({
     borderRadius: 3,
     zIndex: -1
   },
+  feedImageContainer: {
+    flex: 1,
+    height: 296,
+    width: 181,
+    backgroundColor: 'transparent',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 4,
+    zIndex: -1
+  },
   optionsContainer: {
     height: 300,
     flex: 1,
