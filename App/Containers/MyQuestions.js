@@ -29,6 +29,8 @@ class MyQuestions extends React.Component {
       text={question.title}
       left={question.leftText}
       right={question.rightText}
+      leftVotes={question.leftVotes}
+      rightVotes={question.rightVotes}
       leftImage={question.leftImage}
       rightImage={question.rightImage}
     />)

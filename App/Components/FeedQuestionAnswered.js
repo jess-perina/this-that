@@ -1,8 +1,11 @@
 import React from 'react'
 import styles from './Styles/QuestionViewStyle'
-import { AppRegistry, Text, View, TouchableHighlight } from 'react-native'
+import { AppRegistry, Text, View, TouchableHighlight, Image } from 'react-native'
+import { Colors } from '../Themes/'
 import PieChart from 'react-native-pie-chart'
 import QuestionInspectorActions from '../Redux/QuestionInspectorRedux'
+
+
 export default class FeedQuestionAnswered extends React.Component {
   calculatePercentage (input) {
     const percent = Math.floor(input / (this.props.rightVotes + this.props.leftVotes) * 100)
@@ -25,8 +28,12 @@ export default class FeedQuestionAnswered extends React.Component {
           }
         </View>
         <View style={styles.optionsContainer} >
-          <Text style={styles.boldLabel} >{this.props.leftQ + ' : ' + this.calculatePercentage(this.props.leftVotes) + '%'}</Text>
-          <Text style={styles.boldLabel} >{this.props.rightQ + ' : ' + this.calculatePercentage(this.props.rightVotes) + '%'}</Text>
+          <Image source={{uri: this.props.leftImage}} style={styles.feedImageContainer}>
+            <Text style={[styles.boldLabel, {backgroundColor: Colors.background}]} >{this.props.leftQ + ' : ' + this.calculatePercentage(this.props.leftVotes) + '%'}</Text>
+          </Image>
+          <Image source={{uri: this.props.rightImage}} style={styles.feedImageContainer}>
+            <Text style={[styles.boldLabel, {backgroundColor: Colors.background}]} >{this.props.rightQ + ' : ' + this.calculatePercentage(this.props.rightVotes) + '%'}</Text>
+          </Image>
         </View>
         <TouchableHighlight onPress={() => {
           this.props.goGetTheQuestion(this.props.questionId)
