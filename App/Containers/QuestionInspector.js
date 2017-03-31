@@ -43,18 +43,18 @@ class QuestionInspector extends React.Component {
                             />)
     }
     return (
-      <View>
-        <View style={styles.container}>
-          <FeedQuestionAnswered text={title}
-            leftQ={leftText}// + ': ' + this.state.leftVotes}
-            rightQ={rightText}// + ': ' + this.state.rightVotes}
-            rightImage={rightImage}
-            leftImage={leftImage}
-            leftVotes={leftVotes}
-            rightVotes={rightVotes}
+      <View style={styles.container}>
+        <FeedQuestionAnswered
+          text={title}
+          leftQ={leftText}// + ': ' + this.state.leftVotes}
+          rightQ={rightText}// + ': ' + this.state.rightVotes}
+          rightImage={rightImage}
+          leftImage={leftImage}
+          leftVotes={leftVotes}
+          rightVotes={rightVotes}
+          // asker={asker}
         />
-        </View>
-        <View>
+        <View style={{alignItems: 'center'}}>
           {chart}
         </View>
       </View>

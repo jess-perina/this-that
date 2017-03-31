@@ -65,7 +65,8 @@ export default class FeedQuestionView extends React.Component {
 
   render () {
     console.log('questionprops---', this.props.question)
-    const { title, leftText, rightText, leftImage, rightImage, asker, id } = this.props.question         // leftVotes, rightVotes,
+    const { title, leftText, rightText, leftImage, rightImage, id } = this.props.question
+    const asker = this.props.question.owner.name         // leftVotes, rightVotes,
     if (this.state.myVote) {
       return (
         <View>
