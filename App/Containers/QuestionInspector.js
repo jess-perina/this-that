@@ -56,7 +56,7 @@ class QuestionInspector extends React.Component {
           details={false}
           asker={asker}
         />
-        <View style={{alignItems: 'center'}}>
+        <View style={{alignItems: 'center', marginBottom: 20}}>
           {chart}
         </View>
       </View>
