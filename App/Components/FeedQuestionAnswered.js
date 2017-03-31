@@ -2,9 +2,7 @@ import React from 'react'
 import styles from './Styles/QuestionViewStyle'
 import { AppRegistry, Text, View, TouchableHighlight, Image } from 'react-native'
 import { Colors } from '../Themes/'
-import PieChart from 'react-native-pie-chart'
 import QuestionInspectorActions from '../Redux/QuestionInspectorRedux'
-
 
 export default class FeedQuestionAnswered extends React.Component {
   calculatePercentage (input) {
@@ -19,13 +17,6 @@ export default class FeedQuestionAnswered extends React.Component {
       <View style={styles.container}>
         <View style={{marginTop: 5}}>
           <Text style={styles.boldLabel} >{this.props.text}</Text>
-          { (this.props.leftVotes && this.props.rightVotes) ? (<PieChart
-            chart_wh={100}
-            series={[10000 * this.props.rightVotes + 1, 10000 * this.props.leftVotes + 1]}
-            sliceColor={['#F44336', '#2196F3']}
-            />)
-            : null
-          }
         </View>
         <View style={styles.optionsContainer} >
           <Image source={{uri: this.props.leftImage}} style={styles.feedImageContainer}>
