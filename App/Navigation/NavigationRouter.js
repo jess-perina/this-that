@@ -29,7 +29,7 @@ class NavigationRouter extends Component {
               <Scene initial key='loginScreen' hideBackImage onRight={() => { Actions.loginScreen() }} rightTitle='Logout' rightButtonTextStyle={Styles.rightButton} component={LoginScreen} title='This/That' />
               <Scene key='Feed' hideBackImage onRight={() => { Actions.loginScreen() }} rightTitle='Logout' rightButtonTextStyle={Styles.rightButton} component={Feed} title='Feed' />
               <Scene key='Contacts' hideBackImage onRight={() => { Actions.loginScreen() }} rightTitle='Logout' rightButtonTextStyle={Styles.rightButton} component={Contacts} title='This/That' />
-              <Scene key='QuestionInspector' hideBackImage onRight={() => { Actions.loginScreen() }} rightTitle='Logout' rightButtonTextStyle={Styles.rightButton} component={QuestionInspector} title='This/That' />
+              <Scene key='QuestionInspector' onRight={() => { Actions.loginScreen() }} rightTitle='Logout' rightButtonTextStyle={Styles.rightButton} component={QuestionInspector} title='This/That' />
               <Scene key='cameraView' onRight={() => { Actions.loginScreen() }} rightTitle='Logout' rightButtonTextStyle={Styles.rightButton} component={CameraView} title='This/That' />
             </Scene>
           </Scene>
