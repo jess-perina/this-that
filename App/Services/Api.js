@@ -2,7 +2,7 @@
 import apisauce from 'apisauce'
 
 // our "constructor"
-const create = (baseURL = 'https://socketsynth.ngrok.io/') => {
+const create = (baseURL = 'https://sheltered-fjord-16288.herokuapp.com/') => {
   // ------
   // STEP 1
   // ------
