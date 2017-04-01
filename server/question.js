@@ -6,8 +6,8 @@ const Promise = require('bluebird')
 module.exports = require('express').Router()
 .get('/:questionId', (req, res, next) => {
   Question.findOne({where: {id: req.params.questionId}})
-  .then(question => (Promise.all([question, question.getAnswersPerUser()])))
-  .then(([question, answers]) => res.send({question, answersPerUser: answers}))
+  .then(question => (Promise.all([question, question.getAnswersPerUser(), question.getOwner()])))
+  .then(([question, answers, owner]) => res.send({question, answersPerUser: answers, owner}))
   .catch(err => console.log(err))
 })
 .post('/:questionId', (req, res, next) => {

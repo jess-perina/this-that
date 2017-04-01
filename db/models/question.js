@@ -49,7 +49,7 @@ const Question = db.define('question', {
 }, {
   instanceMethods: {
     getAnswersPerUser: function () {
-      return Promise.map(this.getAnswers(), (answer) => Promise.all([answer, answer.getRespondent()]))
+      return Promise.map(Promise.filter(this.getAnswers(), answer => !!answer.vote), (answer) => Promise.all([answer, answer.getRespondent()]))
     },
     getAnswerOfUser: function (userId) {
       return Answer.findOne({where: {question_id: this.id, respondent_id: userId }})

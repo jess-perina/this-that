@@ -17,8 +17,8 @@ class QuestionInspector extends React.Component {
     console.log(this.props)
     const {leftText, rightText, leftVotes, rightVotes, title, leftImage, rightImage} = this.props.question
     const asker = this.props.owner
-
     let chart = null
+    let colors = ['#F44336', '#2196F3']
     if (leftVotes && rightVotes) {
       chart = (<PieChart
         chart_wh={100}
@@ -42,7 +42,9 @@ class QuestionInspector extends React.Component {
                             />)
       }
     }
-    console.log(chart)
+    let answerUserWithCommentList = this.props.answersPerUser.filter(answerUser => !!answerUser[0].comment)
+  //  let answerUserWithoutCommentList = this.props.answersPerUser.filter(answerUser => !answerUser[0].comment)
+  //  console.log(answerUserWithComment.map(answerUser => answerUser[0]))
     return (
       <View style={styles.container}>
         <FeedQuestionAnswered
@@ -56,6 +58,15 @@ class QuestionInspector extends React.Component {
           details={false}
           asker={asker}
         />
+        <View>
+        {
+          answerUserWithCommentList.map((answerUser) => {
+            let color = colors[+(answerUser[0].vote === 'left')]
+            console.log('answer should be colored', color)
+            return (<Text style={{color: color}}> {answerUser[1].name + ' ' + answerUser[0].comment + ' ' + answerUser[0].vote} </Text>)
+         })
+       }
+      </View>
         <View style={{alignItems: 'center'}}>
           {chart}
         </View>
