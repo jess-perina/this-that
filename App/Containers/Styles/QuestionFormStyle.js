@@ -19,7 +19,7 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     color: Colors.snow,
     textAlign: 'center',
-    marginTop: 250
+    marginTop: 180
   },
   label: {
     textAlign: 'center',

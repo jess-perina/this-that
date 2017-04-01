@@ -88,7 +88,7 @@ module.exports = require('express').Router()
   Question.create({title, leftText, rightText, leftImage, rightImage, public: publicBool, owner_id: req.params.userId})
   .then((question) => {
     let participantsAndMe = JSON.parse(respondents)
-    participantsAndMe.push(req.params.userId)
+    // participantsAndMe.push(req.params.userId)
 
     if (participantsAndMe.length) {
       return Promise.map(participantsAndMe, (respondent) => {

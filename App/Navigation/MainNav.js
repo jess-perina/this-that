@@ -54,20 +54,22 @@ class MainNav extends React.Component {
     let current = this.state.currentPage
     console.log('current---', current)
     return (
-      <View style={styles.navContainer}>
-        <View style={styles.navContentContainer} >
-          <TouchableHighlight onPress={(event) => this.handlePress('questionForm')}>
-            <Text style={[styles.row, current === 'questionForm' && styles.selectedRow]}>New{'\n'}Question</Text>
-          </TouchableHighlight>
-          <TouchableHighlight onPress={(event) => this.handlePress('myQuestions')}>
-            <Text style={this.setStyle('myQuestions')}>My{'\n'}Questions</Text>
-          </TouchableHighlight>
-          <TouchableHighlight onPress={(event) => this.handlePress('Feed')}>
-            <Text style={this.setStyle('Feed')}>Friend{'\n'}Question</Text>
-          </TouchableHighlight>
-          <TouchableHighlight onPress={(event) => this.handlePress('random')}>
-            <Text style={this.setStyle('random')}>Random{'\n'}Question</Text>
-          </TouchableHighlight>
+      <View style={styles.background}>
+        <View style={styles.navContainer}>
+          <View style={styles.navContentContainer} >
+            <TouchableHighlight onPress={(event) => this.handlePress('questionForm')}>
+              <Text style={[styles.row, current === 'questionForm' && styles.selectedRow]}>New{'\n'}Question</Text>
+            </TouchableHighlight>
+            <TouchableHighlight onPress={(event) => this.handlePress('myQuestions')}>
+              <Text style={this.setStyle('myQuestions')}>My{'\n'}Questions</Text>
+            </TouchableHighlight>
+            <TouchableHighlight onPress={(event) => this.handlePress('Feed')}>
+              <Text style={this.setStyle('Feed')}>Friend{'\n'}Question</Text>
+            </TouchableHighlight>
+            <TouchableHighlight onPress={(event) => this.handlePress('random')}>
+              <Text style={this.setStyle('random')}>Random{'\n'}Question</Text>
+            </TouchableHighlight>
+          </View>
         </View>
       </View>
     )
