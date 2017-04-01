@@ -62,14 +62,17 @@ class QuestionInspector extends React.Component {
           {chart}
         </View>
         <View>
-        {
+          {
           answerUserWithCommentList.map((answerUser) => {
             let color = colors[+(answerUser[0].vote === 'left')]
+            let vote
+            if (answerUser[0].vote === 'left') vote = leftText
+            else vote = rightText
             console.log('answer should be colored', color)
-            return (<Text style={{color: color}}> {answerUser[1].name + ':  ' + answerUser[0].comment + ' ' + answerUser[0].vote} </Text>)
-         })
+            return (<Text style={[styles.text, {color: color}]}> {`${answerUser[1].name}: ${answerUser[0].comment}: ${vote}`} </Text>)
+          })
        }
-      </View>
+        </View>
       </View>
     )
   }
