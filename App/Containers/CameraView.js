@@ -32,10 +32,10 @@ class CameraView extends React.Component {
           aspect={Camera.constants.Aspect.fill}>
           <View style={Styles.buttonBar}>
             <TouchableHighlight onPress={this.takePicture.bind(this)}>
-              <Image source={Icons.camera} />
+              <Image source={Icons.camera} style={{marginRight: 90, marginLeft: 140, marginBottom: 20}} />
             </TouchableHighlight>
             <TouchableHighlight onPress={this.switchCamera.bind(this)}>
-              <Text style={Styles.button}>Flip</Text>
+              <Image source={Icons.cameraFlip} />
             </TouchableHighlight>
 
           </View>
