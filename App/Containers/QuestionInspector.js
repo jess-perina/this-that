@@ -23,7 +23,7 @@ class QuestionInspector extends React.Component {
       chart = (<PieChart
         chart_wh={100}
         series={[rightVotes, leftVotes]}
-        sliceColor={['#F44336', '#2196F3']}
+        sliceColor={['#B22A03', '#FFB159']}
                             />)
     } else if (leftVotes === 0 && rightVotes === 0) {
       chart = (<Text>NO VOTES YET </Text>)
@@ -32,13 +32,13 @@ class QuestionInspector extends React.Component {
         chart = (<PieChart
           chart_wh={100}
           series={[leftVotes]}
-          sliceColor={['#2196F3']}
+          sliceColor={['#FFB159']}
                             />)
       } else {
         chart = (<PieChart
           chart_wh={100}
           series={[rightVotes]}
-          sliceColor={['#F44336']}
+          sliceColor={['#B22A03']}
                             />)
       }
     }
