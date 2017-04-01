@@ -31,9 +31,9 @@ const seedQuestions = () => db.model('question').bulkCreate([
   {title: 'What should I make for dinner?', leftText: 'Chicken', rightText: 'Tacos', leftImage: 'https://thisthatfullstack.s3.amazonaws.com/B45D26FE-C298-4469-8C29-97BE235D.jpg', rightImage: 'https://thisthatfullstack.s3.amazonaws.com/4D0737CF-C7F6-47E1-ACA2-ECBC34F6.jpg', expires: '2017-04-07 11:00:00-04', leftVotes: 1, rightVotes: 1, public: false, owner_id: 1},
   {title: 'What should I do this weekend?', leftText: 'Go for a hike', rightText: 'Clean my apartment', leftImage: 'https://thisthatfullstack.s3.amazonaws.com/EA1B961F-1D24-452B-B52F-01F359DD.jpg', rightImage: 'https://thisthatfullstack.s3.amazonaws.com/7A3938C7-63DB-46A4-A4C1-D53382DB.jpg', expires: '2017-04-07 11:00:00-04', leftVotes: 1, rightVotes: 1, public: false, owner_id: 1},
   {title: 'Which fly kicks should I buy?', leftText: 'Nikes', rightText: 'Reeboks', leftImage: 'https://thisthatfullstack.s3.amazonaws.com/9898A8EB-D442-4CA6-AE74-D96FED0D.jpg', rightImage: 'https://thisthatfullstack.s3.amazonaws.com/E5D79CC2-4993-4D68-9195-EF06BCB1.jpg', expires: '2017-04-07 11:00:00-04', leftVotes: 1, rightVotes: 2, public: false, owner_id: 2},
-  {title: 'What should I put on next?', leftText: 'Beatles', rightText: 'Stones', leftImage: 'https://thisthatfullstack.s3.amazonaws.com/F0C8BEB9-FD16-4E9A-BF01-DB3E0012.jpg', rightImage: 'https://thisthatfullstack.s3.amazonaws.com/645FDFB0-730B-4D01-A2DE-58CC5DCA.jpg', expires: '2017-04-07 11:00:00-04', public: false, owner_id: 3},
+  {title: 'What should I put on next?', leftText: 'Hurf', rightText: 'Stones', leftImage: 'https://thisthatfullstack.s3.amazonaws.com/F0C8BEB9-FD16-4E9A-BF01-DB3E0012.jpg', rightImage: 'https://thisthatfullstack.s3.amazonaws.com/645FDFB0-730B-4D01-A2DE-58CC5DCA.jpg', expires: '2017-04-07 11:00:00-04', public: false, owner_id: 5},
   {title: 'Should I keep growing my beard?', leftText: 'Yes', rightText: 'No', leftImage: 'https://thisthatfullstack.s3.amazonaws.com/64272681-262E-42C0-9778-5EB8761D.jpg', rightImage: 'https://thisthatfullstack.s3.amazonaws.com/D5082439-D2D9-42FC-A770-66A7B5FF.jpg', expires: '2017-04-07 11:00:00-04', public: false, owner_id: 4},
-  {title: 'Random internet people, please advise:', leftText: 'This tie', rightText: 'That tie', leftImage: 'https://thisthatfullstack.s3.amazonaws.com/7EFB62C3-087A-4574-8D5D-A8695A67.jpg', rightImage: 'https://thisthatfullstack.s3.amazonaws.com/CC634BB9-ADAA-48C8-B188-81172C57.jpg', expires: '2017-04-07 11:00:00-04', leftVotes: 1, rightVotes: 1, public: true, owner_id: 5}
+  {title: 'Random internet people, please advise:', leftText: 'This tie', rightText: 'That tie', leftImage: 'https://thisthatfullstack.s3.amazonaws.com/7EFB62C3-087A-4574-8D5D-A8695A67.jpg', rightImage: 'https://thisthatfullstack.s3.amazonaws.com/CC634BB9-ADAA-48C8-B188-81172C57.jpg', expires: '2017-04-07 11:00:00-04', leftVotes: 1, public: true, owner_id: 5}
 ])
 
 const seedAnswers = () => db.model('answer').bulkCreate([
@@ -46,14 +46,10 @@ const seedAnswers = () => db.model('answer').bulkCreate([
   {vote: 'right', respondent_id: 1, question_id: 3},
   {vote: 'right', respondent_id: 3, question_id: 3},
   {vote: 'left', respondent_id: 4, question_id: 3},
-  {vrespondent_id: 1, question_id: 4},
-  {respondent_id: 2, question_id: 4},
-  {respondent_id: 3, question_id: 4},
   {respondent_id: 1, question_id: 5},
-  {respondent_id: 1, question_id: 5},
-  {respondent_id: 1, question_id: 5},
-  {vote: 'right', respondent_id: 1, question_id: 6},
-  {vote: 'left', respondent_id: 2, question_id: 1}
+  {respondent_id: 2, question_id: 5},
+  {respondent_id: 3, question_id: 5}
+
 ])
 
 db.didSync

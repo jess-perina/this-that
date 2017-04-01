@@ -67,7 +67,7 @@ export default class AnswerModal extends React.Component {
     if (this.state.modal) {
       return (
         <View style={styles.container}>
-          <Form style={styles.form} >
+          <Form style={{height: 400, marginTop: 10}} >
             <TextInput
               editable
               maxLength={140}
@@ -84,7 +84,7 @@ export default class AnswerModal extends React.Component {
             />
             <Button
               success
-              style={styles.cancelButton}
+              style={{width: Metrics.screenWidth, marginBottom: 10}}
               onPress={() => {
                 const comment = this.state.comment
                 this.props.onClickSubmit(comment)
@@ -95,7 +95,7 @@ export default class AnswerModal extends React.Component {
             </Button>
             <Button
               danger
-              style={styles.submitButtom}
+              style={{width: Metrics.screenWidth}}
               onPress={this.modalCancel}>
               <Text>CANCEL</Text>
             </Button>

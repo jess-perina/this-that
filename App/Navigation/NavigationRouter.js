@@ -11,6 +11,7 @@ import MyQuestions from '../Containers/MyQuestions'
 import QuestionInspector from '../Containers/QuestionInspector'
 import CameraView from '../Containers/CameraView'
 import Feed from '../Containers/Feed'
+import RandomFeed from '../Containers/RandomFeed'
 import AnswerModal from '../Containers/AnswerModal'
 
 /* **************************
@@ -28,6 +29,7 @@ class NavigationRouter extends Component {
               <Scene key='myQuestions' hideBackImage onRight={() => { Actions.loginScreen() }} rightTitle='Logout' rightButtonTextStyle={Styles.rightButton} component={MyQuestions} title='This/That' />
               <Scene initial key='loginScreen' hideBackImage onRight={() => { Actions.loginScreen() }} rightTitle='Logout' rightButtonTextStyle={Styles.rightButton} component={LoginScreen} title='This/That' />
               <Scene key='Feed' hideBackImage onRight={() => { Actions.loginScreen() }} rightTitle='Logout' rightButtonTextStyle={Styles.rightButton} component={Feed} title='Feed' />
+              <Scene key='random' hideBackImage onRight={() => { Actions.loginScreen() }} rightTitle='Logout' rightButtonTextStyle={Styles.rightButton} component={RandomFeed} title='This/That' />
               <Scene key='Contacts' hideBackImage onRight={() => { Actions.loginScreen() }} rightTitle='Logout' rightButtonTextStyle={Styles.rightButton} component={Contacts} title='This/That' />
               <Scene key='QuestionInspector' onRight={() => { Actions.loginScreen() }} rightTitle='Logout' rightButtonTextStyle={Styles.rightButton} component={QuestionInspector} title='This/That' />
               <Scene key='cameraView' onRight={() => { Actions.loginScreen() }} rightTitle='Logout' rightButtonTextStyle={Styles.rightButton} component={CameraView} title='This/That' />

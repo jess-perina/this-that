@@ -30,7 +30,8 @@ const Question = db.define('question', {
     defaultValue: true
   },
   expires: {
-    type: Sequelize.DATE
+    type: Sequelize.DATE,
+    defaultValue: '2017-04-07 11:00:00-04'
   },
   leftVotes: {
     type: Sequelize.INTEGER,

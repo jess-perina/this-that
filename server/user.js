@@ -73,12 +73,13 @@ module.exports = require('express').Router()
         open: true,
         id: {$notIn: arrAnsweredQIds}
       },
+      include: [{model: db.model('user'), as: 'owner'}],
       order: [[Sequelize.fn('RANDOM')]],
       limit: 1
     })
   })
   .then((arrOfSingleAnswer) => {
-    res.json(arrOfSingleAnswer[0])
+    res.json(arrOfSingleAnswer)
   })
   .catch(next)
 })
