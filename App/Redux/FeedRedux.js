@@ -6,6 +6,7 @@ import Immutable from 'seamless-immutable'
 const { Types, Creators } = createActions({
   feedRequest: ['userId'],
   feedSuccess: ['payload'],
+  randomFeedRequest: ['userId'],
   feedFailure: null
 
 })
@@ -31,9 +32,9 @@ export const request = (state, { userId }) =>
 // successful api lookup
 export const success = (state, action) => {
   const { payload } = action
+  console.log('feed success action --- ', action)
   return state.merge({ fetching: false, error: null, feed: payload })
 }
-
 // Something went wrong somewhere.
 export const failure = state =>
   state.merge({fetching: false, error: true})
@@ -42,6 +43,7 @@ export const failure = state =>
 
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.FEED_REQUEST]: request,
+  [Types.RANDOM_FEED_REQUEST]: request,
   [Types.FEED_SUCCESS]: success,
   [Types.FEED_FAILURE]: failure
 })

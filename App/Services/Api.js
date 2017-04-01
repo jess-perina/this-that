@@ -62,10 +62,14 @@ const create = (baseURL = 'https://sheltered-fjord-16288.herokuapp.com/') => {
     return api.get(`api/question/${questionId}`)
   }
   const grabFeed = (userId) => {
-    let gottenQuestion = api.get(`api/user/${userId}/askedto`)
-    return gottenQuestion
+    return api.get(`api/user/${userId}/askedto`)
   }
-
+  const grabRandomFeed = (userId) => {
+    console.log('userId', userId)
+    let randomQuestion = api.get(`api/user/${userId}/random`)
+    console.log('randomQuestion', randomQuestion)
+    return randomQuestion
+  }
   const getFriends = (userId) => {
     return api.get(`api/user/${userId}/friends`)
   }
@@ -92,6 +96,7 @@ const create = (baseURL = 'https://sheltered-fjord-16288.herokuapp.com/') => {
     logMeIn,
     getMyQuestions,
     getQuestion,
+    grabRandomFeed,
     grabFeed,
     getFriends
   }
