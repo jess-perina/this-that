@@ -3,7 +3,7 @@ import { LayoutAnimation, View, Keyboard, Text, TextInput } from 'react-native'
 import { Actions } from 'react-native-router-flux'
 
 import { Form, Button } from 'native-base'
-import { Metrics, Colors } from '../Themes'
+import { Metrics } from '../Themes'
 // import RoundedButton from '../Components/RoundedButton'
 // import FullButton from '../Components/RoundedButton'
 
@@ -11,7 +11,7 @@ import { Metrics, Colors } from '../Themes'
 // import YourActions from '../Redux/YourRedux'
 
 // Styles
-// import styles from './Styles/AnswerModalStyle'
+import styles from './Styles/AnswerModalStyle'
 
 export default class AnswerModal extends React.Component {
   keyboardDidShowListener = {}
@@ -66,16 +66,8 @@ export default class AnswerModal extends React.Component {
     console.log('RENDERING MODAL', this.state)
     if (this.state.modal) {
       return (
-        <View style={{flex: 1, height: Metrics.screenHeight, width: Metrics.screenWidth, top: 120, position: 'absolute', backgroundColor: Colors.background}}>
-          <Form style={{height: 400}} >
-            <Button danger onPress={this.modalCancel}><Text>CANCEL</Text></Button>
-            <Button success
-              onPress={() => {
-                const comment = this.state.comment
-                this.props.onClickSubmit(comment)
-                Actions.pop()
-              }}
-                    ><Text>SUBMIT</Text></Button>
+        <View style={styles.container}>
+          <Form style={styles.form} >
             <TextInput
               editable
               maxLength={140}
@@ -88,7 +80,25 @@ export default class AnswerModal extends React.Component {
               onChange={(e) => {
                 this.setState({comment: e.nativeEvent.text})
               }}
-              style={{height: 400, width: Metrics.screenWidth, alignItems: 'center', color: 'white'}} />
+              style={styles.answerInput}
+            />
+            <Button
+              success
+              style={styles.cancelButton}
+              onPress={() => {
+                const comment = this.state.comment
+                this.props.onClickSubmit(comment)
+                Actions.pop()
+              }}
+            >
+              <Text>SUBMIT</Text>
+            </Button>
+            <Button
+              danger
+              style={styles.submitButtom}
+              onPress={this.modalCancel}>
+              <Text>CANCEL</Text>
+            </Button>
           </Form>
         </View>
       )

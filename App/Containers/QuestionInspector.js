@@ -18,12 +18,12 @@ class QuestionInspector extends React.Component {
     const {leftText, rightText, leftVotes, rightVotes, title, leftImage, rightImage} = this.props.question
     const asker = this.props.owner
     let chart = null
-    let colors = ['#F44336', '#2196F3']
+    let colors = ['#B22A03', '#FFB159']
     if (leftVotes && rightVotes) {
       chart = (<PieChart
         chart_wh={100}
         series={[rightVotes, leftVotes]}
-        sliceColor={['#F44336', '#2196F3']}
+        sliceColor={['#B22A03', '#FFB159']}
                             />)
     } else if (leftVotes === 0 && rightVotes === 0) {
       chart = (<Text>NO VOTES YET </Text>)
@@ -32,13 +32,13 @@ class QuestionInspector extends React.Component {
         chart = (<PieChart
           chart_wh={100}
           series={[leftVotes]}
-          sliceColor={['#2196F3']}
+          sliceColor={['#FFB159']}
                             />)
       } else {
         chart = (<PieChart
           chart_wh={100}
           series={[rightVotes]}
-          sliceColor={['#F44336']}
+          sliceColor={['#B22A03']}
                             />)
       }
     }
@@ -58,18 +58,18 @@ class QuestionInspector extends React.Component {
           details={false}
           asker={asker}
         />
+        <View style={{alignItems: 'center', marginBottom: 20}}>
+          {chart}
+        </View>
         <View>
         {
           answerUserWithCommentList.map((answerUser) => {
             let color = colors[+(answerUser[0].vote === 'left')]
             console.log('answer should be colored', color)
-            return (<Text style={{color: color}}> {answerUser[1].name + ' ' + answerUser[0].comment + ' ' + answerUser[0].vote} </Text>)
+            return (<Text style={{color: color}}> {answerUser[1].name + ':  ' + answerUser[0].comment + ' ' + answerUser[0].vote} </Text>)
          })
        }
       </View>
-        <View style={{alignItems: 'center'}}>
-          {chart}
-        </View>
       </View>
     )
   }
