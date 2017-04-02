@@ -61,10 +61,10 @@ class LoginScreen extends React.Component {
   keyboardDidShow = (e) => {
     // Animation types easeInEaseOut/linear/spring
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
-    let newSize = Metrics.screenHeight - e.endCoordinates.height
+    let newSize = Metrics.screenHeight - e.endCoordinates
     this.setState({
       visibleHeight: newSize,
-      topLogo: {width: 100, height: 70}
+      topLogo: {paddingTop: 0, paddingBottom: 0}
     })
   }
 

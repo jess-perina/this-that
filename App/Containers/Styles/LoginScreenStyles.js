@@ -47,6 +47,10 @@ export default StyleSheet.create({
   },
   topLogo: {
     alignSelf: 'center',
-    resizeMode: 'contain'
+    resizeMode: 'contain',
+    paddingBottom: 15,
+    paddingTop: 20,
+    marginTop: 20,
+    marginBottom: 20
   }
 })
