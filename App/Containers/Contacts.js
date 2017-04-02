@@ -6,7 +6,6 @@ import QuestionFormActions from '../Redux/QuestionFormRedux'
 import FullButton from '../Components/FullButton'
 import { Actions } from 'react-native-router-flux'
 
-
 // Styles
 import styles from './Styles/ContactsStyle'
 
@@ -34,7 +33,6 @@ class Contacts extends React.Component {
       // {nameFirst: 'Silva', nameLast: 'Smith', userId: 7},
       // {nameFirst: 'Mike', nameLast: 'Smith', userId: 12},
       // {nameFirst: 'Maria', nameLast: 'Smith', userId: 13}
-
 
     const rowHasChanged = (r1, r2) => r1 !== r2
 
@@ -69,17 +67,15 @@ class Contacts extends React.Component {
     Actions.pop()
   }
 
-
   _renderRow (rowData) {
     return (
       <ContactsView
         first={rowData.userName}
-        userId={rowData.userId}
+        userId={rowData.friendId}
         clickChange={this.handleSelected}
       />
     )
   }
-
 
   /* ***********************************************************
   * STEP 4
