@@ -49,7 +49,6 @@ class Contacts extends React.Component {
   }
 
   handleSelected (name) {
-    console.log('name---', name)
     const selected = Array.from(this.state.selected)
     const nameIndex = selected.indexOf(name)
     if (nameIndex === -1) {
@@ -64,13 +63,11 @@ class Contacts extends React.Component {
 
   handleDone = () => {
     const respondents = this.state.selected
-    console.log('respondents----', respondents)
     this.props.setResponders(respondents)
     Actions.pop()
   }
 
   _renderRow (rowData) {
-    console.log('rowData---', rowData)
     return (
       <ContactsView
         first={rowData.userName}
