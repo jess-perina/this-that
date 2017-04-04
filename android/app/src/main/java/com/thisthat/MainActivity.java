@@ -1,6 +1,8 @@
 package com.thisthat;
 
 import com.facebook.react.ReactActivity;
+import com.rt2zz.reactnativecontacts.ReactNativeContacts;
+import com.horcrux.svg.SvgPackage;
 
 public class MainActivity extends ReactActivity {
 

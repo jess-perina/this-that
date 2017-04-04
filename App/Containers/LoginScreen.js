@@ -11,7 +11,7 @@ import {
 } from 'react-native'
 import { connect } from 'react-redux'
 import Styles from './Styles/LoginScreenStyles'
-import {Images, Metrics} from '../Themes'
+import {Images, Metrics, Colors} from '../Themes'
 import LoginActions from '../Redux/LoginRedux'
 import { Actions as NavigationActions } from 'react-native-router-flux'
 
@@ -30,7 +30,7 @@ class LoginScreen extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      username: '1234567890',
+      userNumber: '1234567890',
       password: '1234',
       visibleHeight: Metrics.screenHeight,
       topLogo: { width: Metrics.screenWidth }
@@ -61,10 +61,10 @@ class LoginScreen extends React.Component {
   keyboardDidShow = (e) => {
     // Animation types easeInEaseOut/linear/spring
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
-    let newSize = Metrics.screenHeight - e.endCoordinates.height
+    let newSize = Metrics.screenHeight - e.endCoordinates
     this.setState({
       visibleHeight: newSize,
-      topLogo: {width: 100, height: 70}
+      topLogo: {paddingTop: 0, paddingBottom: 0}
     })
   }
 
@@ -78,14 +78,14 @@ class LoginScreen extends React.Component {
   }
 
   handlePressLogin = () => {
-    const { username, password } = this.state
+    const { userNumber, password } = this.state
     this.isAttempting = true
     // attempt a login - a saga is listening to pick it up from here.
-    this.props.attemptLogin(username, password)
+    this.props.attemptLogin(userNumber, password)
   }
 
   handleChangeUsername = (text) => {
-    this.setState({ username: text })
+    this.setState({ userNumber: text })
   }
 
   handleChangePassword = (text) => {
@@ -93,7 +93,7 @@ class LoginScreen extends React.Component {
   }
 
   render () {
-    const { username, password } = this.state
+    const { userNumber, password } = this.state
     const { fetching } = this.props
     const editable = !fetching
     const textInputStyle = editable ? Styles.textInput : Styles.textInputReadonly
@@ -106,7 +106,7 @@ class LoginScreen extends React.Component {
             <TextInput
               ref='username'
               style={textInputStyle}
-              value={username}
+              value={userNumber}
               editable={editable}
               keyboardType='default'
               returnKeyType='next'
@@ -149,7 +149,11 @@ class LoginScreen extends React.Component {
             </TouchableOpacity>
           </View>
         </View>
-
+        <Text
+          style={{color: Colors.snow, textAlign: 'center', textDecorationLine: 'underline', marginTop: 25}}
+        >
+          New to This/That? Create an account
+        </Text>
       </ScrollView>
     )
   }
@@ -159,14 +163,14 @@ class LoginScreen extends React.Component {
 const mapStateToProps = (state) => {
   return {
     fetching: state.login.fetching,
-    username: state.login.username,
+    userNumber: state.login.username,
     userId: state.login.userId
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    attemptLogin: (username, password) => dispatch(LoginActions.loginRequest(username, password))
+    attemptLogin: (userNumber, password) => dispatch(LoginActions.loginRequest(userNumber, password))
   }
 }
 

@@ -4,7 +4,7 @@ import { Metrics, Colors } from '../../Themes/'
 export default StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: Metrics.navBarHeight,
+    marginTop: 10,
     backgroundColor: Colors.background
   },
   row: {
@@ -34,6 +34,26 @@ export default StyleSheet.create({
     textAlign: 'center',
     margin: 10
   },
+  imageContainer: {
+    flex: 1,
+    width: 181,
+    height: undefined,
+    backgroundColor: 'transparent',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 3,
+    zIndex: -1
+  },
+  feedImageContainer: {
+    flex: 1,
+    height: 296,
+    width: 181,
+    backgroundColor: 'transparent',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 4,
+    zIndex: -1
+  },
   optionsContainer: {
     height: 300,
     flex: 1,
@@ -43,12 +63,12 @@ export default StyleSheet.create({
     borderColor: 'gray',
     borderWidth: 1,
     borderRadius: 5,
-    margin: 10
+    margin: 5
   },
   options: {
     width: 175,
     height: 40,
-    borderBottomColor: 'white',
+    borderBottomColor: Colors.snow,
     borderBottomWidth: 1
   }
 })

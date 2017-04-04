@@ -19,12 +19,11 @@ export default StyleSheet.create({
     alignSelf: 'center',
     color: Colors.snow,
     textAlign: 'center',
-    marginVertical: Metrics.smallMargin
+    marginBottom: Metrics.smallMargin
   },
   label: {
     textAlign: 'center',
-    color: Colors.snow,
-    marginBottom: Metrics.smallMargin
+    color: Colors.snow
   },
   listContent: {
     marginTop: Metrics.baseMargin

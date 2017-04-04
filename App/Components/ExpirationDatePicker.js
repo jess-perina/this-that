@@ -1,6 +1,8 @@
 import React from 'react'
+import { Text, View } from 'react-native'
 import DatePicker from 'react-native-datepicker'
 import styles from './Styles/ExpirationDatePickerStyle'
+import {Colors} from '../Themes'
 
 export default class ExpirationDatePicker extends React.Component {
   constructor (props) {
@@ -15,22 +17,25 @@ export default class ExpirationDatePicker extends React.Component {
   }
 
   render () {
-    console.log('props---', this.props)
     return (
-      <DatePicker
-        style={{width: 200}}
-        date={this.props.date}
-        time={this.props.time}
-        mode='datetime'
-        placeholder='select date'
-        format='MM-DD-YYYY'
-        minDate={this.props.date}
-        maxDate='2016-06-01'
-        confirmBtnText='Confirm'
-        cancelBtnText='Cancel'
-        customStyles={[styles.dateInput, styles.dateIcon]}
-        onDateChange={this.handleDateChange}
-      />
+      <View>
+        <DatePicker
+          style={{width: 200, marginLeft: 85}}
+          date={this.props.date}
+          time={this.props.time}
+          mode='datetime'
+          placeholder='Expires'
+          format='MM-DD-YYYY, h:mm a'
+          minDate={this.props.date}
+          maxDate='2016-06-01'
+          confirmBtnText='Confirm'
+          cancelBtnText='Cancel'
+          showIcon={false}
+          customStyles={[styles.dateInput, styles.dateIcon]}
+          onDateChange={this.handleDateChange}
+        />
+        <Text style={{color: Colors.snow, textAlign: 'center'}}>Expires</Text>
+      </View>
     )
   }
 }

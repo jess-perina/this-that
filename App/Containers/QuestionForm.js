@@ -1,10 +1,12 @@
 import React, { PropTypes } from 'react'
 import { View, Text, TextInput, Image, Keyboard, LayoutAnimation, TouchableHighlight } from 'react-native'
 import { connect } from 'react-redux'
-import Icons from '../Themes/Images'
-import {Images, Metrics} from '../Themes'
+import {Images, Metrics, Colors} from '../Themes'
 import RoundedButton from '../Components/RoundedButton'
+import FullButton from '../Components/FullButton'
+import MainNav from '../Navigation/MainNav'
 import ExpirationDatePicker from '../Components/ExpirationDatePicker'
+
 import { Actions } from 'react-native-router-flux'
 // Styles
 import Styles from './Styles/QuestionFormStyle'
@@ -33,8 +35,10 @@ class QuestionForm extends React.Component {
       questionText: '',
       leftText: '',
       rightText: '',
-      leftImage: '',
-      rightImage: '',
+      leftImage: 'https://lorempixel.com/400/600/black/',
+      rightImage: 'https://lorempixel.com/400/600/black/',
+      photoSide: '',
+      photoUri: '',
       respondents: [],
       expirationDate: date,
       expirationTime: time,
@@ -50,6 +54,19 @@ class QuestionForm extends React.Component {
     // TODO: Revisit this if Android begins to support - https://github.com/facebook/react-native/issues/3468
     this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this.keyboardDidShow)
     this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this.keyboardDidHide)
+  }
+
+  componentWillReceiveProps (newProps) {
+    if (newProps.respondents !== this.props.respondents) {
+      this.setState({
+        respondents: newProps.respondents
+      })
+    }
+    if (newProps.photoUri !== this.props.photoUri) {
+      this.setState({
+        [`${this.state.photoSide}Image`]: newProps.photoUri
+      })
+    }
   }
 
   componentWillUnmount () {
@@ -75,12 +92,12 @@ class QuestionForm extends React.Component {
   }
 
   handlePressSubmit = () => {
-    const { questionText, leftText, rightText, respondents, expirationDate, expirationTime } = this.state
+    const { questionText, leftText, rightText, respondents, leftImage, rightImage, expirationDate, expirationTime } = this.state
     const { userId } = this.props
     this.isAttempting = true
     // attempt a submit - a saga is listening to pick it up from here.
-    this.props.attemptSubmit(questionText, leftText, rightText, respondents, expirationDate, expirationTime, userId)
-    this.setState({questionText: '', leftText: '', rightText: '', leftImage: '', rightImage: '', respondents: [], isPublic: false})
+    this.props.attemptSubmit(questionText, leftText, rightText, leftImage, rightImage, respondents, expirationDate, expirationTime, userId)
+    this.setState({questionText: '', leftText: '', rightText: '', leftImage: 'https://lorempixel.com/400/600/black/', rightImage: 'https://lorempixel.com/400/600/black/', respondents: [], isPublic: false})
   }
 
   handleTypingChange = (field, text) => {
@@ -88,19 +105,22 @@ class QuestionForm extends React.Component {
   }
 
   handleDateChange = (date, time) => {
-    console.log(date, time)
     this.setState({expirationDate: date, expirationTime: time})
   }
 
+  leftCam = (side) => {
+    this.setState({photoSide: side})
+    Actions.cameraView()
+  }
+
   render () {
-    console.log('state---', this.state)
     const { questionText, leftText, rightText } = this.state
     const { fetching } = this.props
     const editable = !fetching
     // const textInputStyle = editable ? Styles.textInput : Styles.textInputReadonly
     return (
       <View style={[Styles.container, {height: this.state.visibleHeight}]} >
-        <Text style={Styles.boldLabel}>Get Some Feedback</Text>
+        <MainNav />
         <TextInput
           ref='questionText'
           style={Styles.question}
@@ -109,36 +129,52 @@ class QuestionForm extends React.Component {
           keyboardType='default'
           returnKeyType='next'
           onChangeText={(text) => this.handleTypingChange('questionText', text)}
+          onSubmitEditing={() => this.refs.leftText.focus()}
           placeholder='Question???'
-          placeholderTextColor='white'
+          placeholderTextColor={Colors.snow}
         />
         <View style={Styles.optionsContainer} >
           <View style={Styles.options} >
-            <TextInput
-              ref='leftText'
-              style={{height: 40, color: 'white', textAlign: 'center'}}
-              value={leftText}
-              editable={editable}
-              keyboardType='default'
-              returnKeyType='next'
-              onChangeText={(text) => this.handleTypingChange('leftText', text)}
-              placeholder='This'
-              placeholderTextColor='white'
-            />
+            <Image source={{uri: this.state.leftImage}} style={Styles.imageContainer}>
+              <TextInput
+                ref='leftText'
+                style={Styles.boldLabel}
+                value={leftText}
+                editable={editable}
+                keyboardType='default'
+                returnKeyType='next'
+                onChangeText={(text) => this.handleTypingChange('leftText', text)}
+                onSubmitEditing={() => this.refs.rightText.focus()}
+                placeholder='This'
+                placeholderTextColor={Colors.snow}
+              />
+            </Image>
           </View>
           <View style={{borderLeftWidth: 1, borderLeftColor: 'gray'}} />
           <View style={Styles.options} >
-            <TextInput
-              ref='rightText'
-              style={{height: 40, color: 'white', textAlign: 'center'}}
-              value={rightText}
-              editable={editable}
-              keyboardType='default'
-              returnKeyType='go'
-              onChangeText={(text) => this.handleTypingChange('rightText', text)}
-              placeholder='That'
-              placeholderTextColor='white'
-            />
+            <Image source={{uri: this.state.rightImage}} style={Styles.imageContainer}>
+              <TextInput
+                ref='rightText'
+                style={Styles.boldLabel}
+                value={rightText}
+                editable={editable}
+                keyboardType='default'
+                returnKeyType='done'
+                onChangeText={(text) => this.handleTypingChange('rightText', text)}
+                placeholder='That'
+                placeholderTextColor={Colors.snow}
+              />
+            </Image>
+          </View>
+        </View>
+        <View style={{height: 50}}>
+          <View style={Styles.buttonContainer}>
+            <View>
+              <RoundedButton text='Left Photo' onPress={() => { this.leftCam('left') }} />
+            </View>
+            <View>
+              <RoundedButton text='Right Photo' onPress={() => { this.leftCam('right') }} />
+            </View>
           </View>
         </View>
         <ExpirationDatePicker
@@ -146,13 +182,8 @@ class QuestionForm extends React.Component {
           time={this.state.expirationTime}
           onConfirm={this.handleDateChange}
         />
-        <View style={Styles.buttonContainer}>
-          <RoundedButton text='Choose Friends' />
-          <TouchableHighlight onPress={Actions.cameraView}>
-            <Image source={Icons.camera} />
-          </TouchableHighlight>
-        </View>
-        <RoundedButton
+        <RoundedButton text='Choose Friends' onPress={Actions.Contacts} />
+        <FullButton
           text='Submit'
           onPress={this.handlePressSubmit}
         />
@@ -166,17 +197,21 @@ const mapStateToProps = (state) => {
     questionText: state.question.questionText,
     leftText: state.question.leftText,
     rightText: state.question.rightText,
+    leftImage: state.question.leftImage,
+    rightImage: state.question.rightImage,
+    photoUri: state.question.photoUri,
     respondents: state.question.respondents,
     expirationDate: state.question.expirationDate,
     expirationTime: state.question.expirationTime,
     userId: state.login.userId,
-    username: state.login.username
+    username: state.login.username,
+    state: state
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    attemptSubmit: (questionText, leftText, rightText, respondents, expirationDate, expirationTime, userId) => dispatch(QuestionFormActions.questionSubmit(questionText, leftText, rightText, respondents, expirationDate, expirationTime, userId))
+    attemptSubmit: (questionText, leftText, rightText, leftImage, rightImage, respondents, expirationDate, expirationTime, userId) => dispatch(QuestionFormActions.questionSubmit(questionText, leftText, rightText, leftImage, rightImage, respondents, expirationDate, expirationTime, userId))
   }
 }
 

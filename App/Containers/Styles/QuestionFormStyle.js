@@ -15,11 +15,11 @@ export default StyleSheet.create({
     justifyContent: 'center'
   },
   boldLabel: {
+    height: 40,
     fontWeight: 'bold',
-    alignSelf: 'center',
     color: Colors.snow,
     textAlign: 'center',
-    marginVertical: Metrics.smallMargin
+    marginTop: 180
   },
   label: {
     textAlign: 'center',
@@ -30,30 +30,42 @@ export default StyleSheet.create({
     marginTop: Metrics.baseMargin
   },
   question: {
-    height: 40,
-    borderColor: 'gray',
+    height: 35,
+    borderColor: '#16FFDC',
     borderWidth: 1,
     borderRadius: 5,
     textAlign: 'center',
+    fontWeight: 'bold',
     margin: 10,
-    color: 'white'
+    marginBottom: -5,
+    color: Colors.snow,
+    zIndex: 0
+  },
+  imageContainer: {
+    flex: 1,
+    width: undefined,
+    height: undefined,
+    backgroundColor: 'transparent',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 5,
+    zIndex: -1
   },
   optionsContainer: {
-    height: 300,
+    height: 400,
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
-    borderColor: 'gray',
+    alignItems: 'flex-end',
+    paddingBottom: 0,
+    borderColor: '#16FFDC',
     borderWidth: 1,
     borderRadius: 5,
     margin: 10
   },
   options: {
-    width: 175,
-    height: 40,
-    borderBottomColor: 'white',
-    borderBottomWidth: 1
+    width: 176,
+    height: 287
   },
   buttonContainer: {
     flex: 1,

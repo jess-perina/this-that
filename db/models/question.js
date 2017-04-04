@@ -30,7 +30,8 @@ const Question = db.define('question', {
     defaultValue: true
   },
   expires: {
-    type: Sequelize.DATE
+    type: Sequelize.DATE,
+    defaultValue: '2017-04-07 11:00:00-04'
   },
   leftVotes: {
     type: Sequelize.INTEGER,
@@ -49,13 +50,12 @@ const Question = db.define('question', {
 }, {
   instanceMethods: {
     getAnswersPerUser: function () {
-      return Promise.map(this.getAnswers(), (answer) => Promise.all([answer, answer.getRespondent()]))
+      return Promise.map(Promise.filter(this.getAnswers(), answer => !!answer.vote), (answer) => Promise.all([answer, answer.getRespondent()]))
     },
     getAnswerOfUser: function (userId) {
       return Answer.findOne({where: {question_id: this.id, respondent_id: userId }})
     },
     votesQuestionUpdate: function (vote) {
-      console.log('da vote', vote)
       return this.increment((vote === 'left') ? 'leftVotes' : 'rightVotes', { by: 1 })
     },
     pendingRespondentsIds: function () {
@@ -90,6 +90,8 @@ const Question = db.define('question', {
                 return acc
               })
             )
+          } else {
+            return acc
           }
         },
         []
@@ -105,6 +107,11 @@ const Question = db.define('question', {
           if (!ids.includes(+respondentId)) {
             Answer.create({vote, comment, respondent_id: respondentId, question_id: this.id})
             .then(() => this.votesQuestionUpdate(vote))
+            .then(() => {
+              if ((this.owner_id) === respondentId) {
+                this.update({closed: true})
+              }
+            })
           } else {
             throw Error('attempt for uninvited entry')
           }
@@ -125,7 +132,8 @@ const Question = db.define('question', {
       }
     },
     active: function () {
-      return ((this.expires > new Date()) && this.open)
+      // simplfying for now so that we don't mess with dates
+      return (/* (this.expires > new Date()) && */ this.open)
     }
   },
   classMethods: {

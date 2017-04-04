@@ -1,16 +1,18 @@
 import React from 'react'
 import {
-  Dimensions,
   Text,
   Image,
   TouchableHighlight,
   View
 } from 'react-native'
+import { connect } from 'react-redux'
 import Icons from '../Themes/Images'
 import Camera from 'react-native-camera'
 import Styles from './Styles/CameraViewStyle'
+import { Actions } from 'react-native-router-flux'
+import QuestionFormActions from '../Redux/QuestionFormRedux'
 
-export default class CameraView extends React.Component {
+class CameraView extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -22,16 +24,18 @@ export default class CameraView extends React.Component {
     return (
       <View style={Styles.container}>
         <Camera
+          // VVV  comment this in when testing on phone VVV
+          // captureTarget={Camera.constants.CaptureTarget.disk}
           ref={(cam) => { this.camera = cam }}
           type={this.state.cameraType}
           style={Styles.preview}
           aspect={Camera.constants.Aspect.fill}>
           <View style={Styles.buttonBar}>
             <TouchableHighlight onPress={this.takePicture.bind(this)}>
-              <Image source={Icons.camera} />
+              <Image source={Icons.camera} style={{marginRight: 90, marginLeft: 140, marginBottom: 20}} />
             </TouchableHighlight>
             <TouchableHighlight onPress={this.switchCamera.bind(this)}>
-              <Text style={Styles.button}>Flip</Text>
+              <Image source={Icons.cameraFlip} />
             </TouchableHighlight>
 
           </View>
@@ -51,18 +55,23 @@ export default class CameraView extends React.Component {
     const options = {}
     // options.location = ...
     this.camera.capture({metadata: options})
-      .then((data) => console.log(data))
+      .then((data) => {
+        this.props.sendPicture(data.path)
+      })
       .catch(err => console.error(err))
+    Actions.pop()
   }
 }
 
-// // Prop type warnings
-// Camera.propTypes = {
-//   someProperty: React.PropTypes.object,
-//   someSetting: React.PropTypes.bool.isRequired
-// }
-//
-// // Defaults for props
-// Camera.defaultProps = {
-//   someSetting: false
-// }
+const mapStateToProps = (state) => {
+  return {
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    sendPicture: (photoUri) => dispatch(QuestionFormActions.dispatchPhoto(photoUri))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CameraView)

@@ -4,8 +4,11 @@ import Immutable from 'seamless-immutable'
 /* ------------- Types and Action Creators ------------- */
 
 const { Types, Creators } = createActions({
-  questionSubmit: ['questionText', 'leftText', 'rightText', 'respondents', 'expirationDate', 'expirationTime', 'userId'],
+  questionUpdate: ['field', 'text'],
+  questionSubmit: ['questionText', 'leftText', 'rightText', 'leftImage', 'rightImage', 'respondents', 'expirationDate', 'expirationTime', 'userId'],
   questionSuccess: ['payload'],
+  questionSetRespondents: ['respondents'],
+  dispatchPhoto: ['photoUri'],
   questionFailure: null
 })
 
@@ -20,6 +23,7 @@ export const INITIAL_STATE = Immutable({
   rightText: '',
   leftImage: '',
   rightImage: '',
+  photoUri: '',
   respondents: [],
   expirationDate: '',
   expirationTime: '',
@@ -28,9 +32,20 @@ export const INITIAL_STATE = Immutable({
 
 /* ------------- Reducers ------------- */
 
-// submit question form to db
-export const submit = (state, {questionText, leftText, rightText}) =>
-  state.merge({questionText, leftText, rightText})
+// update form text
+export const update = (state, {field, text}) =>
+  state.merge({ [field]: text })
+
+// set respondents for question
+export const submit = (state, {questionText, leftText, rightText, respondents, leftImage, rightImage, userId}) => state.merge({questionText, leftText, rightText, respondents, leftImage, rightImage})
+
+// update form text
+export const registerRespondents = (state, {respondents}) =>
+  state.merge({respondents})
+
+// send photo taken to question form
+export const setPhotoUri = (state, {photoUri}) =>
+  state.merge({photoUri})
 
 // successful api lookup
 export const success = (state, action) => {
@@ -45,6 +60,9 @@ export const failure = state =>
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
+  [Types.QUESTION_UPDATE]: update,
+  [Types.QUESTION_SET_RESPONDENTS]: registerRespondents,
+  [Types.DISPATCH_PHOTO]: setPhotoUri,
   [Types.QUESTION_SUBMIT]: submit,
   [Types.QUESTION_SUCCESS]: success,
   [Types.QUESTION_FAILURE]: failure

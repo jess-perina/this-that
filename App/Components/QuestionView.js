@@ -1,21 +1,54 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, Image } from 'react-native'
+
+// import FitImage from 'react-native-fit-image'
 import styles from './Styles/QuestionViewStyle'
 
 export default class QuestionView extends React.Component {
 
   render () {
-    return (
-      <View style={styles.container}>
-        <View style={{marginTop: 20}}>
-          <Text style={styles.boldLabel} >{this.props.text}</Text>
+    if (this.props.asker) {
+      return (
+        <View style={styles.container}>
+          <View style={{marginTop: 10}}>
+            <Text style={styles.boldLabel} >{this.props.text}</Text>
+            <Text style={styles.boldLabel} >Question Asked By: {this.props.asker}</Text>
+          </View>
+          <View style={styles.optionsContainer} >
+            <View >
+              <Image source={{uri: this.props.leftImage}} style={styles.imageContainer} />
+              <Text style={styles.boldLabel} onPress={this.props.onClickLeft} >{this.props.left}</Text>
+              <Text style={styles.boldLabel} >{this.props.leftVotes}</Text>
+            </View>
+            <View>
+              <Image source={{uri: this.props.rightImage}} style={styles.imageContainer} />
+              <Text style={styles.boldLabel} onPress={this.props.onClickRight} >{this.props.right}</Text>
+              <Text style={styles.boldLabel} >{this.props.rightVotes}</Text>
+            </View>
+          </View>
         </View>
-        <View style={styles.optionsContainer} >
-          <Text style={styles.boldLabel} >{this.props.left}</Text>
-          <Text style={styles.boldLabel} >{this.props.right}</Text>
+      )
+    } else {
+      return (
+        <View style={styles.container}>
+          <View style={{marginTop: 10}}>
+            <Text style={styles.boldLabel} >{this.props.text}</Text>
+          </View>
+          <View style={styles.optionsContainer} >
+            <View >
+              <Image source={{uri: this.props.leftImage}} style={styles.imageContainer} />
+              <Text style={styles.boldLabel} onPress={this.props.onClickLeft} >{this.props.left}</Text>
+              <Text style={styles.boldLabel} >{this.props.leftVotes}</Text>
+            </View>
+            <View>
+              <Image source={{uri: this.props.rightImage}} style={styles.imageContainer} />
+              <Text style={styles.boldLabel} onPress={this.props.onClickRight} >{this.props.right}</Text>
+              <Text style={styles.boldLabel} >{this.props.rightVotes}</Text>
+            </View>
+          </View>
         </View>
-      </View>
-    )
+      )
+    }
   }
 }
 

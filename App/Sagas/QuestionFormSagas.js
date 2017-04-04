@@ -12,14 +12,41 @@
 
 import { call, put } from 'redux-saga/effects'
 import QuestionFormActions from '../Redux/QuestionFormRedux'
+import { RNS3 } from 'react-native-aws3'
+import options from '../../secret.js'
+
+export function * imageBucket (imageUri) {
+  let file = {
+    // `uri` can also be a file system path (i.e. file://)
+    uri: imageUri,
+    name: imageUri.slice(-40, -8) + '.jpg',
+    type: 'image/jpg'
+  }
+  const response = yield call(RNS3.put, file, options)
+  if (response.status !== 201) {
+    throw new Error('Failed to upload image to S3')
+  }
+  return response
+}
 
 export function * postQuestion (api, action) {
+  const { questionText, leftText, rightText, respondents, leftImage, rightImage, userId } = action
+  let leftImageResponse, leftLocation, rightImageResponse, rightLocation
+  try {
+    leftImageResponse = yield imageBucket(leftImage)
+  } catch (e) {
+    console.log(e)
+  }
+  try {
+    rightImageResponse = yield imageBucket(rightImage)
+  } catch (e) {
+    console.log(e)
+  }
 
-  const { questionText, leftText, rightText , userId} = action
+  leftLocation = leftImageResponse.headers.Location
+  rightLocation = rightImageResponse.headers.Location
 
-  // make the call to the api
-  const response = yield call(api.postQuestion, questionText, leftText, rightText, userId)
-
+  const response = yield call(api.postQuestion, questionText, leftText, rightText, respondents, leftLocation, rightLocation, userId)
   // success?
   if (response.ok) {
     // You might need to change the response here - do this with a 'transform',
