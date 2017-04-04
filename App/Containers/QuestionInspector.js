@@ -1,15 +1,11 @@
 import React from 'react'
-import { ScrollView, Text, TextInput, View } from 'react-native'
+import { Text, View } from 'react-native'
 import { connect } from 'react-redux'
 import FeedQuestionAnswered from '../Components/FeedQuestionAnswered'
 import PieChart from 'react-native-pie-chart'
 
-// Add Actions - replace 'Your' with whatever your reducer is called :)
-// import YourActions from '../Redux/YourRedux'
-
 // Styles
 import styles from './Styles/QuestionInspectorStyle'
-import QuestionInspectorActions from '../Redux/QuestionInspectorRedux'
 
 class QuestionInspector extends React.Component {
 
@@ -43,8 +39,6 @@ class QuestionInspector extends React.Component {
       }
     }
     let answerUserWithCommentList = this.props.answersPerUser.filter(answerUser => !!answerUser[0].comment)
-  //  let answerUserWithoutCommentList = this.props.answersPerUser.filter(answerUser => !answerUser[0].comment)
-  //  console.log(answerUserWithComment.map(answerUser => answerUser[0]))
     return (
       <View style={styles.container}>
         <FeedQuestionAnswered
@@ -63,15 +57,15 @@ class QuestionInspector extends React.Component {
         </View>
         <View>
           {
-          answerUserWithCommentList.map((answerUser) => {
-            let color = colors[+(answerUser[0].vote === 'left')]
-            let vote
-            if (answerUser[0].vote === 'left') vote = leftText
-            else vote = rightText
-            console.log('answer should be colored', color)
-            return (<Text style={[styles.text, {color: color}]}> {`${answerUser[1].name}: ${answerUser[0].comment}: ${vote}`} </Text>)
-          })
-       }
+            answerUserWithCommentList.map((answerUser) => {
+              let color = colors[+(answerUser[0].vote === 'left')]
+              let vote
+              if (answerUser[0].vote === 'left') vote = leftText
+              else vote = rightText
+              console.log('answer should be colored', color)
+              return (<Text style={[styles.text, {color: color}]}> {`${answerUser[1].name}: ${answerUser[0].comment}: ${vote}`} </Text>)
+            })
+          }
         </View>
       </View>
     )

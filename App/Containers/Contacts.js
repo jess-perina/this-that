@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, ListView } from 'react-native'
+import { View, ListView } from 'react-native'
 import { connect } from 'react-redux'
 import ContactsView from '../Components/ContactsView'
 import QuestionFormActions from '../Redux/QuestionFormRedux'

@@ -70,7 +70,7 @@ OAuth.V2 = (accessToken, refreshToken, profile, done) =>
 OAuth.setupStrategy =
 ({
   provider,
-  strategy,
+  Strategy,
   config,
   oauth = OAuth.V2,
   passport
@@ -88,7 +88,7 @@ OAuth.setupStrategy =
 
   debug('initializing provider:%s', provider)
 
-  passport.use(new strategy(config, oauth))
+  passport.use(new Strategy(config, oauth))
 }
 
 module.exports = OAuth

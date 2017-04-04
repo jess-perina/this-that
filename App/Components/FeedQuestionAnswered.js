@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './Styles/QuestionViewStyle'
-import { AppRegistry, Text, View, TouchableHighlight, Image } from 'react-native'
+import { AppRegistry, Text, View, Image } from 'react-native'
 import RoundedButton from '../Components/RoundedButton'
 
 export default class FeedQuestionAnswered extends React.Component {

@@ -53,7 +53,7 @@ const Question = db.define('question', {
       return Promise.map(Promise.filter(this.getAnswers(), answer => !!answer.vote), (answer) => Promise.all([answer, answer.getRespondent()]))
     },
     getAnswerOfUser: function (userId) {
-      return Answer.findOne({where: {question_id: this.id, respondent_id: userId }})
+      return Answer.findOne({where: { question_id: this.id, respondent_id: userId }})
     },
     votesQuestionUpdate: function (vote) {
       return this.increment((vote === 'left') ? 'leftVotes' : 'rightVotes', { by: 1 })
@@ -139,12 +139,12 @@ const Question = db.define('question', {
   classMethods: {
     getAllQuestionsByUser: function (userId) {
       return this.findAll({
-        where: { owner_id: userId}
+        where: { owner_id: userId }
       })
     },
     getAllCurrentQuestionsByUser: function (userId) {
       return this.findAll({
-        where: { owner_id: userId, expires: {$gte: new Date()}, open: true}
+        where: { owner_id: userId, expires: {$gte: new Date()}, open: true }
       })
     }
   }
