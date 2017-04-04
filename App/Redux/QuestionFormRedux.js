@@ -5,7 +5,7 @@ import Immutable from 'seamless-immutable'
 
 const { Types, Creators } = createActions({
   questionUpdate: ['field', 'text'],
-  questionSubmit: ['questionText', 'leftText', 'rightText', 'leftImage', 'rightImage', 'respondents', 'expirationDate', 'expirationTime', 'userId'],
+  questionSubmit: ['questionText', 'leftText', 'rightText', 'leftImage', 'rightImage', 'respondents', 'expirationDate', 'expirationTime', 'isPublic', 'userId'],
   questionSuccess: ['payload'],
   questionSetRespondents: ['respondents'],
   dispatchPhoto: ['photoUri'],
@@ -36,20 +36,16 @@ export const INITIAL_STATE = Immutable({
 export const update = (state, {field, text}) =>
   state.merge({ [field]: text })
 
-// set respondents for question
-export const submit = (state, {questionText, leftText, rightText, respondents, leftImage, rightImage, userId}) => state.merge({questionText, leftText, rightText, respondents, leftImage, rightImage})
+// submit question
+export const submit = (state, {questionText, leftText, rightText, leftImage, rightImage, respondents, expirationDate, expirationTime, isPublic, userId}) => state.merge({questionText, leftText, rightText, leftImage, rightImage, respondents, expirationDate, expirationTime, isPublic})
 
-// update form text
+// set respondents for question
 export const registerRespondents = (state, {respondents}) =>
   state.merge({respondents})
 
 // send photo taken to question form
 export const setPhotoUri = (state, {photoUri}) =>
   state.merge({photoUri})
-
-// request the data from an api
-export const request = (state, { data }) =>
-  state.merge({ fetching: true, data, payload: null })
 
 // successful api lookup
 export const success = (state, action) => {
@@ -68,7 +64,6 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.QUESTION_SET_RESPONDENTS]: registerRespondents,
   [Types.DISPATCH_PHOTO]: setPhotoUri,
   [Types.QUESTION_SUBMIT]: submit,
-  [Types.QUESTION_REQUEST]: request,
   [Types.QUESTION_SUCCESS]: success,
   [Types.QUESTION_FAILURE]: failure
 })
