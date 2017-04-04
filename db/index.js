@@ -6,7 +6,7 @@ const chalk = require('chalk')
 const Sequelize = require('sequelize')
 
 const name = (process.env.DATABASE_NAME || app.name) +
-  (app.isTesting ? '_test' : '')
+  (process.env.NODE_ENV === 'testing' ? '_test' : '')
 
 const url = process.env.DATABASE_URL || `postgres://localhost:5432/${name}`
 
@@ -26,7 +26,7 @@ const db = module.exports = new Sequelize(url, {
 require('./models')
 
 // sync the db, creating it if necessary
-function sync (force = app.isTesting, retries = 0, maxRetries = 5) {
+function sync (force = process.env.NODE_ENV, retries = 0, maxRetries = 5) {
   return db.sync({force})
     .then(ok => debugDB(`Synced models to db ${url}`))
     .catch(fail => {
