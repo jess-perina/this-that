@@ -2,7 +2,6 @@ import React from 'react'
 import { TouchableHighlight, View, Text } from 'react-native'
 import { connect } from 'react-redux'
 import styles from './Styles/MainNavStyles'
-import Icon from 'react-native-vector-icons/Ionicons'
 import { Actions } from 'react-native-router-flux'
 
 import NavActions from '../Redux/NavRedux'

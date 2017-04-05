@@ -1,10 +1,5 @@
 import React from 'react'
-import {
-  Text,
-  Image,
-  TouchableHighlight,
-  View
-} from 'react-native'
+import { Image, TouchableHighlight, View } from 'react-native'
 import { connect } from 'react-redux'
 import Icons from '../Themes/Images'
 import Camera from 'react-native-camera'
